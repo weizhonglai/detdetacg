@@ -1,7 +1,8 @@
 <?php
-
 return [
 
+	'auth_salt' => env('AUTH_SALT'),
+	
 	/*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode
