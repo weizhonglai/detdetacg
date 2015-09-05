@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="detdetApp">
-<head>
+<html ng-app="detdetApp"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>DetDetACG</title>
 <!-- //      Start Stylesheets       // -->
@@ -14,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="/templates/css/page.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/templates/css/jquery.ad-gallery.css" />
     <link rel="stylesheet" type="text/css" href="/templates/css/nivo-slider.css" media="screen" />
+   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 @yield('css_include')
 </head>
 <body>
-<div id="wrapper">
+<div id="wrapper" ng-controller="GlobalController">
 	<!-- Header Start -->
     <div id="header">
     	<!-- Logo Start -->
@@ -47,26 +49,9 @@
                     <li><a href="#">My Wishlist</a></li>
                     <li><a href="/cart">My Cart</a></li>
                     <li><a href="#">Checkout</a></li>
-                    <li class="last"><a href="#TB_inline?height=255&amp;width=440&amp;inlineId=myOnPageContent" rel="sexylightbox[22]" >Log In</a>
-                    	<div id="myOnPageContent" style="display:none;">
-              				<h1 class="lightboxheading">Login</h1>
-                        <p class="lightboxtxt">Don’t have an account? <a href="user/signup">Creat one</a>, It’s simple and free.</p>
-                        <div class="gray">
-                            <ul class="lightboxforms">
-                                <li class="txt">User Name:</li>
-                                <li class="inputfield"><input name="" type="text" /></li>
-                            </ul>
-                            <ul class="lightboxforms last">
-                                <li class="txt">Password:</li>
-                                <li class="inputfield"><input name="" type="text" /></li>
-                            </ul>
-                        </div>
-                        <div class="clear"></div>
-                        <ul class="buttons padbutn">
-                            <li class="left"><a href="#" class="button"><span>Cancel</span></a></li>
-                            <li class="right"><a href="#" class="button"><span>Sign In</span></a></li>
-                        </ul>
-            			</div>
+                    <li class="last"><a href="#myModal" data-toggle="modal" data-target="#myModal">Log In</a>
+                    	
+
                     </li>
                 </ul>
             </div>
@@ -74,6 +59,34 @@
         </div>
         <!-- Cart and Top Navigation Section Start -->
     </div>
+    <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog" ng-controller="MainController">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Login</h4>
+            </div>
+           
+            <div class="modal-body">
+                <div class="container">
+                <h2>Login</h2>
+
+                        <p><input type="text" class="span3 username" name="username" id="email" placeholder="Username"></p>
+                        <p><input type="password" class="span3 password" name="password" placeholder="Password"></p>
+                        <p><button type="submit" class="btn btn-primary" ng-click="signIn()">Sign in</button>
+                        <a href="#">Forgot Password?</a>
+                        </p>
+                 
+                </div>
+                <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+            </div>
+            
+          </div>
+        </div>
     <!-- Header End -->
     <!-- Navi Start -->
     <div id="navi">
@@ -138,8 +151,10 @@
 </div>
 
 <!-- //      Javascript Files        // -->
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/angular/angular.min.js"></script>
+<script src="/assets/js/sign-in.js"></script>
     <script type="text/javascript" src="/templates/js/jquery.min1.3.js"></script>
-    <script type="text/javascript" src="/templates/js/ddsmoothmenu.js"></script>
     <script type="text/javascript" src="/templates/js/menu.js"></script>
     <script type="text/javascript" src="/templates/js/ddaccordion.js"></script>
     <script type="text/javascript" src="/templates/js/acordin.js"></script>
@@ -161,17 +176,11 @@
         $('#slider').nivoSlider();
     });
     </script>
-    <script type="text/javascript" src="/templates/js/sexylightbox.v2.3.jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-          SexyLightbox.initialize({color:'white'});
-        });
-    </script>
+   
+   
     <script type="text/javascript" src="/templates/js/styleswitch.js"></script>
     <script type="text/javascript" src="/templates/js/jquery.ad-gallery.js?rand=995"></script>
     <script type="text/javascript" src="/templates/js/thumbgallery.js"></script>
-
-     
 @yield('javascript_include')
 </body>
 </html>

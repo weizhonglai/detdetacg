@@ -1,17 +1,16 @@
-var App = App || angular.module('cashApp', []);
+var App = App || angular.module('detdetApp', []);
 
-var App = App || angular.module('cashApp', []);
+var App = App || angular.module('detdetApp', []);
 
 App.controller('GlobalController', function ($scope, $http){
 
 });
-
 App.controller('MainController', function($scope, $http) {
 
     $scope.signIn = function() {
-
-        var username = angular.element(".username input").val(),
-            password = angular.element(".password input").val();
+        
+        var username = angular.element(".username").val(),
+            password = angular.element(".password").val();
 
         if (username == '' || password == '') {
             alert('Please enter both username & password to sign in.');
