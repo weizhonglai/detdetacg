@@ -60,7 +60,7 @@
         <!-- Cart and Top Navigation Section Start -->
     </div>
     <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog" ng-controller="MainController">
+        <div class="modal fade" id="myModal" role="dialog" ng-controller="SignInController">
         <div class="modal-dialog modal-md">
           <div class="modal-content">
             <div class="modal-header">
@@ -72,8 +72,8 @@
                 <div class="container">
                 <h2>Login</h2>
 
-                        <p><input type="text" class="span3 username" name="username" id="email" placeholder="Username"></p>
-                        <p><input type="password" class="span3 password" name="password" placeholder="Password"></p>
+                        <p><input type="text" class="span3 username" name="username" id="username" placeholder="Username"></p>
+                        <p><input type="password" class="span3 password" name="password" id="password" placeholder="Password"></p>
                         <p><button type="submit" class="btn btn-primary" ng-click="signIn()">Sign in</button>
                         <a href="#">Forgot Password?</a>
                         </p>
@@ -154,6 +154,7 @@
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="/bower_components/angular/angular.min.js"></script>
 <script src="/assets/js/sign-in.js"></script>
+
     <script type="text/javascript" src="/templates/js/jquery.min1.3.js"></script>
     <script type="text/javascript" src="/templates/js/menu.js"></script>
     <script type="text/javascript" src="/templates/js/ddaccordion.js"></script>

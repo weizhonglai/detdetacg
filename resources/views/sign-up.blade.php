@@ -6,6 +6,7 @@
 @stop
 
 @section('javascript_include')
+<script src="/assets/js/sign-up.js"></script>
 @stop
 
 @section('content')
@@ -139,5 +140,5 @@
         </div>
 <div class="clear"></div>
 
-  
+
 @stop

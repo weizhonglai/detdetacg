@@ -1,8 +1,9 @@
-var App = angular.module('cashApp', []);
+var App = App || angular.module('detdetApp', []);
 
 App.controller('MainController', function($scope, $http) {
 
     $scope.signUp = function() {
+        alert('123');
         var name = angular.element(".name input").val(),
             username = angular.element(".username input").val(),
             password1 = angular.element(".password1 input").val(),

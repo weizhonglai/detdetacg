@@ -1,14 +1,12 @@
 var App = App || angular.module('detdetApp', []);
 
-var App = App || angular.module('detdetApp', []);
-
 App.controller('GlobalController', function ($scope, $http){
 
 });
-App.controller('MainController', function($scope, $http) {
+App.controller('SignInController', function($scope, $http) {
 
     $scope.signIn = function() {
-        
+  
         var username = angular.element(".username").val(),
             password = angular.element(".password").val();
 
