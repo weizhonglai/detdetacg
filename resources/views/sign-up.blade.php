@@ -1,4 +1,4 @@
-@extends('layouts.master')
+    @extends('layouts.master')
 @extends('components.menu-left')
 @extends('components.main-footer')
  
@@ -67,19 +67,19 @@
                 	<h3>Your Address</h3>
                     <ul class="forms">  
                     	<li class="txt">Street Address 1</li>
-                        <li class="inputfield"><input name="" type="text" class="sta1" /></li>
+                        <li class="inputfield"><input name="" type="text" class="address1" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
                     <ul class="forms">
                         <li class="txt">Street Address 2</li>
-                        <li class="inputfield"><input name="" type="text" class="sta2" /></li>
+                        <li class="inputfield"><input name="" type="text" class="address2" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
                     <ul class="forms">
                     	<li class="txt">Post Code</li>
-                    	<li class="inputfield"><input name="" type="text" class="postcode" /></li>
+                    	<li class="inputfield"><input name="" type="text" class="post_code" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
@@ -106,12 +106,12 @@
                 	<h3>Your Contact Information</h3>
                     <ul class="forms">
                     	<li class="txt">Telephone Number</li>
-                    	<li class="inputfield"><input name="" type="text" class="tel" /></li>
+                    	<li class="inputfield"><input name="" type="text" class="mobile" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <ul class="forms">
                     	<li class="txt">Fax Number</li>
-                    	<li class="inputfield"><input name="" type="text" class="faxnumber" /></li>
+                    	<li class="inputfield"><input name="" type="text" class="fax_number" /></li>
                         <li class="req"></li>
                     </ul>
                     <div class="clear"></div>
@@ -121,12 +121,12 @@
                 	<h3>Your Password</h3>
                     <ul class="forms">
                     	<li class="txt">Password</li>
-                    	<li class="inputfield"><input name="" type="text" class="typepassword" /></li>
+                    	<li class="inputfield"><input name="" type="text" class="first_password" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <ul class="forms">
                     	<li class="txt">Confirm</li>
-                    	<li class="inputfield"><input name="" type="text" class="cpassword" /></li>
+                    	<li class="inputfield"><input name="" type="text" class="confirm_password" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>

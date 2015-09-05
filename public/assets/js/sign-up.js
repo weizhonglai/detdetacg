@@ -8,61 +8,53 @@ App.controller('MainController', function($scope, $http) {
             email = angular.element(".email").val(),
             nric = angular.element(".nric").val(),
             dob = angular.element(".dob").val(),
-            gender = angular.element(".gender").val(),
-            sta1 = angular.element(".address1").val(),
-            sta2 = angular.element(".address2").val(),
-            postcode = angular.element(".postcode").val(),
+            // gender = angular.element(".gender").val(),
+            address1 = angular.element(".address1").val(),
+            address2 = angular.element(".address2").val(),
+            post_code = angular.element(".post_code").val(),
             city   = angular.element(".city").val(),
             state = angular.element(".state").val(),
             country = angular.element(".country").val(),
-            tel = angular.element(".tel").val(),
-            faxnumber = angular.element(".faxnumber").val(),
-            password = angular.element(".typepassword").val(),
-            cpassword = angular.element(".cpassword").val();
+            mobile = angular.element(".mobile").val(),
+            fax_number = angular.element(".fax_number").val(),
+            first_password = angular.element(".first_password").val(),
+            confirm_password = angular.element(".confirm_password").val();
 
-            alert(password);
-
-      /*  if (name == '' || email==''|| nric=='' || dob=''|| tel=='' || password=='' || cpassword=='') {
+        if (name == '' || email == ''|| nric == '' || dob == ''|| mobile == '' || first_password == '' || confirm_password == '') {
             alert('You have to fill up all fields to complete the sign up');
             return;
-        }  */  
+        }    
 
-/*        if (!/^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$/.test(email)) {
+        if (!/^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$/.test(email)) {
             alert('Invalid email address.');
             return;
-        }*/
+        }
 
-        /*if(!/^\w{6,30}$/.test(name)){
-            alert('Username have to be at least 6 alphanumeric(only) characters.');
-            return;
-        }*/
-
-        if(password.length < 6){
-            alert('Password have to be at least 6 characters.');    
+        if(first_password.length < 6){
+            alert('password have to be at least 6 characters.');    
             return;
         }        
 
-        if(password != cpassword){
+        if(first_password != confirm_password){
             alert('Both passwords are not match.');
             return;
         }
 
         $http.post('/api/sign-up', {
-
-          name : name,
+            name : name,
             email : email,
             nric : nric,
             dob : dob,            
-         gender : gender,
-            sta1 : address1,
-            sta2 : address2,
-            postcode : post_code,
+            // gender : gender,
+            address1 : address1,
+            address2 : address2,
+            post_code : post_code,
             city   : city,
             state : state,
             country : country,
-            tel :  mobile,           
-            faxnumber : fax_number,
-            password : password
+            mobile :  mobile,           
+            fax_number : fax_number,
+            password : confirm_password
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {
                 alert('Your account has successfullly created. Welcome!');

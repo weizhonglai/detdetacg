@@ -76,7 +76,7 @@ class AuthController extends Controller {
 		$fax = Request::input('fax_number');
 		$mobile = Request::input('mobile');
 
-		if (!$password || !$name || !$email || !$nric || !$dob || !$gender || !$mobile) {
+		if (!$password || !$name || !$email || !$nric || !$dob || !$mobile) {
 			return ResponseHelper::OutputJSON('fail', "missing parameters");
 		}
 
@@ -88,7 +88,7 @@ class AuthController extends Controller {
 			return ResponseHelper::OutputJSON('fail', "invalid email format");
 		}
 
-		$access = UserAccess::where('username', $username)->first();
+		$access = UserAccess::where('username', $email)->first();
 		if($access){
 			return ResponseHelper::OutputJSON('fail', "username used");
 		}
@@ -99,7 +99,7 @@ class AuthController extends Controller {
 			$user->email = $email;
 			$user->dob = $dob;
 			$user->nric = $nric;
-			$user->gender = $gender;
+			// $user->gender = $gender;
 			$user->address1 = $address1;
 			$user->address2 = $address2;
 			$user->post_code = $postCode;
@@ -162,7 +162,7 @@ class AuthController extends Controller {
 			setcookie('access_token', $accessToken, time() + (86400 * 30), "/"); // 86400 = 1 day*/
 		// });
 
-			$userAccess = UserAccess::where('username', $username)->where('password_sha1', $password_sha1)->first();
+			$userAccess = UserAccess::where('username', $email)->where('password_sha1', $password_sha1)->first();
 		} catch (Exception $ex) {
 			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
 				'source' => 'AuthUserController > signUp',
