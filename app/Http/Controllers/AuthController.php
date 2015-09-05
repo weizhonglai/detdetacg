@@ -76,7 +76,7 @@ class AuthController extends Controller {
 		$fax = Request::input('fax_number');
 		$mobile = Request::input('mobile');
 
-		if (!$username || !$password || !$name || !$email || !$nric || !$dob || !$gender || !$mobile) {
+		if (!$password || !$name || !$email || !$nric || !$dob || !$gender || !$mobile) {
 			return ResponseHelper::OutputJSON('fail', "missing parameters");
 		}
 
