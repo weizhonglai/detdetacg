@@ -56,7 +56,7 @@ class AuthController extends Controller {
 		}
 
 	public function SignUp() {
-		$username = Request::input('username'); 
+		// $username = Request::input('username'); 
 		$password = Request::input('password');
 		$password_sha1 = sha1($password . Config::get('app.auth_salt'));
 
@@ -114,7 +114,7 @@ class AuthController extends Controller {
 
 			$access = new UserAccess;
 			$access->user_id = $user->id;
-			$access->username = $username;
+			$access->username = $email;
 			$access->password_sha1 = $password_sha1;
 			$access->access_token = $accessToken;
 			$access->access_token_issue_at = DB::raw('NOW()');
