@@ -34,7 +34,7 @@
                 	<h3>Your Personal Details</h3>
                     <ul class="forms">
                     	<li class="txt">Name</li>
-                    	<li class="inputfield"><input name="" type="text" class="bar" /></li>
+                    	<li class="inputfield"><input name="" type="text" class="name" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
