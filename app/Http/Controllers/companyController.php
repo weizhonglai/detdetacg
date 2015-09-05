@@ -19,7 +19,7 @@ class companyController extends Controller {
 
 	public function registerCompany() {
 		try{
-			$userId = Request::input('user_id');
+
 			$companyName = Request::input('company_name');
 			$description = Request::input('description');
 			$companyEmail = Request::input('company_email');
@@ -31,24 +31,27 @@ class companyController extends Controller {
 			$companyState = Request::input('company_state');
 			$companyCountry = Request::input('company_country');
 
+			$idCounter = IdCounter::find(1);
+			$codeSeed = $idCounter->game_code_seed;
+			$idCounter->game_code_seed = $gameCodeSeed + 1;
+			$idCounter->save();
 
-
-			$userAccess = UserAccess::where('username', $username)->where('password' , $password)->first();
-			if(!$userAccess){
-				return ResponseHelper::OutputJSON('fail', "invalid username or password");
-			}
-
-			if ($userAccess->access_token == '') {
-					$accessToken = AuthHelper::GenerateAccessToken($userAccess->user_id);
-					$userAccess->access_token = $accessToken;
-					$userAccess->access_token_issue_at = DB::Raw('NOW()');
-					$userAccess->access_token_issue_ip = $_SERVER["REMOTE_ADDR"];
-			} else {
-				$accessToken = $userAccess->access_token;
-			}
-
-			$userAccess->access_token_expired_at = DB::Raw('DATE_ADD(NOW(), INTERVAL 7 DAY)');
-			$userAccess->save();
+			$companyCode = CompanyHelper::GenerateCompanyCode($codeSeed);
+			
+			$company = new Company;
+			$company->company_name = $companyName;
+			$company->description = $description;
+			$company->company_email = $companyEmail;
+			$company->company_mobile = $companyMobile;
+			$company->company_address1 = $companyAddress1;
+			$company->company_address2 = $companyAddress2;
+			$company->company_post_code = $companyPostCode;
+			$company->company_city = $companyCity;
+			$company->company_state = $companyState;
+			$company->company_country = $companyCountry;
+			$company->company_code = $companyCode;
+			$company->seed = $codeSeed;
+			$company->save();
 			
 			} catch (Exception $ex) {
 			LogHelper::LogToDatabase($ex->getMessage(), array('environment' => json_encode(array(

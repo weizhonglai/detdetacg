@@ -4,6 +4,7 @@ use DB;
 use Exception;
 use Request;
 use Session;
+use Config;
 use App\Libraries\AuthHelper;
 use App\Libraries\DatabaseUtilHelper;
 use App\Libraries\EmailHelper;
@@ -13,6 +14,7 @@ use App\Libraries\ResponseHelper;
 use App\Models\LogPasswordReset;
 use App\Models\User;
 use App\Models\UserAccess;
+use App\Models\UserAccount;
 
 
 class AuthController extends Controller {
@@ -23,7 +25,7 @@ class AuthController extends Controller {
 			$password = Request::input('password');
 			$password_sha1 = sha1($password . Config::get('app.auth_salt'));
 			
-			$userAccess = UserAccess::where('username', $username)->where('password' , $password)->first();
+			$userAccess = UserAccess::where('username', $username)->where('password_sha1' , $password_sha1)->first();
 			if(!$userAccess){
 				return ResponseHelper::OutputJSON('fail', "invalid username or password");
 			}
@@ -39,6 +41,9 @@ class AuthController extends Controller {
 
 			$userAccess->access_token_expired_at = DB::Raw('DATE_ADD(NOW(), INTERVAL 7 DAY)');
 			$userAccess->save();
+
+			return ResponseHelper::OutputJSON('success');
+
 			
 			} catch (Exception $ex) {
 			LogHelper::LogToDatabase($ex->getMessage(), array('environment' => json_encode(array(
@@ -46,10 +51,8 @@ class AuthController extends Controller {
 			))));
 			return ResponseHelper::OutputJSON('exception');
 		}
-	}
 
 	public function SignUp() {
-
 		$username = Request::input('username'); 
 		$password = Request::input('password');
 		$password_sha1 = sha1($password . Config::get('app.auth_salt'));
@@ -96,15 +99,12 @@ class AuthController extends Controller {
 			$user->gender = $gender;
 			$user->address1 = $address1;
 			$user->address2 = $address2;
-			$user->post_code = $post_code;
+			$user->post_code = $postCode;
 			$user->city = $city;
 			$user->state = $state;
 			$user->country = $country;
 			$user->mobile = $mobile;
-			$user->fax_number = $fax_number;
-			$user->email = $email;
-			$user->email = $email;
-			$user->email = $email;
+			$user->fax_number = $fax;
 			$user->save();
 
 			$accessToken = AuthHelper::GenerateAccessToken($user->id);	
@@ -120,7 +120,7 @@ class AuthController extends Controller {
 			$access->save();
 
 			$userAccount = new UserAccount;
-			$userAccount->user_id = $user_id;
+			$userAccount->user_id = $user->id;
 			$userAccount->save();
 
 			// $secretKey = sha1(time() . $email);
