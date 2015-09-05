@@ -67,13 +67,13 @@
                 	<h3>Your Address</h3>
                     <ul class="forms">  
                     	<li class="txt">Street Address 1</li>
-                        <li class="inputfield"><input name="" type="text" class="sta1" /></li>
+                        <li class="inputfield"><input name="" type="text" class="address1" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
                     <ul class="forms">
                         <li class="txt">Street Address 2</li>
-                        <li class="inputfield"><input name="" type="text" class="sta2" /></li>
+                        <li class="inputfield"><input name="" type="text" class="address2" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>

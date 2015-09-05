@@ -20,7 +20,12 @@ App.controller('MainController', function($scope, $http) {
             password = angular.element(".typepassword").val(),
             cpassword = angular.element(".cpassword").val();
 
-            alert(password);
+            alert(state);
+            alert(country);
+            alert(tel);
+            alert(faxnumber);
+            alert(password+cpassword);
+
 
       /*  if (name == '' || email==''|| nric=='' || dob=''|| tel=='' || password=='' || cpassword=='') {
             alert('You have to fill up all fields to complete the sign up');
