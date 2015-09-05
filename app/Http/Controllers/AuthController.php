@@ -19,7 +19,7 @@ use App\Models\UserAccount;
 
 class AuthController extends Controller {
 
-	public function SignIn() {
+	public function signIn() {
 		try{
 			$username = Request::input('username');
 			$password = Request::input('password');
@@ -55,7 +55,7 @@ class AuthController extends Controller {
 			return ResponseHelper::OutputJSON('exception');
 		}
 
-	public function SignUp() {
+	public function signUp() {
 		// $username = Request::input('username'); 
 		$password = Request::input('password');
 		$password_sha1 = sha1($password . Config::get('app.auth_salt'));

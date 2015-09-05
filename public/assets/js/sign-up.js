@@ -17,49 +17,52 @@ App.controller('MainController', function($scope, $http) {
             country = angular.element(".country").val(),
             tel = angular.element(".tel").val(),
             faxnumber = angular.element(".faxnumber").val(),
-            password = angular.element(".password").val(),
+            password = angular.element(".typepassword").val(),
             cpassword = angular.element(".cpassword").val();
 
-        if (name == '' || email=''|| nric='' || dob=''|| gender=''|| tel='' || password='' || cpassword='') {
+            alert(password);
+
+      /*  if (name == '' || email==''|| nric=='' || dob=''|| tel=='' || password=='' || cpassword=='') {
             alert('You have to fill up all fields to complete the sign up');
             return;
-        }    
+        }  */  
 
 /*        if (!/^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$/.test(email)) {
             alert('Invalid email address.');
             return;
         }*/
 
-        if(!/^\w{6,30}$/.test(username)){
+        /*if(!/^\w{6,30}$/.test(name)){
             alert('Username have to be at least 6 alphanumeric(only) characters.');
             return;
-        }
+        }*/
 
-        if(password1.length < 6){
+        if(password.length < 6){
             alert('Password have to be at least 6 characters.');    
             return;
         }        
 
-        if(password1 != password2){
+        if(password != cpassword){
             alert('Both passwords are not match.');
             return;
         }
 
         $http.post('/api/sign-up', {
-          name = name,
-            email = email,
-            nric = nric,
-            dob = dob,            
-         gender = gender,
-            sta1 = address1,
-            sta2 = address2,
-            postcode = post_code,
-            city   = city,
-            state = state,
-            country = country,
-            tel =  mobile,           
-            faxnumber = fax_number,
-            password = password
+
+          name : name,
+            email : email,
+            nric : nric,
+            dob : dob,            
+         gender : gender,
+            sta1 : address1,
+            sta2 : address2,
+            postcode : post_code,
+            city   : city,
+            state : state,
+            country : country,
+            tel :  mobile,           
+            faxnumber : fax_number,
+            password : password
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {
                 alert('Your account has successfullly created. Welcome!');
