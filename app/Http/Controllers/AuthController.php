@@ -46,9 +46,12 @@ class AuthController extends Controller {
 
 			
 			} catch (Exception $ex) {
-			LogHelper::LogToDatabase($ex->getMessage(), array('environment' => json_encode(array(
+			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
+				'source' => 'AuthUserController > signIn',
 				'inputs' => Request::all(),
-			))));
+			])]);
+			return ResponseHelper::OutputJSON('exception');
+		}
 			return ResponseHelper::OutputJSON('exception');
 		}
 
