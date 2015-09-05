@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en" ng-app="detdetApp">
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>DetDetACG</title>
 <!-- //      Start Stylesheets       // -->
@@ -169,6 +170,8 @@
     <script type="text/javascript" src="/templates/js/styleswitch.js"></script>
     <script type="text/javascript" src="/templates/js/jquery.ad-gallery.js?rand=995"></script>
     <script type="text/javascript" src="/templates/js/thumbgallery.js"></script>
+
+     
 @yield('javascript_include')
 </body>
 </html>

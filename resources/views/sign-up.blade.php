@@ -10,7 +10,7 @@
 
 @section('content')
         <!-- Right Column Start-->
-        <div class="right_colmn">
+        <div class="right_colmn" ng-controller="MainController">
         	<!-- Bread Crumb and Search Section -->
         	<div class="breadcrumb_search">
             	<!-- Bread Crumb Section -->
@@ -32,24 +32,7 @@
                 <div class="gre_sec">
                 	<h3>Your Personal Details</h3>
                     <ul class="forms">
-                    	<li class="txt">Gender</li>
-                    	<li class="radiobutton"><input name="" type="radio" /> <span>Male</span><input name="" type="radio" /> <span>Female</span></li>
-                    </ul>
-                    <div class="clear"></div>
-                    <ul class="forms">
-                    	<li class="txt">First Name</li>
-                    	<li class="inputfield"><input name="" type="text" class="bar" /></li>
-                        <li class="req">(Required)</li>
-                    </ul>
-                    <div class="clear"></div>
-                    <ul class="forms">
-                    	<li class="txt">Last Name</li>
-                    	<li class="inputfield"><input name="" type="text" class="bar" /></li>
-                        <li class="req">(Required)</li>
-                    </ul>
-                    <div class="clear"></div>
-                    <ul class="forms">
-                    	<li class="txt">Date of Birth</li>
+                    	<li class="txt">Name</li>
                     	<li class="inputfield"><input name="" type="text" class="bar" /></li>
                         <li class="req">(Required)</li>
                     </ul>
@@ -60,26 +43,36 @@
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
-                </div>
-                <div class="gre_sec">
-                	<h3>Company Details</h3>
                     <ul class="forms">
-                    	<li class="txt">Company Name</li>
-                    	<li class="inputfield"><input name="" type="text" class="bar" /></li>
-                    </ul>
-                    <div class="clear"></div>
-                </div>
-                <div class="gre_sec">
-                	<h3>Your Address</h3>
-                    <ul class="forms">
-                    	<li class="txt">Street Address</li>
-                    	<li class="inputfield"><input name="" type="text" class="bar" /></li>
+                        <li class="txt">NRIC</li>
+                        <li class="inputfield"><input name="" type="text" class="bar" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
                     <ul class="forms">
-                    	<li class="txt">Suburb</li>
-                    	<li class="inputfield"><input name="" type="text" class="bar" /></li>
+                        <li class="txt">Date of Birth</li>
+                        <li class="inputfield"><input name="" type="text" class="bar" /></li>
+                        <li class="req">(Required)</li>
+                    </ul>
+                    <div class="clear"></div>
+                    <ul class="forms">
+                        <li class="txt">Gender</li>
+                        <li class="radiobutton"><input name="" type="radio" /> <span>Male</span><input name="" type="radio" /> <span>Female</span></li>
+                    </ul>
+                    <div class="clear"></div>
+
+                </div>
+                <div class="gre_sec">
+                	<h3>Your Address</h3>
+                    <ul class="forms">  
+                    	<li class="txt">Street Address 1</li>
+                        <li class="inputfield"><input name="" type="text" class="bar" /></li>
+                        <li class="req">(Required)</li>
+                    </ul>
+                    <div class="clear"></div>
+                    <ul class="forms">
+                        <li class="txt">Street Address 2</li>
+                        <li class="inputfield"><input name="" type="text" class="bar" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
@@ -118,18 +111,11 @@
                     <ul class="forms">
                     	<li class="txt">Fax Number</li>
                     	<li class="inputfield"><input name="" type="text" class="bar" /></li>
-                        <li class="req">(Required)</li>
+                        <li class="req"></li>
                     </ul>
                     <div class="clear"></div>
                 </div>
-                <div class="gre_sec">
-                	<h3>Company Details</h3>
-                    <ul class="forms">
-                    	<li class="txt">Company Name</li>
-                    	<li class="radiobutton"><input name="" type="checkbox" value="" /></li>
-                    </ul>
-                    <div class="clear"></div>
-                </div>
+                
                 <div class="gre_sec">
                 	<h3>Your Password</h3>
                     <ul class="forms">
@@ -144,7 +130,7 @@
                     </ul>
                     <div class="clear"></div>
                 </div>
-                <a href="cart.html" class="button right"><span>Register</span></a>
+                <a href="#" class="button right" ng-click="signUp()"><span>Register</span></a>
             </div>
             <div class="clear"></div>
         </div>
@@ -152,4 +138,6 @@
         <!-- Right Column End-->
         </div>
 <div class="clear"></div>
+
+  
 @stop
