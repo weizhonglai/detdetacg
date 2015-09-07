@@ -71,7 +71,6 @@ class AuthController extends Controller {
 		$postCode = Request::input('post_code');
 		$city = Request::input('city');
 		$state = Request::input('state');
-		$country = Request::input('country');
 
 		$fax = Request::input('fax_number');
 		$mobile = Request::input('mobile');
@@ -99,7 +98,7 @@ class AuthController extends Controller {
 			$user->email = $email;
 			$user->dob = $dob;
 			$user->nric = $nric;
-			// $user->gender = $gender;
+			$user->gender = $gender;
 			$user->address1 = $address1;
 			$user->address2 = $address2;
 			$user->post_code = $postCode;
@@ -151,16 +150,12 @@ class AuthController extends Controller {
 			// $logOpenAcc->save();
 
 			//job done - log it!
-			// DatabaseUtilHelper::LogInsert($user->id, $user->table, $user->id);
-			// DatabaseUtilHelper::LogInsert($user->id, $access->table, $user->id);
-			// DatabaseUtilHelper::LogInsert($user->id, $extId->table, $user->id);
-			// DatabaseUtilHelper::LogInsert($user->id, $extId->table, $user->id);
-			// DatabaseUtilHelper::LogInsert($user->id, $profile->table, $profile->id);
-			// DatabaseUtilHelper::LogInsert($user->id, $code->table, $code->id);
+			DatabaseUtilHelper::LogInsert($user->id, $user->table, $user->id);
+			DatabaseUtilHelper::LogInsert($user->id, $access->table, $user->id);
+			DatabaseUtilHelper::LogInsert($user->id, $userAccount->table, $user->id);
 
 			Session::put('access_token', $accessToken);
 			setcookie('access_token', $accessToken, time() + (86400 * 30), "/"); // 86400 = 1 day*/
-		// });
 
 			$userAccess = UserAccess::where('username', $email)->where('password_sha1', $password_sha1)->first();
 		} catch (Exception $ex) {

@@ -4,21 +4,21 @@ App.controller('MainController', function($scope, $http) {
 
     $scope.signUp = function() {
         
-        var name = angular.element(".name").val(),
-            email = angular.element(".email").val(),
-            nric = angular.element(".nric").val(),
-            dob = angular.element(".dob").val(),
-            // gender = angular.element(".gender").val(),
-            address1 = angular.element(".address1").val(),
-            address2 = angular.element(".address2").val(),
-            post_code = angular.element(".post_code").val(),
-            city   = angular.element(".city").val(),
-            state = angular.element(".state").val(),
-            country = angular.element(".country").val(),
-            mobile = angular.element(".mobile").val(),
-            fax_number = angular.element(".fax_number").val(),
-            first_password = angular.element(".first_password").val(),
-            confirm_password = angular.element(".confirm_password").val();
+        var name = angular.element("input.name").val(),
+            email = angular.element("input.email").val(),   
+            nric = angular.element("input.nric").val(),
+            dob = angular.element("input.dob").val(),
+            gender = angular.element(".option_gender input:checked").val(),
+            address1 = angular.element("input.address1").val(),
+            address2 = angular.element("input.address2").val(),
+            post_code = angular.element("input.post_code").val(),
+            city   = angular.element("input.city").val(),
+            state = angular.element("input.state").val(),
+            country = angular.element("input.country").val(),
+            mobile = angular.element("input.mobile").val(),
+            fax_number = angular.element("input.fax_number").val(),
+            first_password = angular.element("input.first_password").val(),
+            confirm_password = angular.element("input.confirm_password").val();
 
         if (name == '' || email == ''|| nric == '' || dob == ''|| mobile == '' || first_password == '' || confirm_password == '') {
             alert('You have to fill up all fields to complete the sign up');
@@ -45,13 +45,12 @@ App.controller('MainController', function($scope, $http) {
             email : email,
             nric : nric,
             dob : dob,            
-            // gender : gender,
+            gender : gender,
             address1 : address1,
             address2 : address2,
             post_code : post_code,
             city   : city,
             state : state,
-            country : country,
             mobile :  mobile,           
             fax_number : fax_number,
             password : confirm_password

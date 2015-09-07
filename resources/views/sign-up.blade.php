@@ -56,10 +56,12 @@
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
-                    <ul class="forms">
+                    <div class="option_gender">
+                    <ul class="forms" >
                         <li class="txt">Gender</li>
-                        <li class="radiobutton"><input name="" type="radio" /> <span>Male</span><input name="" type="radio" /> <span>Female</span></li>
+                        <li class="radiobutton"><input name="gender" type="radio" value="male" /> <span>Male</span><input name="gender" type="radio" value="female"/> <span>Female</span></li>
                     </ul>
+                    </div>
                     <div class="clear"></div>
 
                 </div>
@@ -92,12 +94,6 @@
                     <ul class="forms">
                     	<li class="txt">State/Province</li>
                     	<li class="inputfield"><input name="" type="text" class="state" /></li>
-                        <li class="req">(Required)</li>
-                    </ul>
-                    <div class="clear"></div>
-                    <ul class="forms">
-                    	<li class="txt">Country</li>
-                    	<li class="inputfield"><input name="" type="text" class="country" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
