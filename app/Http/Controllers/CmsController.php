@@ -92,7 +92,7 @@ class CmsController extends Controller {
 		$subCategory->save();
 	}
 
-	public function ResetPassword($userId){
+	public function resetPassword($userId){
 		$password = Request::input('password');
 		$sendEmail = Request::input('send_email', 0);
 		try {
@@ -140,5 +140,21 @@ class CmsController extends Controller {
 		return ResponseHelper::OutputJSON('success');
 	}
 
+	public function accountTopUp($userId){
+		$amount = Request::input('amount');
+		$password = Request::input('password');
 
+		if($password != Config::get('app.topup_key') ){
+			return ResponseHelper::OutputJSON('fail', "invalid sercet key");
+		}
+
+		$userAccount = UserAccount::where('user_id', $userId)->first();
+		$coin = $userAccount->coin;
+
+		$userAccount->coin = $coin+$amount;
+		$userAccount->save();
+
+		return ResponseHelper::OutputJSON("success");
+
+	}
 }
