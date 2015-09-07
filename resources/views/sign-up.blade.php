@@ -20,6 +20,8 @@
                     <li><a href="#">Shop</a></li>
                     <li><a href="#">Accessories</a></li>
                     <li><a href="#">Categories</a></li>
+                    <li><a href="#">{{\Request::input('username')}}</a></li>
+
                 </ul>
                 <!-- Search Section -->
                 <ul class="search">

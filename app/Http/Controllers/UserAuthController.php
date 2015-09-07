@@ -17,7 +17,7 @@ use App\Models\UserAccess;
 use App\Models\UserAccount;
 
 
-class AuthController extends Controller {
+class UserAuthController extends Controller {
 
 	public function signIn() {
 		try{
@@ -42,17 +42,20 @@ class AuthController extends Controller {
 			$userAccess->access_token_expired_at = DB::Raw('DATE_ADD(NOW(), INTERVAL 7 DAY)');
 			$userAccess->save();
 
-			return ResponseHelper::OutputJSON('success');
+			Session::put('access_token', $accessToken);
+			return ResponseHelper::OutputJSON('success', '', [], [
+				'X-access-token' => $accessToken,
+			], [
+				'access_token' => $accessToken,
+			]);
 
-			
 			} catch (Exception $ex) {
 			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
 				'source' => 'AuthUserController > signIn',
 				'inputs' => Request::all(),
 			])]);
 			return ResponseHelper::OutputJSON('exception');
-		}
-			return ResponseHelper::OutputJSON('exception');
+			}
 		}
 
 	public function signUp() {
@@ -104,7 +107,6 @@ class AuthController extends Controller {
 			$user->post_code = $postCode;
 			$user->city = $city;
 			$user->state = $state;
-			$user->country = $country;
 			$user->mobile = $mobile;
 			$user->fax_number = $fax;
 			$user->save();

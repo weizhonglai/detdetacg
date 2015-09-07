@@ -22,7 +22,7 @@ App.controller('SignInController', function($scope, $http) {
 
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {
-                location = "/buff";
+                location = "/index";
             } else {
                 alert('Wrong username/password');
                 console.log(data.message);

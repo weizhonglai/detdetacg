@@ -14,7 +14,6 @@ App.controller('MainController', function($scope, $http) {
             post_code = angular.element("input.post_code").val(),
             city   = angular.element("input.city").val(),
             state = angular.element("input.state").val(),
-            country = angular.element("input.country").val(),
             mobile = angular.element("input.mobile").val(),
             fax_number = angular.element("input.fax_number").val(),
             first_password = angular.element("input.first_password").val(),
