@@ -17,7 +17,7 @@ use App\Models\UserAccess;
 use App\Models\UserAccount;
 
 
-class AuthController extends Controller {
+class UserAuthController extends Controller {
 
 	public function signIn() {
 		try{
@@ -42,17 +42,20 @@ class AuthController extends Controller {
 			$userAccess->access_token_expired_at = DB::Raw('DATE_ADD(NOW(), INTERVAL 7 DAY)');
 			$userAccess->save();
 
-			return ResponseHelper::OutputJSON('success');
+			Session::put('access_token', $accessToken);
+			return ResponseHelper::OutputJSON('success', '', [], [
+				'X-access-token' => $accessToken,
+			], [
+				'access_token' => $accessToken,
+			]);
 
-			
 			} catch (Exception $ex) {
 			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
 				'source' => 'AuthUserController > signIn',
 				'inputs' => Request::all(),
 			])]);
 			return ResponseHelper::OutputJSON('exception');
-		}
-			return ResponseHelper::OutputJSON('exception');
+			}
 		}
 
 	public function signUp() {
@@ -71,7 +74,6 @@ class AuthController extends Controller {
 		$postCode = Request::input('post_code');
 		$city = Request::input('city');
 		$state = Request::input('state');
-		$country = Request::input('country');
 
 		$fax = Request::input('fax_number');
 		$mobile = Request::input('mobile');
@@ -99,13 +101,12 @@ class AuthController extends Controller {
 			$user->email = $email;
 			$user->dob = $dob;
 			$user->nric = $nric;
-			// $user->gender = $gender;
+			$user->gender = $gender;
 			$user->address1 = $address1;
 			$user->address2 = $address2;
 			$user->post_code = $postCode;
 			$user->city = $city;
 			$user->state = $state;
-			$user->country = $country;
 			$user->mobile = $mobile;
 			$user->fax_number = $fax;
 			$user->save();
@@ -151,16 +152,12 @@ class AuthController extends Controller {
 			// $logOpenAcc->save();
 
 			//job done - log it!
-			// DatabaseUtilHelper::LogInsert($user->id, $user->table, $user->id);
-			// DatabaseUtilHelper::LogInsert($user->id, $access->table, $user->id);
-			// DatabaseUtilHelper::LogInsert($user->id, $extId->table, $user->id);
-			// DatabaseUtilHelper::LogInsert($user->id, $extId->table, $user->id);
-			// DatabaseUtilHelper::LogInsert($user->id, $profile->table, $profile->id);
-			// DatabaseUtilHelper::LogInsert($user->id, $code->table, $code->id);
+			DatabaseUtilHelper::LogInsert($user->id, $user->table, $user->id);
+			DatabaseUtilHelper::LogInsert($user->id, $access->table, $user->id);
+			DatabaseUtilHelper::LogInsert($user->id, $userAccount->table, $user->id);
 
 			Session::put('access_token', $accessToken);
 			setcookie('access_token', $accessToken, time() + (86400 * 30), "/"); // 86400 = 1 day*/
-		// });
 
 			$userAccess = UserAccess::where('username', $email)->where('password_sha1', $password_sha1)->first();
 		} catch (Exception $ex) {
