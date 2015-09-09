@@ -2,7 +2,7 @@
 
 //Auth
 Route::group(['prefix' => 'api'], function(){
-	Route::post('/sign-up', 'AuthController@signUp');
-	Route::post('/sign-in', 'AuthController@signIn');
+	Route::post('/sign-up', 'UserAuthController@signUp');
+	Route::post('/sign-in', 'UserAuthController@signIn');
 });
 

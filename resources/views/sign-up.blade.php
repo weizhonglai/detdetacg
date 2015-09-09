@@ -1,4 +1,4 @@
-@extends('layouts.master')
+    @extends('layouts.master')
 @extends('components.menu-left')
 @extends('components.main-footer')
  
@@ -20,6 +20,8 @@
                     <li><a href="#">Shop</a></li>
                     <li><a href="#">Accessories</a></li>
                     <li><a href="#">Categories</a></li>
+                    <li><a href="#">{{\Request::input('username')}}</a></li>
+
                 </ul>
                 <!-- Search Section -->
                 <ul class="search">
@@ -56,10 +58,12 @@
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
-                    <ul class="forms">
+                    <div class="option_gender">
+                    <ul class="forms" >
                         <li class="txt">Gender</li>
-                        <li class="radiobutton"><input name="" type="radio" /> <span>Male</span><input name="" type="radio" /> <span>Female</span></li>
+                        <li class="radiobutton"><input name="gender" type="radio" value="male" /> <span>Male</span><input name="gender" type="radio" value="female"/> <span>Female</span></li>
                     </ul>
+                    </div>
                     <div class="clear"></div>
 
                 </div>
@@ -79,7 +83,7 @@
                     <div class="clear"></div>
                     <ul class="forms">
                     	<li class="txt">Post Code</li>
-                    	<li class="inputfield"><input name="" type="text" class="postcode" /></li>
+                    	<li class="inputfield"><input name="" type="text" class="post_code" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
@@ -95,23 +99,17 @@
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
-                    <ul class="forms">
-                    	<li class="txt">Country</li>
-                    	<li class="inputfield"><input name="" type="text" class="country" /></li>
-                        <li class="req">(Required)</li>
-                    </ul>
-                    <div class="clear"></div>
                 </div>
                 <div class="gre_sec">
                 	<h3>Your Contact Information</h3>
                     <ul class="forms">
                     	<li class="txt">Telephone Number</li>
-                    	<li class="inputfield"><input name="" type="text" class="tel" /></li>
+                    	<li class="inputfield"><input name="" type="text" class="mobile" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <ul class="forms">
                     	<li class="txt">Fax Number</li>
-                    	<li class="inputfield"><input name="" type="text" class="faxnumber" /></li>
+                    	<li class="inputfield"><input name="" type="text" class="fax_number" /></li>
                         <li class="req"></li>
                     </ul>
                     <div class="clear"></div>
@@ -121,12 +119,12 @@
                 	<h3>Your Password</h3>
                     <ul class="forms">
                     	<li class="txt">Password</li>
-                    	<li class="inputfield"><input name="" type="text" class="typepassword" /></li>
+                    	<li class="inputfield"><input name="" type="text" class="first_password" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <ul class="forms">
                     	<li class="txt">Confirm</li>
-                    	<li class="inputfield"><input name="" type="text" class="cpassword" /></li>
+                    	<li class="inputfield"><input name="" type="text" class="confirm_password" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
