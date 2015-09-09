@@ -3,7 +3,7 @@ var App = App || angular.module('detdetApp', []);
 App.controller('MainController', function($scope, $http) {
 
     $scope.signUp = function() {
-        
+         
         var name = angular.element("input.name").val(),
             email = angular.element("input.email").val(),   
             nric = angular.element("input.nric").val(),
@@ -40,8 +40,8 @@ App.controller('MainController', function($scope, $http) {
         }
 
         $http.post('/api/sign-up', {
-            name : name,
-            email : email,
+            'name' : name,
+            'email' : email,
             nric : nric,
             dob : dob,            
             gender : gender,
