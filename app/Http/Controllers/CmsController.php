@@ -13,6 +13,7 @@ use App\Libraries\ResponseHelper;
 use App\Libraries\OrderByHelper;
 
 use App\Models\User;
+use App\Models\UserAccess;
 use App\Models\CategoryMain;
 use App\Models\CategorySub;
 
@@ -55,9 +56,10 @@ class CmsController extends Controller {
 	}
 
 	public function createMainCategory() {
+//need test
 		$name = Request::input('name');
 		$description = Request::input('description');
-		$enable = Request::input('enable');
+		$enable = Request::input('enable', 1);
 
 		$mainCategory = CategoryMain::where('name' , $name)->first();
 
@@ -68,15 +70,19 @@ class CmsController extends Controller {
 		$mainCategory = new CategoryMain;
 		$mainCategory->name = $name;
 		$mainCategory->description = $description;
-		$mainCategory->enbale = $enable;
+		$mainCategory->enable = $enable;
 		$mainCategory->save();
+
+		return ResponseHelper::OutputJSON('success');
+
 	}
 
 	public function createSubCategory() {
+//need test
 		$mainId = Request::input('main_id');
 		$name = Request::input('name');
 		$description = Request::input('description');
-		$enable = Request::input('enable');
+		$enable = Request::input('enable' , 1);
 
 		$subCategory = CategorySub::where('name' , $name)->first();
 
@@ -84,12 +90,15 @@ class CmsController extends Controller {
 			return ResponseHelper::OutputJSON('fail', "name is already use");
 		}
 
-		$subCategory = new CategoryMain;
+		$subCategory = new CategorySub;
 		$subCategory->main_id = $mainId;
 		$subCategory->name = $name;
 		$subCategory->description = $description;
-		$subCategory->enbale = $enable;
+		$subCategory->enable = $enable;
 		$subCategory->save();
+
+		return ResponseHelper::OutputJSON('success');
+
 	}
 
 	public function resetPassword($userId){
@@ -130,6 +139,7 @@ class CmsController extends Controller {
 			// 		],
 			// 	]);
 			// }
+			return ResponseHelper::OutputJSON('success');
 
 		} catch (Exception $ex) {
 			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
@@ -137,10 +147,10 @@ class CmsController extends Controller {
 			])]);
 			return ResponseHelper::OutputJSON('exception');
 		}
-		return ResponseHelper::OutputJSON('success');
 	}
 
 	public function accountTopUp($userId){
+//need test
 		$amount = Request::input('amount');
 		$password = Request::input('password');
 
@@ -155,6 +165,45 @@ class CmsController extends Controller {
 		$userAccount->save();
 
 		return ResponseHelper::OutputJSON("success");
+	}
+
+	public function changeAvtImage(){
+//need test
+		$imageName = Request::input("image_name");
+		$imageDescription = Request::input("image_description");
+
+
+		$slug = str_slug($imageName, "-");
+
+		$storage = new FileSystem('./assets/images/advertisement/', true);
+
+		$fileUpload1 = new File('fileUpload1', $storage);
+
+		if (!intval($fileUpload1->getSize())) {
+			die('missing image: thumb');
+		}
+
+		$fileUpload1->setName($slug);
+		$fileUpload1->addValidations(array(
+			new Mimetype('image/jpeg'),
+			new Size('1M'),
+		));
+
+		$fileUpload1->upload();	
+
+		$article = new Article;
+		$article->title = $title;
+		$article->url_slug = $slug;
+		$article->content = $content;
+		$article->intro = $intro;
+		$article->share_en = $shareEN;
+		$article->share_ms = $shareBM;
+		$article->published_at = $publishedAt;
+		$article->meta_title = $metaTitle;
+		$article->meta_description = $metaDescription;
+		$article->save();
+
+
 
 	}
 }
