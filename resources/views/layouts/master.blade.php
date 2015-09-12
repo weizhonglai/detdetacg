@@ -4,10 +4,6 @@
 <title>DetDetACG</title>
 <!-- //      Start Stylesheets       // -->
     <link rel="stylesheet" type="text/css" href="/templates/css/gray.css" title="gray" media="screen" />
-    <link rel="alternate stylesheet" type="text/css" href="/templates/css/blue.css" title="blue" media="screen" />
-    <link rel="alternate stylesheet" type="text/css" href="/templates/css/orange.css" title="orange" media="screen" />
-    <link rel="alternate stylesheet" type="text/css" href="/templates/css/green.css" title="green" media="screen" />
-    <link rel="alternate stylesheet" type="text/css" href="/templates/css/red.css" title="red" media="screen" />
     <link rel="stylesheet" type="text/css" href="/templates/css/sexylightbox.css" media="all" />
     <link rel="stylesheet" type="text/css" href="/templates/css/ddsmoothmenu.css" />
     <link rel="stylesheet" type="text/css" href="/templates/css/page.css" media="screen" />
@@ -25,28 +21,6 @@
       <a class="navbar-brand" href="/index">DetDetACG</a>
     </div>
     <div>
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">About Us <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">General help</a></li>
-            <li><a href="#">Posts</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Pages<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/index">Home</a></li>
-            <li><a href="/categories">Categories</a></li>
-            <li><a href="/listing">Listing</a></li>
-            <li><a href="/prod_detail">Product Details</a></li>
-            <li><a href="/cart">Cart</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/sign-up">Register</a></li>
-          </ul>
-        </li>
-        <li><a href="#">How to Buy</a></li> 
-        <li><a href="#">FAQs</a></li> 
-      </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Bag</span></a>
           <ul class="dropdown-menu">
@@ -60,15 +34,24 @@
     </div>
   </div>
 </nav>
-<div id="wrapper" ng-controller="GlobalController">
-	<!-- Header Start -->
-     <div id="slider">
+<div class="row">
+        <div class="container"> 
+  <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 ">
+      <span>Logo</span>
+  </div>
+  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+      <div id="slider">
             <a href="#"><img src="/templates/images/01.jpg" alt="" /></a>
             <a href="#"><img src="/templates/images/02.jpg" alt="" /></a>
             <a href="#"><img src="/templates/images/03.jpg" alt="" /></a>
             <a href="#"><img src="/templates/images/04.jpg" alt="" /></a>
             <a href="#"><img src="/templates/images/05.jpg" alt="" /></a>
         </div>
+  </div>
+</div>
+</div>
+<div class="row" ng-controller="GlobalController">
+	<!-- Header Start -->
     <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog" ng-controller="SignInController">
         <div class="modal-dialog modal-md">
@@ -94,17 +77,60 @@
           </div>
         </div>
     <!-- Header End -->
-    <!-- Banner Start -->
-       
+    <!-- Banner Start -->  
     <!-- Navi End -->
      <!-- Content Start -->
-        <div id="content">
-            @yield('menu-left')
+        <div div class="container">
+            <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">About Us <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">General help</a></li>
+            <li><a href="#">Posts</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Pages<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/index">Home</a></li>
+            <li><a href="/categories">Categories</a></li>
+            <li><a href="/listing">Listing</a></li>
+            <li><a href="/prod_detail">Product Details</a></li>
+            <li><a href="/cart">Cart</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/sign-up">Register</a></li>
+          </ul>
+        </li>
+        <li><a href="#">How to Buy</a></li> 
+        <li><a href="#">FAQs</a></li> 
+      </ul>
+    </div>
+  </div>
+</nav>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                @yield('menu-left')
+                 @yield('menu-right')
+            </div>
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
             @yield('content')
         </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+              <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#">Search</a></li>
+            <li><a href="#">Submenu 1-1</a></li>
+            <li><a href="#">Submenu 1-2</a></li>
+            <li><a href="#">Submenu 1-3</a></li>                        
+        </li>
+        <li><a href="#">Example Menu 2</a></li>
+        <li><a href="#">Example Menu 3</a></li>
+        
+        </div>
     <!-- Content End -->
-    @yield('footer')
+   
 </div>
+ @yield('footer')
 
 <!-- //      Javascript Files        // -->
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
