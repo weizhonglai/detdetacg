@@ -16,6 +16,7 @@ body {
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
 	color:#666666;
+	border-top:#999a8c solid 8px;
 }
 
 /*
@@ -346,7 +347,8 @@ Easy Slider Rules
 	#slider{
 		border:#b4b4b4 solid 1px;
 		margin:0px 0px 15px 0px;
-		max-width: 100%;
+		width:938px !important;
+		height:288px !important;
 		overflow:hidden;
 		}	
 	
