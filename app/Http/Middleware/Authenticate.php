@@ -70,7 +70,7 @@ class Authenticate {
 
 		$inputs = Request::all();
 		$inputs['user_id'] = $user->id;
-		$inputs['user_name'] = $user->name;
+		$inputs['username'] = $user->name;
 
 		Request::replace($inputs);
 
