@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="detdetApp">
 <head><title>DetDetACG | CMS</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -35,7 +35,7 @@
 
 </head>
 <body class=" ">
-<div>
+<div ng-controller="MainController">
     <!--BEGIN BACK TO TOP--><a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP-->
     <!--BEGIN TOPBAR-->
     <div id="header-topbar-option-demo" class="page-header-topbar">
@@ -85,6 +85,7 @@
         </div>
     </div>
 </div>
+</div>>
 <script src="/templates/admin/js/jquery-1.10.2.min.js"></script>
 <script src="/templates/admin/js/jquery-migrate-1.2.1.min.js"></script>
 <script src="/templates/admin/js/jquery-ui.js"></script>
