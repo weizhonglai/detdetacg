@@ -2,6 +2,7 @@
 /public/bower_components
 /public/node_modules
 /public/templates/admin/vendors
+/database/backup
 composer.lock
 .env*
 *.log

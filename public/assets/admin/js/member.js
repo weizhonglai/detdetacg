@@ -43,7 +43,7 @@ App.controller('MainController', function($scope, $http){
 
 
     $scope.resetMemberPassword = function(userId, send_email) {
-    
+    alert(userId);
         var newPass = angular.element(".new-pass input").val(),
             confirmPass = angular.element(".confirm-pass input").val();
 

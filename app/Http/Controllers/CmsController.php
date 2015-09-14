@@ -23,9 +23,9 @@ class CmsController extends Controller {
 	public function memberList(){
 		$orderBy = Request::input('orderby', 'id-asc');
 		$page = Request::input("page", '1');
-		$pageSize = Request::input("page_size", '100');
+		$pageSize = Request::input("page_size", '50');
 		
-		try{
+		try{	
 			$startIndex = $pageSize * ($page - 1);
 			$total = User::select(`id`)->count();
 
