@@ -10,19 +10,143 @@
 
 @section('content')
         <!-- Right Column Start-->
-     <p>
-         The text content type is used for message content that is primarily in human-readable text character format. The more complex text content types are defined and identified so that an appropriate tool can be used to display that body part.
-text/enriched [RFC1896]
-The text/enriched content type is intended to be simple enough to make multifont, formatted e-mail widely readable. It uses a very limited set of formatting commands that all begin with <commandname> and end with </commandname>, affecting the formatting of the text between those two tokens.
-text/html[RFC1866]
-The text/html content type is an Internet Media Type as well as a MIME content type. Using HTML in MIME messages allows the full richness of Web pages to be available in e-mail.
-text/plain[RFC1521]
-The text/plain content type is the generic subtype for plain text. It is the default specified by RFC 822.
-text/rfc822-headers[RFC1892]
-The text/RFC822-headers content type provides a mechanism for an MTA to label and return only the RFC 822 headers of a failed message. Only the headers are returned, not the complete message. The returned headers are useful for identifying the failed message and for diagnosing delivery problems. All headers are to be returned, up to the blank line following the headers.
-text/richtext[RFC1521]
-The text/richtext content type has been made obsolete by text/enriched.  
-text/sgml[RFC1874]
-The text/sgml content type is intended to be used when the contents of the SGML entity is intended to be read by a human and is in a readily comprehensible form — that is, the content can be easily discerned by Someone without SGML display software. Each record in the SGML entity, delimited by record start (RS) and record end (RE) codes, must correspond to a line in the text/SGML body part
-     </p>
+        <div class="right_colmn">
+            <!-- Bread Crumb and Search Section -->
+            <div class="breadcrumb_search">
+                <!-- Bread Crumb Section -->
+                <ul class="crumb">
+                    <li><a href="#" class="home">&nbsp;<span class="dis_none">Home</span></a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Categories</a></li>
+                </ul>
+                <!-- Search Section -->
+                <ul class="search">
+                    <li><input name="" type="text" class="search_bar" /></li>
+                    <li><input name="" type="button" class="go" /></li>
+                </ul>
+            </div>
+            <!-- Paragraph Section -->
+            <div class="para">
+                <h2 class="heading">Welcome to Your Store</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed elit. Nulla sem risus, vestibulum in, volutpat eget, dapibus ac, lectus. Curabitur dolor sapien, hendrerit non, suscipit bibendum, auctor ac, arcu. Vestibulum dapibus. Sed pede lacus, pretium in, condimentum sit amet, mollis dapibus, magna. Ut bibendum dolor nec augue. Ut tempus luctus metus. Sed a velit. Pellentesque at libero <a href="#">elementum ante condimentum sollicitudin</a>. Pellentesque lorem ipsum, semper quis, interdum et, sollicitudin eu, purus. Vivamus fringilla ipsum vel orci. Phasellus vitae massa at massa pulvinar pellentesque. Fusce tincidunt libero vitae odio. Donec malesuada diam nec mi. Integer hendrerit pulvinar ante. Donec eleifend, nisl eget aliquam congue, justo metus venenatis neque, vel tincidunt elit augue sit amet velit. Nulla facilisi. Aenean suscipit. 
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed elit. Nulla sem risus, vestibulum in, volutpat eget, dapibus ac, lectus. Curabitur dolor sapien, hendrerit non, suscipit bibendum, auctor ac, arcu. Vestibulum dapibus. Sed pede lacus, pretium in, condimentum sit amet, mollis dapibus, magna. Ut bibendum dolor nec augue. Ut tempus luctus metus. Sed a velit. Pellentesque at libero elementum ante condimentum sollicitudin. Pellentesque lorem ipsum, semper quis, interdum et, sollicitudin eu, purus. Vivamus fringilla ipsum vel orci. Phasellus vitae massa at massa pulvinar pellentesque. Fusce tincidunt libero vitae odio. Donec malesuada diam nec mi. Integer hendrerit pulvinar ante. Donec eleifend, nisl eget aliquam congue, justo metus venenatis neque, vel tincidunt elit augue sit amet velit. Nulla facilisi. Aenean suscipit. 
+                </p>
+            </div>
+            <!-- Product Listing Section -->
+            <div class="prod_listing">
+                <h2 class="heading">New products for this category</h2>
+                <ul>
+                    <li>
+                        <a href="prod_detail"><img src="/templates/images/img1.gif" alt="" /></a>
+                        <p class="title">Die Hard With A Vengeance</p>
+                        <p class="price bold">GP $ 500, 00</p>
+                        <a href="cart" class="button"><span>Buy Now</span></a>
+                    </li>
+                    <li>
+                        <a href="prod_detail"><img src="/templates/images/img2.gif" alt="" /></a>
+                        <p class="title">Die Hard With A Vengeance</p>
+                        <p class="price bold">GP $ 500, 00</p>
+                        <a href="cart" class="button"><span>Buy Now</span></a>
+                    </li>
+                    <li>
+                        <a href="prod_detail"><img src="/templates/images/img3.gif" alt="" /></a>
+                        <p class="title">Die Hard With A Vengeance</p>
+                        <p class="price bold">GP $ 500, 00</p>
+                        <a href="cart" class="button"><span>Buy Now</span></a>
+                    </li>
+                    <li>
+                        <a href="prod_detail"><img src="/templates/images/img4.gif" alt="" /></a>
+                        <p class="title">Die Hard With A Vengeance</p>
+                        <p class="price bold">GP $ 500, 00</p>
+                        <a href="cart" class="button"><span>Buy Now</span></a>
+                    </li>
+                    <li>
+                        <a href="prod_detail"><img src="/templates/images/img4.gif" alt="" /></a>
+                        <p class="title">Die Hard With A Vengeance</p>
+                        <p class="price bold">GP $ 500, 00</p>
+                        <a href="cart" class="button"><span>Buy Now</span></a>
+                    </li>
+                    <li>
+                        <a href="prod_detail"><img src="/templates/images/img3.gif" alt="" /></a>
+                        <p class="title">Die Hard With A Vengeance</p>
+                        <p class="price bold">GP $ 500, 00</p>
+                        <a href="cart" class="button"><span>Buy Now</span></a>
+                    </li>
+                    <li>
+                        <a href="prod_detail"><img src="/templates/images/img2.gif" alt="" /></a>
+                        <p class="title">Die Hard With A Vengeance</p>
+                        <p class="price bold">GP $ 500, 00</p>
+                        <a href="cart" class="button"><span>Buy Now</span></a>
+                    </li>
+                    <li>
+                        <a href="prod_detail"><img src="/templates/images/img1.gif" alt="" /></a>
+                        <p class="title">Die Hard With A Vengeance</p>
+                        <p class="price bold">GP $ 500, 00</p>
+                        <a href="cart" class="button"><span>Buy Now</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <!-- Right Column End-->
+ 
+    <div class="clear"></div>
+    <!-- Product Scroller Start -->
+    <div id="prod_scroller">
+        <a class="prev_btn"></a>
+<div class="anyClass">
+    <ul>    
+        <li>
+            <a href="#"><img src="/templates/images/img_prod.gif" alt="" /></a>
+            <a class="prod_name" href="#">Product 1</a>
+        </li>
+        <li>
+            <a href="#"><img src="/templates/images/img_prod.gif" alt="" /></a>
+            <a class="prod_name" href="#">Product 1</a>
+        </li>
+        <li>
+            <a href="#"><img src="/templates/images/img_prod.gif" alt="" /></a>
+            <a class="prod_name" href="#">Product 1</a>
+        </li>
+        <li>
+            <a href="#"><img src="/templates/images/img_prod.gif" alt="" /></a>
+            <a class="prod_name" href="#">Product 1</a>
+        </li>
+        <li>
+            <a href="#"><img src="/templates/images/img_prod.gif" alt="" /></a>
+            <a class="prod_name" href="#">Product 1</a>
+        </li>
+        <li>
+            <a href="#"><img src="/templates/images/img_prod.gif" alt="" /></a>
+            <a class="prod_name" href="#">Product 1</a>
+        </li>
+        <li>
+            <a href="#"><img src="/templates/images/img_prod.gif" alt="" /></a>
+            <a class="prod_name" href="#">Product 1</a>
+        </li>
+        <li>
+            <a href="#"><img src="/templates/images/img_prod.gif" alt="" /></a>
+            <a class="prod_name" href="#">Product 1</a>
+        </li>
+        <li>
+            <a href="#"><img src="/templates/images/img_prod.gif" alt="" /></a>
+            <a class="prod_name" href="#">Product 1</a>
+        </li>
+        <li>
+            <a href="#"><img src="/templates/images/img_prod.gif" alt="" /></a>
+            <a class="prod_name" href="#">Product 1</a>
+        </li>
+    </ul>
+</div>
+<a class="next_btn"></a>
+<div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+    <!-- Product Scroller End -->
+</div>
+<div class="clear"></div>
 @stop
