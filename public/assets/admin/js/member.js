@@ -1,7 +1,6 @@
 var App = App || angular.module('detdetApp', []);
-alert('123');
-App.controller('MainController', function ($scope, $http){
 
+App.controller('MainController', function($scope, $http){
     $scope.searchResult = {};
     $scope.member = [];
     $scope.pagination = [];

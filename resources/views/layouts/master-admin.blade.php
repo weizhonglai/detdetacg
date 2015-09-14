@@ -1,11 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="detdetApp">
-<head><title>DetDetACG | CMS</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="Thu, 19 Nov 1900 08:52:00 GMT">
+<html ng-app="detdetApp"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>DetDetACG | CMS</title>
     <link rel="shortcut icon" href="/templates/admin/images/icons/favicon.ico">
     <link rel="apple-touch-icon" href="/templates/admin/images/icons/favicon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/templates/admin/images/icons/favicon-72x72.png">
@@ -34,7 +30,7 @@
 @yield('css_include')
 
 </head>
-<body class=" ">
+<body>
 <div ng-controller="MainController">
     <!--BEGIN BACK TO TOP--><a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP-->
     <!--BEGIN TOPBAR-->
@@ -85,7 +81,11 @@
         </div>
     </div>
 </div>
-</div>>
+</div>
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/angular/angular.min.js"></script>
+
 <script src="/templates/admin/js/jquery-1.10.2.min.js"></script>
 <script src="/templates/admin/js/jquery-migrate-1.2.1.min.js"></script>
 <script src="/templates/admin/js/jquery-ui.js"></script>
@@ -104,5 +104,8 @@
 <!--CORE JAVASCRIPT-->
 <script src="/templates/admin/js/main.js"></script>
 <!--LOADING SCRIPTS FOR PAGE-->
+
+@yield('javascript_include')
+
 </body>
 </html>
