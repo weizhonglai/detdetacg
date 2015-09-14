@@ -1,7 +1,8 @@
 /vendor
 /public/bower_components
 /public/node_modules
-/database/backup
+/database/backup/admin/vendors
+/public/templates/
 composer.lock
 .env*
 *.log
