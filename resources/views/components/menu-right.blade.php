@@ -1,4 +1,4 @@
-@section('menu-left')
+@section('menu-right')
       <ul class="nav nav-pills nav-stacked">
         <li class="active"><a href="#">Home</a></li>
         <li class="dropdown">
