@@ -58,7 +58,7 @@
                     <li><a href="#"><i class="fa fa-edit fa-fw">
                     </i><span class="menu-title">Member</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="/admin/member"><i class="fa fa-user"></i><span class="submenu-title">Member</span></a></li>
+                            <li><a href="/admin"><i class="fa fa-user"></i><span class="submenu-title">Member</span></a></li>
                             <li><a href="/admin/top-up"><i class="fa fa-dollar fa-fw"></i><span class="submenu-title">Top Up</span></a></li>
                             <li><a href="/admin/reset-password"><i class="fa fa-cube"></i><span class="submenu-title">Reset Password</span></a></li>
                         </ul>

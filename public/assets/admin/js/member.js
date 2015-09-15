@@ -43,7 +43,7 @@ App.controller('MainController', function($scope, $http){
 
 
     $scope.resetMemberPassword = function(userId, send_email) {
-    alert(userId);
+
         var newPass = angular.element(".new-pass input").val(),
             confirmPass = angular.element(".confirm-pass input").val();
 
@@ -68,7 +68,7 @@ App.controller('MainController', function($scope, $http){
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {
                 alert('Your password has reset-password successfully.');
-                location = "/admin/member/list";
+                location = "/admin";
             } else {
                 alert(data.message);
             }
