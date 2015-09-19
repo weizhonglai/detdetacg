@@ -41,7 +41,7 @@
                 <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span
                         class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
                         class="icon-bar"></span><span class="icon-bar"></span></button>
-                <a id="logo" href="index.html" class="navbar-brand"><span class="fa fa-rocket"></span><span
+                <a id="logo" href="/member-list" class="navbar-brand"><span class="fa fa-rocket"></span><span
                         class="logo-text">DetDetACG</span><span style="display: none" class="logo-text-icon">µ</span></a>
             </div>
             <div class="topbar-main">
@@ -58,7 +58,7 @@
                     <li><a href="#"><i class="fa fa-edit fa-fw">
                     </i><span class="menu-title">Member</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="/admin/member"><i class="fa fa-user"></i><span class="submenu-title">Member</span></a></li>
+                            <li><a href="/admin/member-list"><i class="fa fa-user"></i><span class="submenu-title">Member</span></a></li>
                             <li><a href="/admin/top-up"><i class="fa fa-dollar fa-fw"></i><span class="submenu-title">Top Up</span></a></li>
                             <li><a href="/admin/reset-password"><i class="fa fa-cube"></i><span class="submenu-title">Reset Password</span></a></li>
                         </ul>

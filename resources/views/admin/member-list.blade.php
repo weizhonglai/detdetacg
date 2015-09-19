@@ -1,6 +1,7 @@
 @extends('layouts.master-admin')
  
 @section('css_include')
+<link rel="stylesheet" type="text/css" href="/templates/admin/css/frontend/admin-template.css" />
 @stop
 
 @section('javascript_include')
@@ -14,7 +15,7 @@
         <div class="row width-control">
             <div class="col-lg-4">
               <div class="input-group search">
-                <input type="text" class="form-control" placeholder="Search for User's ID, Username, Name, Email">
+                <input type="text" class="form-control" placeholder="Search">
                 <span class="input-group-btn">
                   <button class="btn btn-success" type="button" ng-click="fetchMemberList(1)">Search</button>
                 </span>
@@ -34,13 +35,10 @@
                             <th width="10%">Name</th>
                             <th width="10%">Username</th>
                             <th width="10%">Email</th>
-                            <th width="10%">Type</th>
                             <th width="10%">Balance(Coin)</th>
-                            <th width="10%">Account Type(VIP)</th>
-                            <th width="10%">Date Start</th>
-                            <th width="10%">Date End</th>
-                            <th width="10%">Total Product</th>
-                            <th width="15%">Action</th>
+                            <th width="10%">Account Type</th>
+                            <th width="10%">Account Details</th>
+                            <th width="10%">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,13 +48,12 @@
                             <td class="name">@{{m.name}}</td>
                             <td class="username">@{{m.username}}</td>
                             <td class="email">@{{m.email}}</td>
-                            <td class="type">@{{m.type}}</td>
                             <td class="coin">@{{m.coin}}</td>
                             <td class="account-type">@{{m.account_type}}</td>
-                            <td class="happend-at">@{{m.happend_at}}</td>
-                            <td class="expirate-at">@{{m.expirate_date}}</td>
-                            <td class="total-product">@{{m.total_product}}</td>
                             <td>
+                                <a href="/admin/member/@{{m.id}}/reset-password"><button type="submit" class="btn btn-success btn-sm" >View Account Info</button></a>
+                            </td>
+                             <td>
                                 <a href="/admin/member/@{{m.id}}/reset-password"><button type="submit" class="btn btn-success btn-sm" >Reset Password</button></a>
                             </td>
                         </tr>

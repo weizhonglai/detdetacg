@@ -1,0 +1,10 @@
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+    padding-top: 15px;
+}
+
+.agent-account-table thead{
+	background-color: #636;
+	color: #fff;
+}
