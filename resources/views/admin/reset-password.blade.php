@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
           <div class="col-xs-offset-4 col-md-offset-3 col-lg-offset-2 col-xs-8 col-md-8 col-lg-4">
-            <button type="submit" class="btn btn-success" ng-click="resetMemberPassword({{$id}}, 0)">Reset Password</button>
+            <button type="submit" class="btn btn-success" ng-click="resetMemberPassword({{$useraccess->user_id}}, 0)">Reset Password</button>
           </div>
         </div>
       </div>

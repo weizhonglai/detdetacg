@@ -23,28 +23,33 @@ class CmsController extends Controller {
 	public function memberList(){
 		$orderBy = Request::input('orderby', 'id-asc');
 		$page = Request::input("page", '1');
-		$pageSize = Request::input("page_size", '50');
-		
+		$pageSize = Request::input("page_size", '30');
+		$search = Request::input('search');
+		$sqlSearch = '';
+
+		if($search || $search == '0' ){
+			$sqlSearch  = " WHERE r.`id` LIKE '%{$search}%' OR r.`name` LIKE '%{$search}%' OR r.`email` LIKE '%{$search}%' OR r.`username` LIKE '%{$search}%' OR r.`type` LIKE '%{$search}%' OR r.`coin` LIKE '%{$search}%' OR r.`account_type` LIKE '%{$search}%' OR r.`happened_at` LIKE '%{$search}%' OR r.`expirate_date` LIKE '%{$search}%' ";
+		}
+
 		try{	
 			$startIndex = $pageSize * ($page - 1);
-			$total = User::select(`id`)->count();
-
-			$orderBy = OrderByHelper::GetUserInfo($orderBy);
-
+			
 			$sql = "
-				SELECT u.`id`, u.`name` ,acc.`username`,ua.`type`, ua.`coin` , ua.`account_type` , ua.`happened_at`, ua.`expirate_date` , count(pi.`id`) AS `total_product`
-					FROM (`t0101_user` u,`t0103_user_account` ua , `t0102_user_access` acc )
-					LEFT JOIN `t0200_product_item` pi ON (u.`id` = pi.`user_id` AND pi.`enable` = 1 AND pi.`deleted_at` IS NULL)
-						WHERE u.`id` = ua.`user_id`
-						AND u.`id` = acc.`user_id`
-
-						GROUP BY u.`id`
-						{$orderBy}
-
+			SELECT * 
+				FROM (
+					SELECT u.`id`, u.`name` , u.`email`, acc.`username`,ua.`type`, ua.`coin` , ua.`account_type` , ua.`happened_at`, ua.`expirate_date` , count(pi.`id`) AS `total_product`
+						FROM (`t0101_user` u,`t0103_user_account` ua , `t0102_user_access` acc )
+						LEFT JOIN `t0200_product_item` pi ON (u.`id` = pi.`user_id` AND pi.`enable` = 1 AND pi.`deleted_at` IS NULL)
+							WHERE u.`id` = ua.`user_id`
+							AND u.`id` = acc.`user_id`
+							GROUP BY u.`id`
+					)r
+						{$sqlSearch}
 						LIMIT {$startIndex} , {$pageSize}
 			";
 
 			$member = DB::select($sql);
+			$total = count($member);
 
 			return ResponseHelper::OutputJSON('success', '', $member);
 		} catch (Exception $ex) {
@@ -113,7 +118,7 @@ class CmsController extends Controller {
 				return ResponseHelper::OutputJSON('fail', 'password must be atleast 6 chars');
 			}
 			$user = User::find($userId);
-			$userAccess = UserAccess::where('user_id', $userId)->first();
+			$userAccess = UserAccess::find($userId);
 
 			if (!$user || !$userAccess) {
 				return ResponseHelper::OutputJSON('fail', 'user not found');
