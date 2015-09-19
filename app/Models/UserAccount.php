@@ -7,7 +7,7 @@ class UserAccount extends Eloquent {
 	use SoftDeletes;
 
 	public $table = 't0103_user_account';
-	protected $primaryKey = 'id';
+	protected $primaryKey = 'user_id';
 	public $timestamps = true;
 	protected $dates = ['deleted_at'];
 

@@ -1,10 +1,13 @@
 <?php namespace App\Libraries;
 
 use App\Models\LogInsert;
+use App\Models\LogAccountTopup;
+
 use DB;
 use Exception;
 use PDO;
 use Request;
+
 
 class DatabaseUtilHelper {
 
@@ -123,5 +126,12 @@ class DatabaseUtilHelper {
 		if ($userCount[0]->count > 4) {return false;}
 
 		return true;
+	}
+
+	public static function LogTopup($userId , $amount){
+		$logTopUp = new LogAccountTopup;
+		$logTopUp->user_id = $userId;		
+		$logTopUp->amount = $amount;
+		$logTopUp->save();
 	}
 }

@@ -24,7 +24,7 @@ class AdminAuthController extends Controller {
 		$password = Request::input('password');
 		$password_sha1 = sha1($password . Config::get('app.auth_salt'));
 		try{
-			$userAccess = UserAccess::where('username', $username)->where('password_sha1' , $password_sha1)->where('id' ,'<=' , 10)->first();
+			$userAccess = UserAccess::where('username', $username)->where('password_sha1' , $password_sha1)->where('user_id' ,'<=' , 10)->first();
 			if(!$userAccess){
 				return ResponseHelper::OutputJSON('fail', "invalid username or password");
 			}

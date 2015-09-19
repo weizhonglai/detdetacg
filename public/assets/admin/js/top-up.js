@@ -1,6 +1,6 @@
 var App = App || angular.module('detdetApp', []);
 
-App.controller('MainController', function($scope, $http){
+App.controller('MainController', function($scope, $http) {
     $scope.searchResult = {};
     $scope.member = [];
     $scope.pagination = [];
@@ -41,37 +41,29 @@ App.controller('MainController', function($scope, $http){
         });  
     }
 
-    $scope.resetMemberPassword = function(userId, send_email) {
+    $scope.topUp = function() {
+        var userid = angular.element("input.userid").val(),
+            amount = angular.element("input.amount").val(),
+            password = angular.element("input.password").val();
 
-        var newPass = angular.element(".new-pass input").val(),
-            confirmPass = angular.element(".confirm-pass input").val();
-
-        if (newPass == '' || confirmPass == '') {
-            alert('Fill in all fields to proceed.');
+        if (userid == '' || amount == ''|| password == '') {
+            alert('Please fill out all the contents and continue.');
             return;
         }
 
-        if(password1.length < 6){
-            alert('Password have to be atleast 6 characters.');
-            return;
-        }      
+       
+        $http.put('/api/admin/member/account-topup', {
+            'user_id': userid,
+            'amount': amount,
+            'password': password
 
-        if(confirmPass != newPass){
-            alert('Password are not match.');
-            return;
-        }
-
-        $http.put('/api/admin/member/'+userId+'/reset-password', {
-            'password': newPass,
-            'send_email': send_email
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {
-                alert('Your password has reset-password successfully.');
-                location = "/admin";
+                location = "/admin/top-up";
             } else {
-                alert(data.message);
+                alert('account not found');
+                console.log(data.message);
             }
         });
-    } 
-
-});	
+    }
+});

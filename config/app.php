@@ -3,6 +3,7 @@
 return [
 	
 	'auth_salt' => env('AUTH_SALT'),
+	'topup_key' => env('TOPUP_KEY'),
 	/*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode

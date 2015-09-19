@@ -8,7 +8,7 @@ Route::group(['prefix' => 'api/admin'], function(){
 		Route::group(['prefix' => 'member'], function(){
 			Route::get('/list', 'CmsController@memberList');
 			Route::put('/{userId}/reset-password', 'CmsController@resetPassword');
-			Route::get('/account-topup', 'CmsController@accountTopUp');
+			Route::put('/account-topup', 'CmsController@accountTopUp');
 		});
 
 		Route::group(['prefix' => 'product'], function(){

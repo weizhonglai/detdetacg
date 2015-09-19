@@ -1,9 +1,12 @@
 <?php
 
 Route::group(['prefix' => 'admin'], function(){
-	Route::get('/', function(){ return view('admin.index'); });
+	Route::get('/', function(){ return view('admin.signin'); });
 	
-	Route::get('/profiles/{profile_id}/edit', 'PageController@editProfile');
+
+	Route::get('/member-list', function(){ return view('admin.member-list'); });
+	Route::get('/top-up', function(){ return view('admin.top-up'); });
+
 
 	//page Controller
 	Route::get('member/{userId}/reset-password', 'PageController@userAccess');
