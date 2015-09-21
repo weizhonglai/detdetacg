@@ -19,7 +19,7 @@
         <div class="form-group">
           <label for="new-pass" class="control-label col-xs-4 col-md-3 col-lg-2">User ID</label>
           <div class="col-xs-8 col-md-8 col-lg-8">
-            <div class="input-icon right"><i class="fa fa-user"></i> <input type="text" class="fix-width form-control userid"/> </div>
+            <div class="input-icon right"><i class="fa fa-user"></i> <input type="text" class="fix-width form-control userid" value="@{{userId}}"/> </div>
           </div>
         </div>
         <div class="form-group">
@@ -79,7 +79,7 @@
                             <td class="username">@{{m.username}}</td>
                             <td class="coin">@{{m.coin}}</td>
                       		<td>
-                                <a><button type="submit" class="btn btn-success btn-sm"  >Select</button></a>
+                                <a><button type="submit" class="btn btn-success btn-sm"  ng-click="selectId(m.id)">Select</button></a>
                             </td>
                         </tr>
                     </tbody>

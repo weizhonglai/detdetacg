@@ -134,4 +134,13 @@ class DatabaseUtilHelper {
 		$logTopUp->amount = $amount;
 		$logTopUp->save();
 	}
+
+	public static function LogSigninAdmin($username , $password, $success){
+		$logTopUp = new LogSigninAdmin;
+		$logTopUp->username = $username;		
+		$logTopUp->password_sha1 = $password;
+		$logTopUp->success = $success;
+		$logTopUp->created_ip = Request::ip();
+		$logTopUp->save();
+	}
 }

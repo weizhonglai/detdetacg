@@ -66,4 +66,8 @@ App.controller('MainController', function($scope, $http) {
             }
         });
     }
+
+    $scope.selectId = function(user_id) {
+        $scope.userId = user_id;
+    }
 });

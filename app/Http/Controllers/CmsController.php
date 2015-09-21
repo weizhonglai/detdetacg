@@ -40,7 +40,7 @@ class CmsController extends Controller {
 				FROM (
 					SELECT u.`id`, u.`name` , u.`email`, acc.`username`, ua.`coin` , ua.`account_type` , ua.`happened_at`, ua.`expirate_date` , count(pi.`id`) AS `total_product`
 						FROM (`t0101_user` u,`t0103_user_account` ua , `t0102_user_access` acc )
-						LEFT JOIN `t0200_product_item` pi ON (u.`id` = pi.`user_id` AND pi.`enable` = 1 AND pi.`deleted_at` IS NULL)
+						LEFT JOIN `t0303_product_item` pi ON (u.`id` = pi.`user_id` AND pi.`enable` = 1 AND pi.`deleted_at` IS NULL)
 							WHERE u.`id` = ua.`user_id`
 							AND u.`id` = acc.`user_id`
 							GROUP BY u.`id`
