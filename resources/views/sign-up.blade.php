@@ -1,4 +1,4 @@
-    @extends('layouts.master')
+@extends('layouts.master')
 @extends('components.menu-left')
 @extends('components.main-footer')
  

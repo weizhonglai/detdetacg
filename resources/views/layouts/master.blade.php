@@ -11,12 +11,13 @@
     <link rel="stylesheet" type="text/css" href="/templates/css/nivo-slider.css" media="screen" />
    <link rel="stylesheet" href="/templates/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="/templates/js/bootstrap.min.js"></script>
 @yield('css_include')
 </head>
 <body>
 <div class="row">
-  <div class="cart_topnavi">
+  <div class="container">
+     <div class="cart_topnavi">
             <!-- Cart Tab Start -->
             <div class="cart_tab">
                 <div class="left_curv">&nbsp;</div>
@@ -35,7 +36,7 @@
             <!-- Cart Tab End -->
         </div>
   </div>
-</div>
+  </div>
      
 <div class="row">
         <div class="container"> 
@@ -63,11 +64,11 @@ Us -->
             <div id="smoothmenu1" class="ddsmoothmenu">
                 <ul>
                     <li class="icon"><a href="/index">&nbsp;<span class="dis_none">Home</span></a></li>
-                    <li><a href="#">Auction</a></li>
-                    <li><a href="#">Service & Upgrade</a></li>
-                    <li><a href="#">DETDET Forum</a></li>
-                    <li><a href="#">FAQ & Help</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="/aution">Auction</a></li>
+                    <li><a href="/services">Service & Upgrade</a></li>
+                    <li><a href="/detdetforum">DETDET Forum</a></li>
+                    <li><a href="/faq">FAQ & Help</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
                 </ul>
                 <div class="clear"></div>
             </div>
@@ -109,14 +110,17 @@ Us -->
                                         <div class="form-group"><label for="username" class="control-label col-md-3">Username</label>
 
                                             <div class="col-md-9"><input id="username" type="text"
-                                                                         class="form-control" name="username" placeholder="Username"/></div>
+                                                                         class="form-control username" name="username" placeholder="Username"/></div>
                                         </div>
                                         <div class="form-group"><label for="password" class="control-label col-md-3">Password</label>
 
                                             <div class="col-md-9"><input id="password" type="password"
-                                                                         class="form-control" name="password" placeholder="Password"/></div>
+                                                                         class="form-control password" name="password" placeholder="Password"/></div>
                                         </div>
                                         <div class="form-group">
+                                          <div class="col-md-9 col-md-offset-3">
+                                                <span>New User? <a href="/user/signup">Click Here to Register</a></span>
+                                            </div>
                                             <div class="col-md-9 col-md-offset-3">
                                                 <button type="submit" class="btn btn-primary" ng-click="signIn()">Login</button>
                                             </div>
