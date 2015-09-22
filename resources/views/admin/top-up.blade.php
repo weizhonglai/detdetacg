@@ -19,13 +19,19 @@
         <div class="form-group">
           <label for="new-pass" class="control-label col-xs-4 col-md-3 col-lg-2">User ID</label>
           <div class="col-xs-8 col-md-8 col-lg-8">
-            <div class="input-icon right"><i class="fa fa-user"></i> <input type="text" class="fix-width form-control userid" value="@{{userId}}"/> </div>
+            <div class="input-icon right"><i class="fa fa-user"></i> <input type="text" class="fix-width form-control userid" ng-model="userId"/> </div>
           </div>
         </div>
         <div class="form-group">
           <label for="new-pass" class="control-label col-xs-4 col-md-3 col-lg-2">Amount</label>
           <div class="col-xs-8 col-md-8 col-lg-8">
               <div class="input-icon right"><i class="fa fa-dollar"></i><input type="text" class="fix-width form-control amount" /></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="new-pass" class="control-label col-xs-4 col-md-3 col-lg-2">Remark</label>
+          <div class="col-xs-8 col-md-8 col-lg-8">
+              <div class="input-icon right"><i class="fa fa-file-text-o"></i><input type="text" class="fix-width form-control remark" /></div>
           </div>
         </div>
         <div class="form-group">

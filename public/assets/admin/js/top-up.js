@@ -45,6 +45,7 @@ App.controller('MainController', function($scope, $http) {
         var userid = angular.element("input.userid").val(),
             amount = angular.element("input.amount").val(),
             password = angular.element("input.password").val();
+            remark = angular.element("input.remark").val();
 
         if (userid == '' || amount == ''|| password == '') {
             alert('Please fill out all the contents and continue.');
@@ -55,14 +56,15 @@ App.controller('MainController', function($scope, $http) {
         $http.put('/api/admin/member/account-topup', {
             'user_id': userid,
             'amount': amount,
-            'password': password
+            'password': password,
+            'remark': remark
 
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {
+                alert('success')
                 location = "/admin/top-up";
             } else {
-                alert('account not found');
-                console.log(data.message);
+                alert(data.message);
             }
         });
     }

@@ -32,11 +32,10 @@
                         <tr>
                             <th width="5%">#</th>
                             <th width="10%">Member ID</th>
-                            <th width="10%">Name</th>
-                            <th width="10%">Username</th>
-                            <th width="10%">Email</th>
+                            <th width="15%">Name</th>
+                            <th width="20%">Username</th>
+                            <th width="20%">Email</th>
                             <th width="10%">Balance(Coin)</th>
-                            <th width="10%">Account Type</th>
                             <th width="10%">Account Details</th>
                             <th width="10%">Action</th>
                         </tr>
@@ -49,7 +48,6 @@
                             <td class="username">@{{m.username}}</td>
                             <td class="email">@{{m.email}}</td>
                             <td class="coin">@{{m.coin}}</td>
-                            <td class="account-type">@{{m.account_type}}</td>
                             <td>
                                 <a href="/admin/member/@{{m.id}}/reset-password"><button type="submit" class="btn btn-success btn-sm" >View Account Info</button></a>
                             </td>

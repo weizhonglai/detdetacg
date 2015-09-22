@@ -17,6 +17,7 @@ use App\Models\UserAccess;
 use App\Models\UserAccount;
 use App\Models\CategoryMain;
 use App\Models\CategorySub;
+use App\Models\TransactionBook;
 
 
 class CmsController extends Controller {
@@ -29,7 +30,7 @@ class CmsController extends Controller {
 		$sqlSearch = '';
 
 		if($search || $search == '0' ){
-			$sqlSearch  = " WHERE r.`id` LIKE '%{$search}%' OR r.`name` LIKE '%{$search}%' OR r.`email` LIKE '%{$search}%' OR r.`username` LIKE '%{$search}%' OR r.`coin` LIKE '%{$search}%' OR r.`account_type` LIKE '%{$search}%' OR r.`happened_at` LIKE '%{$search}%' OR r.`expirate_date` LIKE '%{$search}%' ";
+			$sqlSearch  = " WHERE r.`id` LIKE '%{$search}%' OR r.`name` LIKE '%{$search}%' OR r.`email` LIKE '%{$search}%' OR r.`username` LIKE '%{$search}%'  ";
 		}
 
 		try{	
@@ -38,11 +39,10 @@ class CmsController extends Controller {
 			$sql = "
 			SELECT * 
 				FROM (
-					SELECT u.`id`, u.`name` , u.`email`, acc.`username`, ua.`coin` , ua.`account_type` , ua.`happened_at`, ua.`expirate_date` , count(pi.`id`) AS `total_product`
-						FROM (`t0101_user` u,`t0103_user_account` ua , `t0102_user_access` acc )
-						LEFT JOIN `t0303_product_item` pi ON (u.`id` = pi.`user_id` AND pi.`enable` = 1 AND pi.`deleted_at` IS NULL)
-							WHERE u.`id` = ua.`user_id`
-							AND u.`id` = acc.`user_id`
+					SELECT u.`id`, u.`name` , u.`email`, acc.`username` , (SUM(tb.`account_debit`)- SUM(tb.`account_credit`)) AS `coin`
+						FROM (`t0101_user` u, `t0102_user_access` acc )
+						LEFT JOIN `t0202_transaction_book` tb ON (u.`id` = tb.`user_id`)
+							WHERE  u.`id` = acc.`user_id`
 							GROUP BY u.`id`
 					)r
 						{$sqlSearch}
@@ -158,20 +158,23 @@ class CmsController extends Controller {
 	public function accountTopUp(){
 		$userId = Request::input('user_id');
 		$amount = Request::input('amount');
+		$remark = Request::input('remark', 'Top Up');
 		$password = Request::input('password');
 
 		if($password != Config::get('app.topup_key') ){
 			return ResponseHelper::OutputJSON('fail', "invalid sercet key");
 		}
 
-		$userAccount = UserAccount::where('user_id', $userId)->first();
-		if(!$userAccount){
-			return ResponseHelper::OutputJSON('fail', "account not found");
+		$userAccess = UserAccess::find($userId);
+		if(!$userAccess){
+			return ResponseHelper::OutputJSON('fail', "user not found");
 		}
-		$coin = $userAccount->coin;
-
-		$userAccount->coin = $coin+$amount;
-		$userAccount->save();
+		
+		$transcation = new TransactionBook;
+		$transcation->user_id = $userId;
+		$transcation->account_debit = $amount;
+		$transcation->remark = $remark;
+		$transcation->save();
 
 		DatabaseUtilHelper::LogTopup($userId, $amount);
 		return ResponseHelper::OutputJSON("success");
