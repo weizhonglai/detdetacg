@@ -23,9 +23,9 @@
                 <div class="left_curv">&nbsp;</div>
                 <div class="center_curv">
                     <ul>
-                        <li class="bag bold"><a href="/cart">Shopping Bag</a></li>
+                       <!--  <li class="bag bold"><a href="/cart">Shopping Bag</a></li>
                         <li class="items"><a href="/cart">5 items</a></li>
-                        <li class="items"><a href="/cart">$ 150 </a></li>
+                        <li class="items"><a href="/cart">$ 150 </a></li> -->
                         <li><a href="#myModal" data-toggle="modal" data-target="#modal-login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                 </div>
@@ -137,17 +137,9 @@ Us -->
     <!-- Navi End -->
      <!-- Content Start -->
         <div div class="container">
- 
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                @yield('menu-left')
-                 
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            @yield('content')
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              @yield('menu-right')
-        </div>
+          @yield('menu-left')   
+          @yield('content')
+          @yield('menu-right')
     <!-- Content End -->
    
 </div>
