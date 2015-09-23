@@ -15,6 +15,14 @@ Route::group(['prefix' => 'api/admin'], function(){
 			Route::post('/main', 'CmsController@createMainCategory');
 			Route::post('/sub', 'CmsController@createSubCategory'); 
 		});
+
+		Route::group(['prefix' => 'banner'], function(){
+			Route::post('/advertisement', 'CmsController@newAvtImage');
+			Route::post('/advertisement/{id}', 'CmsController@changeAvtImage');
+			Route::get('/advertisement', 'CmsController@getAdvtList');
+
+		});
+
 	// });
 });
 

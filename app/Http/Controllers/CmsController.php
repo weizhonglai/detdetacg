@@ -12,12 +12,18 @@ use App\Libraries\LogHelper;
 use App\Libraries\ResponseHelper;
 use App\Libraries\OrderByHelper;
 
+use Upload\File;
+use Upload\Storage\FileSystem;
+use Upload\Validation\Mimetype;
+use Upload\Validation\Size;
+
 use App\Models\User;
 use App\Models\UserAccess;
 use App\Models\UserAccount;
 use App\Models\CategoryMain;
 use App\Models\CategorySub;
 use App\Models\TransactionBook;
+use App\Models\BannerAdvertisement;
 
 
 class CmsController extends Controller {
@@ -25,7 +31,7 @@ class CmsController extends Controller {
 	public function memberList(){
 		$orderBy = Request::input('orderby', 'id-asc');
 		$page = Request::input("page", '1');
-		$pageSize = Request::input("page_size", '30');
+		$pageSize = Request::input("page_size", '15');
 		$search = Request::input('search');
 		$sqlSearch = '';
 
@@ -50,9 +56,14 @@ class CmsController extends Controller {
 			";
 
 			$member = DB::select($sql);
-			$total = count($member);
+			$total = UserAccess::all()->count();
 
-			return ResponseHelper::OutputJSON('success', '', $member);
+			return ResponseHelper::OutputJSON('success', '', [
+					'member' => $member,
+					'page' => $page,
+					'page_size' => $pageSize, 
+					'pageTotal' => ceil($total/$pageSize) ,
+				]);
 		} catch (Exception $ex) {
 			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
 				'inputs' => \Request::all(),
@@ -180,43 +191,105 @@ class CmsController extends Controller {
 		return ResponseHelper::OutputJSON("success");
 	}
 
-	public function changeAvtImage(){
-//need test
-		$imageName = Request::input("image_name");
-		$imageDescription = Request::input("image_description");
+	public function getAdvtList(){
+		$page = Request::input("page", '1');
+		$pageSize = Request::input("page_size", '15');
 
+		$startIndex = $pageSize * ($page - 1);
+
+		$sql = "
+			SELECT * 
+				FROM `t0311_banner_advertisement`
+					WHERE `deleted_at` IS NULL
+
+					ORDER BY `enable` DESC
+					LIMIT {$startIndex} , {$pageSize}
+		";
+
+		$result = DB::select($sql);
+		$total = count($result);
+		return ResponseHelper::OutputJSON('success','' ,[
+					'advertisement' => $result,
+					'page' => $page,
+					'page_size' => $pageSize, 
+					'pageTotal' => ceil($total/$pageSize) ,
+				]);
+	}
+
+	public function newAvtImage(){
+		$imageName = Request::input("name");
+		$imageDescription = Request::input("description");
+
+		if(!$imageName){
+			return ResponseHelper::OutputJSON('fail', 'missing parameters');
+		}
 
 		$slug = str_slug($imageName, "-");
 
-		$storage = new FileSystem('./assets/images/advertisement/', true);
-
-		$fileUpload1 = new File('fileUpload1', $storage);
-
-		if (!intval($fileUpload1->getSize())) {
-			die('missing image: thumb');
+		if (file_exists("../public/assets/images/advertisement/{$slug}.jpg")) {
+			return ResponseHelper::OutputJSON('fail', "file exist");
 		}
 
-		$fileUpload1->setName($slug);
-		$fileUpload1->addValidations(array(
+		$path = './assets/images/advertisement/';
+		$storage = new FileSystem($path, true);
+
+		$fileUpload = new File('fileUpload', $storage);
+
+		if (!intval($fileUpload->getSize())) {
+			return ResponseHelper::OutputJSON('fail', 'please select an image upload');
+		}
+
+		$fileUpload->setName($slug);
+		$fileUpload->addValidations(array(
 			new Mimetype('image/jpeg'),
 			new Size('1M'),
 		));
 
-		$fileUpload1->upload();	
+		$fileUpload->upload();	
 
-		$article = new Article;
-		$article->title = $title;
-		$article->url_slug = $slug;
-		$article->content = $content;
-		$article->intro = $intro;
-		$article->share_en = $shareEN;
-		$article->share_ms = $shareBM;
-		$article->published_at = $publishedAt;
-		$article->meta_title = $metaTitle;
-		$article->meta_description = $metaDescription;
-		$article->save();
+		$advertisement = new BannerAdvertisement;
+		$advertisement->name = $imageName;
+		$advertisement->description = $imageDescription;
+		$advertisement->image_path = $path.$slug.'.jpg';
+		$advertisement->save();
 
+		return ResponseHelper::OutputJSON('success');
 
+	}
 
+	public function changeAvtImage($imageId){
+		$name = Request::input('name');
+		$imageDescription = Request::input("description");
+
+		if(!$name){
+			return ResponseHelper::OutputJSON('fail', 'missing parameters');
+		}
+
+		$slug = str_slug($name, "-");
+
+		$path = './assets/images/advertisement/';
+		$storage = new FileSystem($path, true);
+
+		$fileUpload = new File('fileUpload', $storage);
+
+		if (!intval($fileUpload->getSize())) {
+			return ResponseHelper::OutputJSON('fail', 'please select an image upload');
+		}
+
+		$fileUpload->setName($slug);
+		$fileUpload->addValidations(array(
+			new Mimetype('image/jpeg'),
+			new Size('1M'),
+		));
+
+		$fileUpload->upload();	
+
+		$advertisement = BannerAdvertisement::find($imageId);
+		$advertisement->name = $name;
+		$advertisement->description = $imageDescription;
+		$advertisement->image_path = $path.$slug.'.jpg';
+		$advertisement->save();
+
+		return ResponseHelper::OutputJSON('success');
 	}
 }

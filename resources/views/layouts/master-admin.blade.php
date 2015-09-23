@@ -66,7 +66,7 @@
                     </i><span class="menu-title">Content</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="/admin/catergory"><i class="fa fa-user"></i><span class="submenu-title">Manage Category</span></a></li>
-                            <li><a href="/admin/avertisment"><i class="fa fa-cube"></i><span class="submenu-title">Avertisment</span></a></li>
+                            <li><a href="/admin/advertisement"><i class="fa fa-cube"></i><span class="submenu-title">Advertisement</span></a></li>
                         </ul>
                     </li>
                     
