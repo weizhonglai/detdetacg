@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="detdetApp"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>DetDetACG</title>
+<title>DetDetACG - @yield('title')</title>
 <!-- //      Start Stylesheets       // -->
     <link rel="stylesheet" type="text/css" href="/templates/css/gray.css" title="gray" media="screen" />
     <link rel="stylesheet" type="text/css" href="/templates/css/sexylightbox.css" media="all" />
@@ -151,7 +151,7 @@ Us -->
 <script src="/assets/js/sign-in.js"></script>
 
     <script type="text/javascript" src="/templates/js/jquery.min1.3.js"></script>
-    <script type="text/javascript" src="/templates/js/menu.js"></script>
+     <!-- <script type="text/javascript" src="/templates/js/menu.js"></script> -->
     <script type="text/javascript" src="/templates/js/ddaccordion.js"></script>
     <script type="text/javascript" src="/templates/js/acordin.js"></script>
     <script type="text/javascript" src="/templates/js/jcarousellite_1.0.1.js"></script>
@@ -178,6 +178,36 @@ Us -->
     <script type="text/javascript" src="/templates/js/styleswitch.js"></script>
     <script type="text/javascript" src="/templates/js/jquery.ad-gallery.js?rand=995"></script>
     <script type="text/javascript" src="/templates/js/thumbgallery.js"></script>
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script>  
+ 
+      function init_map() {
+    var var_location = new google.maps.LatLng(5.365450, 100.458868);
+ 
+        var var_mapoptions = {
+          center: var_location,
+          zoom: 14
+        };
+ 
+    var var_marker = new google.maps.Marker({
+      position: var_location,
+      map: var_map,
+      title:"Venice"});
+ 
+        var var_map = new google.maps.Map(document.getElementById("map-container"),
+            var_mapoptions);
+ 
+    var_marker.setMap(var_map); 
+ 
+      }
+ 
+      google.maps.event.addDomListener(window, 'load', init_map);
+ 
+    </script>
 @yield('javascript_include')
 </body>
 </html>

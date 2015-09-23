@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Main Page')
 @extends('components.menu-left')
 @extends('components.menu-right')
 @extends('components.main-footer')
