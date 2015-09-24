@@ -1,4 +1,4 @@
-    @extends('layouts.master')
+@extends('layouts.master')
 @extends('components.menu-left')
 @extends('components.main-footer')
  
@@ -11,24 +11,8 @@
 
 @section('content')
         <!-- Right Column Start-->
-        <div class="right_colmn" ng-controller="MainController">
-        	<!-- Bread Crumb and Search Section -->
-        	<div class="breadcrumb_search">
-            	<!-- Bread Crumb Section -->
-            	<ul class="crumb">
-                	<li><a href="#" class="home">&nbsp;<span class="dis_none">Home</span></a></li>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">{{\Request::input('username')}}</a></li>
-
-                </ul>
-                <!-- Search Section -->
-                <ul class="search">
-                	<li><input name="" type="text" class="search_bar" /></li>
-                    <li><input name="" type="button" class="go" /></li>
-                </ul>
-            </div>            
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        <div class="right_colmn" ng-controller="MainController">           
             <!-- Register Section -->
             <div class="register">
             	<h2 class="heading">Register</h2>
@@ -137,6 +121,7 @@
         <!-- Right Column End-->
         </div>
 <div class="clear"></div>
+</div>
 
 
 @stop
