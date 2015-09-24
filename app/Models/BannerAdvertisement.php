@@ -3,10 +3,10 @@
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CategorySub extends Eloquent {
+class BannerAdvertisement extends Eloquent {
 	use SoftDeletes;
 
-	public $table = 't0302_category_sub';
+	public $table = 't0311_banner_advertisement';
 	protected $primaryKey = 'id';
 	public $timestamps = true;
 	protected $dates = ['deleted_at'];

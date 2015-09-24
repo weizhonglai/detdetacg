@@ -5,24 +5,12 @@
 @stop
 
 @section('javascript_include')
-<script src="/assets/admin/js/member.js"></script>
+<script src="/assets/admin/js/advertisement.js"></script>
 @stop
 
 @section('content')
 <div class="row" data-ng-init="init()">
-    <div class="col-lg-12">
-
-        <div class="row width-control">
-            <div class="col-lg-4">
-              <div class="input-group search">
-                <input type="text" class="form-control" placeholder="Search">
-                <span class="input-group-btn">
-                  <button class="btn btn-success" type="button" ng-click="fetchMemberList(1)">Search</button>
-                </span>
-              </div>
-            </div>    
-        </div>     
-
+    <div class="col-lg-12">     
         <div class="clearfix">&nbsp;</div>
 
         <div class="row width-control ng-cloak">
@@ -30,29 +18,28 @@
                 <table class="agent-account-table table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th width="5%">#</th>
-                            <th width="10%">Member ID</th>
+                            <th width="3%">#</th>
                             <th width="15%">Name</th>
-                            <th width="20%">Username</th>
-                            <th width="20%">Email</th>
-                            <th width="10%">Balance(Coin)</th>
-                            <th width="10%">Account Details</th>
-                            <th width="10%">Action</th>
+                            <th width="30%">Description</th>
+                            <th width="30%">File_path</th>
+                            <th width="10%">Created At</th>
+                            <th width="5%">Status</th>
+                            <th width="10%" colspan="2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="m in member">
+                        <tr ng-repeat="a in advertisement">
                             <td>@{{$index+1}}</td> 
-                            <td class="user-id">@{{m.id}}</td>
-                            <td class="name">@{{m.name}}</td>
-                            <td class="username">@{{m.username}}</td>
-                            <td class="email">@{{m.email}}</td>
-                            <td class="coin">@{{m.coin}}</td>
+                            <td class="name">@{{a.name}}</td>
+                            <td class="username">@{{a.description}}</td>
+                            <td class="email">@{{a.image_path}}</td>
+                            <td class="coin">@{{a.created_at}}</td>
+                            <td class="coin">@{{a.enable}}</td>
                             <td>
-                                <a href="/admin/member/@{{m.id}}/reset-password"><button type="submit" class="btn btn-success btn-sm" >View Account Info</button></a>
+                                <a href="/admin/banner/advertisement/@{{a.id}}"><button type="submit" class="btn btn-success btn-sm" >Update</button></a>
                             </td>
                              <td>
-                                <a href="/admin/member/@{{m.id}}/reset-password"><button type="submit" class="btn btn-success btn-sm" >Reset Password</button></a>
+                                <a href="/admin/member/@{{m.id}}/reset-password"><button type="submit" class="btn btn-success btn-sm" >Remove </button></a>
                             </td>
                         </tr>
                     </tbody>

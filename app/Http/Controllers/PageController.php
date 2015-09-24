@@ -15,6 +15,7 @@ use App\Models\LogPasswordReset;
 use App\Models\User;
 use App\Models\UserAccess;
 use App\Models\UserAccount;
+use App\Models\BannerAdvertisement;
 
 
 class PageController extends Controller {
@@ -28,6 +29,18 @@ class PageController extends Controller {
 
 		return view('admin.reset-password' , [
 			'useraccess' => $userAccess 
+			]);
+	}
+
+	public function bannerAdvertisement($id) {
+		$Advertisement = BannerAdvertisement::find($id);
+
+		if(!$Advertisement){
+			return ResponseHelper::OutputJSON('fail' , 'advertisement not found');
+		}
+
+		return view('admin.advertisement-edit' , [
+			'advertisement' => $Advertisement 
 			]);
 	}
 }

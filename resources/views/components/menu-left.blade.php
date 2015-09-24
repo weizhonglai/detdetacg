@@ -1,5 +1,6 @@
 @section('menu-left')
 <!-- Left Column Start-->
+ <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 <div class="section">
       <h4>Categories</h4>
         <div class="glossymenu">
@@ -77,4 +78,5 @@
             </div>
       </div>
     </div>
+</div>
 @stop

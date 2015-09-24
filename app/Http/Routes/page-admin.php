@@ -6,10 +6,12 @@ Route::group(['prefix' => 'admin'], function(){
 
 	Route::get('/member-list', function(){ return view('admin.member-list'); });
 	Route::get('/top-up', function(){ return view('admin.top-up'); });
+	Route::get('/advertisement', function(){ return view('admin.advertisement'); });
 
 
 	//page Controller
 	Route::get('member/{userId}/reset-password', 'PageController@userAccess');
+	Route::get('banner/advertisement/{id}', 'PageController@bannerAdvertisement');
 });
 	
  

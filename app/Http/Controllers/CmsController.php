@@ -12,11 +12,18 @@ use App\Libraries\LogHelper;
 use App\Libraries\ResponseHelper;
 use App\Libraries\OrderByHelper;
 
+use Upload\File;
+use Upload\Storage\FileSystem;
+use Upload\Validation\Mimetype;
+use Upload\Validation\Size;
+
 use App\Models\User;
 use App\Models\UserAccess;
 use App\Models\UserAccount;
 use App\Models\CategoryMain;
 use App\Models\CategorySub;
+use App\Models\TransactionBook;
+use App\Models\BannerAdvertisement;
 
 
 class CmsController extends Controller {
@@ -24,12 +31,12 @@ class CmsController extends Controller {
 	public function memberList(){
 		$orderBy = Request::input('orderby', 'id-asc');
 		$page = Request::input("page", '1');
-		$pageSize = Request::input("page_size", '30');
+		$pageSize = Request::input("page_size", '15');
 		$search = Request::input('search');
 		$sqlSearch = '';
 
 		if($search || $search == '0' ){
-			$sqlSearch  = " WHERE r.`id` LIKE '%{$search}%' OR r.`name` LIKE '%{$search}%' OR r.`email` LIKE '%{$search}%' OR r.`username` LIKE '%{$search}%' OR r.`coin` LIKE '%{$search}%' OR r.`account_type` LIKE '%{$search}%' OR r.`happened_at` LIKE '%{$search}%' OR r.`expirate_date` LIKE '%{$search}%' ";
+			$sqlSearch  = " WHERE r.`id` LIKE '%{$search}%' OR r.`name` LIKE '%{$search}%' OR r.`email` LIKE '%{$search}%' OR r.`username` LIKE '%{$search}%'  ";
 		}
 
 		try{	
@@ -38,11 +45,10 @@ class CmsController extends Controller {
 			$sql = "
 			SELECT * 
 				FROM (
-					SELECT u.`id`, u.`name` , u.`email`, acc.`username`, ua.`coin` , ua.`account_type` , ua.`happened_at`, ua.`expirate_date` , count(pi.`id`) AS `total_product`
-						FROM (`t0101_user` u,`t0103_user_account` ua , `t0102_user_access` acc )
-						LEFT JOIN `t0200_product_item` pi ON (u.`id` = pi.`user_id` AND pi.`enable` = 1 AND pi.`deleted_at` IS NULL)
-							WHERE u.`id` = ua.`user_id`
-							AND u.`id` = acc.`user_id`
+					SELECT u.`id`, u.`name` , u.`email`, acc.`username` ,( SUM(`account_debit`) - IFNULL(SUM(`account_credit`),0) ) as `coin`
+						FROM (`t0101_user` u, `t0102_user_access` acc )
+						LEFT JOIN `t0202_transaction_book` tb ON (u.`id` = tb.`user_id`)
+							WHERE  u.`id` = acc.`user_id`
 							GROUP BY u.`id`
 					)r
 						{$sqlSearch}
@@ -50,9 +56,14 @@ class CmsController extends Controller {
 			";
 
 			$member = DB::select($sql);
-			$total = count($member);
+			$total = UserAccess::all()->count();
 
-			return ResponseHelper::OutputJSON('success', '', $member);
+			return ResponseHelper::OutputJSON('success', '', [
+					'member' => $member,
+					'page' => $page,
+					'page_size' => $pageSize, 
+					'pageTotal' => ceil($total/$pageSize) ,
+				]);
 		} catch (Exception $ex) {
 			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
 				'inputs' => \Request::all(),
@@ -158,62 +169,127 @@ class CmsController extends Controller {
 	public function accountTopUp(){
 		$userId = Request::input('user_id');
 		$amount = Request::input('amount');
+		$remark = Request::input('remark', 'Top Up');
 		$password = Request::input('password');
 
 		if($password != Config::get('app.topup_key') ){
 			return ResponseHelper::OutputJSON('fail', "invalid sercet key");
 		}
 
-		$userAccount = UserAccount::where('user_id', $userId)->first();
-		if(!$userAccount){
-			return ResponseHelper::OutputJSON('fail', "account not found");
+		$userAccess = UserAccess::find($userId);
+		if(!$userAccess){
+			return ResponseHelper::OutputJSON('fail', "user not found");
 		}
-		$coin = $userAccount->coin;
-
-		$userAccount->coin = $coin+$amount;
-		$userAccount->save();
+		
+		$transcation = new TransactionBook;
+		$transcation->user_id = $userId;
+		$transcation->account_debit = $amount;
+		$transcation->remark = $remark;
+		$transcation->save();
 
 		DatabaseUtilHelper::LogTopup($userId, $amount);
 		return ResponseHelper::OutputJSON("success");
 	}
 
-	public function changeAvtImage(){
-//need test
-		$imageName = Request::input("image_name");
-		$imageDescription = Request::input("image_description");
+	public function getAdvtList(){
+		$page = Request::input("page", '1');
+		$pageSize = Request::input("page_size", '15');
 
+		$startIndex = $pageSize * ($page - 1);
+
+		$sql = "
+			SELECT * 
+				FROM `t0311_banner_advertisement`
+					WHERE `deleted_at` IS NULL
+
+					ORDER BY `enable` DESC
+					LIMIT {$startIndex} , {$pageSize}
+		";
+
+		$result = DB::select($sql);
+		$total = count($result);
+		return ResponseHelper::OutputJSON('success','' ,[
+					'advertisement' => $result,
+					'page' => $page,
+					'page_size' => $pageSize, 
+					'pageTotal' => ceil($total/$pageSize) ,
+				]);
+	}
+
+	public function newAvtImage(){
+		$imageName = Request::input("name");
+		$imageDescription = Request::input("description");
+
+		if(!$imageName){
+			return ResponseHelper::OutputJSON('fail', 'missing parameters');
+		}
 
 		$slug = str_slug($imageName, "-");
 
-		$storage = new FileSystem('./assets/images/advertisement/', true);
-
-		$fileUpload1 = new File('fileUpload1', $storage);
-
-		if (!intval($fileUpload1->getSize())) {
-			die('missing image: thumb');
+		if (file_exists("../public/assets/images/advertisement/{$slug}.jpg")) {
+			return ResponseHelper::OutputJSON('fail', "file exist");
 		}
 
-		$fileUpload1->setName($slug);
-		$fileUpload1->addValidations(array(
+		$path = './assets/images/advertisement/';
+		$storage = new FileSystem($path, true);
+
+		$fileUpload = new File('fileUpload', $storage);
+
+		if (!intval($fileUpload->getSize())) {
+			return ResponseHelper::OutputJSON('fail', 'please select an image upload');
+		}
+
+		$fileUpload->setName($slug);
+		$fileUpload->addValidations(array(
 			new Mimetype('image/jpeg'),
 			new Size('1M'),
 		));
 
-		$fileUpload1->upload();	
+		$fileUpload->upload();	
 
-		$article = new Article;
-		$article->title = $title;
-		$article->url_slug = $slug;
-		$article->content = $content;
-		$article->intro = $intro;
-		$article->share_en = $shareEN;
-		$article->share_ms = $shareBM;
-		$article->published_at = $publishedAt;
-		$article->meta_title = $metaTitle;
-		$article->meta_description = $metaDescription;
-		$article->save();
+		$advertisement = new BannerAdvertisement;
+		$advertisement->name = $imageName;
+		$advertisement->description = $imageDescription;
+		$advertisement->image_path = $path.$slug.'.jpg';
+		$advertisement->save();
 
+		return ResponseHelper::OutputJSON('success');
 
+	}
 
+	public function changeAvtImage($imageId){
+		$name = Request::input('name');
+		$imageDescription = Request::input("description");
+
+		if(!$name){
+			return ResponseHelper::OutputJSON('fail', 'missing parameters');
+		}
+
+		$slug = str_slug($name, "-");
+
+		$path = './assets/images/advertisement/';
+		$storage = new FileSystem($path, true);
+
+		$fileUpload = new File('fileUpload', $storage);
+
+		if (!intval($fileUpload->getSize())) {
+			return ResponseHelper::OutputJSON('fail', 'please select an image upload');
+		}
+
+		$fileUpload->setName($slug);
+		$fileUpload->addValidations(array(
+			new Mimetype('image/jpeg'),
+			new Size('1M'),
+		));
+
+		$fileUpload->upload();	
+
+		$advertisement = BannerAdvertisement::find($imageId);
+		$advertisement->name = $name;
+		$advertisement->description = $imageDescription;
+		$advertisement->image_path = $path.$slug.'.jpg';
+		$advertisement->save();
+
+		return ResponseHelper::OutputJSON('success');
 	}
 }
