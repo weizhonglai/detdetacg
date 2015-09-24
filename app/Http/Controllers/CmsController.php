@@ -45,7 +45,7 @@ class CmsController extends Controller {
 			$sql = "
 			SELECT * 
 				FROM (
-					SELECT u.`id`, u.`name` , u.`email`, acc.`username` , (SUM(tb.`account_debit`)- SUM(tb.`account_credit`)) AS `coin`
+					SELECT u.`id`, u.`name` , u.`email`, acc.`username` ,( SUM(`account_debit`) - IFNULL(SUM(`account_credit`),0) ) as `coin`
 						FROM (`t0101_user` u, `t0102_user_access` acc )
 						LEFT JOIN `t0202_transaction_book` tb ON (u.`id` = tb.`user_id`)
 							WHERE  u.`id` = acc.`user_id`

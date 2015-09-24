@@ -27,7 +27,7 @@ App.controller('MainController', function($scope, $http) {
             'search=' + searchValue
         ].join('&')).success(function(data, status, headers, config) {
             if (data.status == 'success') {
-                $scope.member = data.data;
+                $scope.member = data.data.member;
 
                 $scope.pagination = [];
                 $scope.page = +data.data.page;
