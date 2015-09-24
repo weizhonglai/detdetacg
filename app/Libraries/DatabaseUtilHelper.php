@@ -2,6 +2,7 @@
 
 use App\Models\LogInsert;
 use App\Models\LogAccountTopup;
+use App\Models\LogSigninAdmin;
 
 use DB;
 use Exception;
@@ -132,6 +133,15 @@ class DatabaseUtilHelper {
 		$logTopUp = new LogAccountTopup;
 		$logTopUp->user_id = $userId;		
 		$logTopUp->amount = $amount;
+		$logTopUp->save();
+	}
+
+	public static function LogSigninAdmin($username , $password, $success){
+		$logTopUp = new LogSigninAdmin;
+		$logTopUp->username = $username;		
+		$logTopUp->password_sha1 = $password;
+		$logTopUp->success = $success;
+		$logTopUp->created_ip = Request::ip();
 		$logTopUp->save();
 	}
 }

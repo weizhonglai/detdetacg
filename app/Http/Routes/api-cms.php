@@ -11,10 +11,18 @@ Route::group(['prefix' => 'api/admin'], function(){
 			Route::put('/account-topup', 'CmsController@accountTopUp');
 		});
 
-		Route::group(['prefix' => 'product'], function(){
-			Route::post('/category-main', 'CmsController@createMainCategory');
-			Route::post('/category-sub', 'CmsController@createSubCategory'); 
+		Route::group(['prefix' => 'category'], function(){
+			Route::post('/main', 'CmsController@createMainCategory');
+			Route::post('/sub', 'CmsController@createSubCategory'); 
 		});
+
+		Route::group(['prefix' => 'banner'], function(){
+			Route::post('/advertisement', 'CmsController@newAvtImage');
+			Route::post('/advertisement/{id}', 'CmsController@changeAvtImage');
+			Route::get('/advertisement', 'CmsController@getAdvtList');
+
+		});
+
 	// });
 });
 

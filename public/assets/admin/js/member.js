@@ -5,7 +5,7 @@ App.controller('MainController', function($scope, $http){
     $scope.member = [];
     $scope.pagination = [];
     $scope.pageTotal = 1;
-    $scope.pageSize = 50;
+    $scope.pageSize = 15;
     $scope.page = 1;
 
     $scope.init = function() {     
@@ -27,7 +27,7 @@ App.controller('MainController', function($scope, $http){
             'search=' + searchValue
         ].join('&')).success(function(data, status, headers, config) {
             if (data.status == 'success') {
-                $scope.member = data.data;
+                $scope.member = data.data.member;
 
                 $scope.pagination = [];
                 $scope.page = +data.data.page;
