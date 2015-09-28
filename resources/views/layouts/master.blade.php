@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html ng-app="detdetApp"><head>
+<html ng-app="detdetApp">+
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="google-site-verification" content="qtpQeHr_--jYsGm7ZGTRRrSzDT0Bq9-tikaET9ho8OY" />
 <title>DetDetACG - @yield('title')</title>
 <!-- //      Start Stylesheets       // -->
     <link rel="stylesheet" type="text/css" href="/templates/css/gray.css" title="gray" media="screen" />
