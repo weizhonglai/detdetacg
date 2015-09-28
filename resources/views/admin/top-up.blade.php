@@ -25,13 +25,13 @@
         <div class="form-group">
           <label for="new-pass" class="control-label col-xs-4 col-md-3 col-lg-2">Amount</label>
           <div class="col-xs-8 col-md-8 col-lg-8">
-              <div class="input-icon right"><i class="fa fa-dollar"></i><input type="text" class="fix-width form-control amount" /></div>
+              <div class="input-icon right"><i class="fa fa-dollar"></i><input type="text" class="fix-width form-control amount" ng-model="amount"/></div>
           </div>
         </div>
         <div class="form-group">
           <label for="new-pass" class="control-label col-xs-4 col-md-3 col-lg-2">Remark</label>
           <div class="col-xs-8 col-md-8 col-lg-8">
-              <div class="input-icon right"><i class="fa fa-file-text-o"></i><input type="text" class="fix-width form-control remark" /></div>
+              <div class="input-icon right"><i class="fa fa-file-text-o"></i><input type="text" class="fix-width form-control remark" ng-model="remark"/></div>
           </div>
         </div>
         <div class="form-group">
@@ -42,7 +42,7 @@
         </div>
         <div class="form-group">
           <div class="col-xs-offset-4 col-md-offset-3 col-lg-offset-2 col-xs-8 col-md-8 col-lg-4">
-            <button type="submit" class="btn btn-success" ng-click="topUp()">Confirm</button>
+            <button type="submit" class="btn btn-success" data-target="#modal-confirm" data-toggle="modal">Confirm</button>
           </div>
         </div>
       </div>
@@ -50,7 +50,39 @@
     </div>
 
 <!-- Top Up end -->
-
+<div id="modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body"><h4>Are you sure?</h4></div>
+            <table class="topup-confirm">
+              <tr>
+                <td>User ID </td>
+                <td>  :</td>
+                <td>@{{userId}}</td>
+              </tr>
+              <tr>
+                <td>Username </td>
+                <td> :</td>
+                <td>@{{userName}}</td>
+              </tr>
+              <tr>
+                <td>Remark </td>
+                <td> :</td>
+                <td>@{{remark}}</td>
+              </tr>
+              <tr>
+                <td>Amount </td>
+                <td> :</td>
+                <td>@{{amount}}</td>
+              </tr>
+            </table>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="topUp()">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Member List star -->
     <div class="col-lg-7" style="float:right;">
@@ -69,7 +101,7 @@
         <div class="clearfix">&nbsp;</div>
 
         <div class="row width-control ng-cloak">
-            <div class="col-lg-5">
+            <div class="col-lg-9">
                 <table class="agent-account-table table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
@@ -85,7 +117,7 @@
                             <td class="username">@{{m.username}}</td>
                             <td class="coin">@{{m.coin}}</td>
                       		<td>
-                                <a><button type="submit" class="btn btn-success btn-sm"  ng-click="selectId(m.id)">Select</button></a>
+                                <a><button type="submit" class="btn btn-success btn-sm"  ng-click="selectId(m.id , m.username)">Select</button></a>
                             </td>
                         </tr>
                     </tbody>

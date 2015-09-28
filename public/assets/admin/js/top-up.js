@@ -5,7 +5,7 @@ App.controller('MainController', function($scope, $http) {
     $scope.member = [];
     $scope.pagination = [];
     $scope.pageTotal = 1;
-    $scope.pageSize = 50;
+    $scope.pageSize = 15;
     $scope.page = 1;
 
     $scope.init = function() {     
@@ -69,7 +69,8 @@ App.controller('MainController', function($scope, $http) {
         });
     }
 
-    $scope.selectId = function(user_id) {
+    $scope.selectId = function(user_id, username) {
         $scope.userId = user_id;
+        $scope.userName = username;
     }
 });

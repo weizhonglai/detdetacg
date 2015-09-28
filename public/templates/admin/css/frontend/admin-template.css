@@ -8,3 +8,13 @@
 	background-color: #636;
 	color: #fff;
 }
+
+.topup-confirm {
+    margin-left: 15px;
+    margin-bottom : 15px;
+}
+
+.topup-confirm td{
+    padding : 2px 10px;
+    font-weight : bolder;
+}

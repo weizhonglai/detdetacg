@@ -11,7 +11,12 @@
 @section('content')
 <div class="row" data-ng-init="init()">
     <div class="col-lg-12">     
-        <div class="clearfix">&nbsp;</div>
+
+        <div style="padding-left:17px">
+            <span>
+                <a href="/admin/advertisement/add-new"><button class="btn btn-success" type="button">Add New</button></a>
+            </span>
+        </div>     
 
         <div class="row width-control ng-cloak">
             <div class="col-lg-12">
