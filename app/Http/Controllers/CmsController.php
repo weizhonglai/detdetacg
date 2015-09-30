@@ -225,71 +225,79 @@ class CmsController extends Controller {
 		}
 
 		$slug = str_slug($imageName, "-");
-
-		if (file_exists("../public/assets/images/advertisement/{$slug}.jpg")) {
-			return ResponseHelper::OutputJSON('fail', "file exist");
+		if (file_exists("./assets/images/advertisement/{$slug}.jpg")) {
+			return ResponseHelper::OutputJSON('fail','image name already exist');
 		}
 
-		$path = './assets/images/advertisement/';
-		$storage = new FileSystem($path, true);
+		try{
+			$storage = new FileSystem('./assets/images/advertisement/');
+			$fileUpload = new File('fileUpload', $storage);
 
-		$fileUpload = new File('fileUpload', $storage);
+			$fileUpload->setName($slug);
+			$fileUpload->addValidations(array(
+				new Mimetype('image/jpeg'),
+				new Size('5M'),
+			));
 
-		if (!intval($fileUpload->getSize())) {
-			return ResponseHelper::OutputJSON('fail', 'please select an image upload');
+			$fileUpload->upload();		
+
+			$advertisement = new BannerAdvertisement;
+			$advertisement->name = $imageName;
+			$advertisement->description = $imageDescription;
+			$advertisement->image_path = '/assets/images/advertisement/'.$slug.'.jpg';
+			$advertisement->save();
+
+			return view('/admin/advertisement');
+
+		} catch (Exception $ex) {
+			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
+				'inputs' => Request::all(),
+			])]);
+			return ResponseHelper::OutputJSON('exception', $fileUpload->getErrors());
 		}
-
-		$fileUpload->setName($slug);
-		$fileUpload->addValidations(array(
-			new Mimetype('image/jpeg'),
-			new Size('1M'),
-		));
-
-		$fileUpload->upload();	
-
-		$advertisement = new BannerAdvertisement;
-		$advertisement->name = $imageName;
-		$advertisement->description = $imageDescription;
-		$advertisement->image_path = $path.$slug.'.jpg';
-		$advertisement->save();
-
-		return ResponseHelper::OutputJSON('success');
-
 	}
 
 	public function changeAvtImage($imageId){
-		$name = Request::input('name');
 		$imageDescription = Request::input("description");
 
-		if(!$name){
-			return ResponseHelper::OutputJSON('fail', 'missing parameters');
+		try{
+			$advertisement = BannerAdvertisement::find($imageId);
+
+			$storage = new FileSystem('./assets/images/advertisement/', true);
+			$fileUpload = new File('fileUpload', $storage);
+			$fileUpload->setName($advertisement->name);
+			$fileUpload->addValidations([
+				new Mimetype('image/jpeg'),
+				new Size('5M'),
+			]);
+
+			if(!$fileUpload->getErrors()){
+				$fileUpload->upload();	
+			}
+
+			$advertisement->description = $imageDescription;
+			$advertisement->save();
+
+			return view('/admin/advertisement');
+		} catch (Exception $ex) {
+			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
+				'inputs' => Request::all(),
+			])]);
+			return ResponseHelper::OutputJSON('exception', $fileUpload->getErrors());
 		}
+	}
 
-		$slug = str_slug($name, "-");
-
-		$path = './assets/images/advertisement/';
-		$storage = new FileSystem($path, true);
-
-		$fileUpload = new File('fileUpload', $storage);
-
-		if (!intval($fileUpload->getSize())) {
-			return ResponseHelper::OutputJSON('fail', 'please select an image upload');
-		}
-
-		$fileUpload->setName($slug);
-		$fileUpload->addValidations(array(
-			new Mimetype('image/jpeg'),
-			new Size('1M'),
-		));
-
-		$fileUpload->upload();	
-
+	public function deleteAvtImage($imageId){
 		$advertisement = BannerAdvertisement::find($imageId);
-		$advertisement->name = $name;
-		$advertisement->description = $imageDescription;
-		$advertisement->image_path = $path.$slug.'.jpg';
-		$advertisement->save();
+
+		if(!$advertisement){
+			return ResponseHelper::OutputJSON('fail', 'advertiesment not found');
+		}
+
+		unlink('.'.$advertisement->image_path);
+		$advertisement->delete();
 
 		return ResponseHelper::OutputJSON('success');
+
 	}
 }

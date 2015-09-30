@@ -44,7 +44,7 @@
                                 <a href="/admin/banner/advertisement/@{{a.id}}"><button type="submit" class="btn btn-success btn-sm" >Update</button></a>
                             </td>
                              <td>
-                                <a href="/admin/member/@{{m.id}}/reset-password"><button type="submit" class="btn btn-success btn-sm" >Remove </button></a>
+                                <a><button type="submit" class="btn btn-success btn-sm" ng-click="removeImg( a.id )">Remove </button></a>
                             </td>
                         </tr>
                     </tbody>

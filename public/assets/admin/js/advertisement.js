@@ -36,4 +36,14 @@ App.controller('MainController', function($scope, $http){
         });  
     }
 
+    $scope.removeImg = function(imageId){  
+        $http.delete('/api/admin/banner/advertisement/'+imageId).success(function(data, status, headers, config) {
+            if (data.status == 'success') {
+                alert('image removed');
+                location = "/admin/advertisement";
+            } else {
+                alert(data.message);
+            }
+        });
+    }
 });	

@@ -17,9 +17,10 @@ Route::group(['prefix' => 'api/admin'], function(){
 		});
 
 		Route::group(['prefix' => 'banner'], function(){
+			Route::get('/advertisement', 'CmsController@getAdvtList');
 			Route::post('/advertisement', 'CmsController@newAvtImage');
 			Route::post('/advertisement/{id}', 'CmsController@changeAvtImage');
-			Route::get('/advertisement', 'CmsController@getAdvtList');
+			Route::delete('/advertisement/{id}', 'CmsController@deleteAvtImage');
 
 		});
 
