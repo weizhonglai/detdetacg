@@ -23,6 +23,9 @@
     <link type="text/css" rel="stylesheet" href="/templates/admin/vendors/iCheck/skins/all.css">
     <link type="text/css" rel="stylesheet" href="/templates/admin/vendors/jquery-notific8/jquery.notific8.min.css">
     <link type="text/css" rel="stylesheet" href="/templates/admin/vendors/bootstrap-daterangepicker/daterangepicker-bs3.css">
+
+    <link type="text/css" rel="stylesheet" href="/templates/admin/vendors/bootstrap-switch/css/bootstrap-switch.css">
+
     <!--Loading style-->
     <link type="text/css" rel="stylesheet" href="/templates/admin/css/themes/style1/orange-blue.css" class="default-style">
     <link type="text/css" rel="stylesheet" href="/templates/admin/css/themes/style1/orange-blue.css" id="theme-change" class="style-change color-change">
@@ -100,6 +103,8 @@
 <script src="/templates/admin/vendors/responsive-tabs/responsive-tabs.js"></script>
 <script src="/templates/admin/vendors/moment/moment.js"></script>
 <script src="/templates/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<script src="/templates/admin/vendors/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!--CORE JAVASCRIPT-->
 <script src="/templates/admin/js/main.js"></script>
 <!--LOADING SCRIPTS FOR PAGE-->

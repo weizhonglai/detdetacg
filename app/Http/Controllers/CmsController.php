@@ -198,7 +198,7 @@ class CmsController extends Controller {
 		$startIndex = $pageSize * ($page - 1);
 
 		$sql = "
-			SELECT * 
+			SELECT `id`, `name` , `description` , `image_path` , `created_at` , IF(`enable` = 1 , 'Running', 'Stop') as `status` , `enable`
 				FROM `t0311_banner_advertisement`
 					WHERE `deleted_at` IS NULL
 
@@ -257,7 +257,7 @@ class CmsController extends Controller {
 		}
 	}
 
-	public function changeAvtImage($imageId){
+	public function updateAvtImage($imageId){
 		$imageDescription = Request::input("description");
 
 		try{
@@ -287,6 +287,23 @@ class CmsController extends Controller {
 		}
 	}
 
+	public function updateAvtEnable($imageId){
+		$enable = Request::input('enable');
+
+		$advertisement = BannerAdvertisement::find($imageId);
+
+		if($enable){
+			$advertisement->enable = 1;	
+		}
+
+		if(!$enable){
+			$advertisement->enable = 0;			
+		}
+
+		$advertisement->save();
+		return ResponseHelper::OutputJSON('success');
+	}
+
 	public function deleteAvtImage($imageId){
 		$advertisement = BannerAdvertisement::find($imageId);
 
@@ -298,6 +315,11 @@ class CmsController extends Controller {
 		$advertisement->delete();
 
 		return ResponseHelper::OutputJSON('success');
-
 	}
+
+	public function avtSlide(){
+		$avt = BannerAdvertisement::where('enable', 1)->orderBy('sequence', 'ASC')->get();
+		return ResponseHelper::OutputJSON('success', '', $avt);
+	}
+
 }

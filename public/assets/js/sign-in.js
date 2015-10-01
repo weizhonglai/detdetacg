@@ -17,8 +17,8 @@ App.controller('SignInController', function($scope, $http) {
 
        
         $http.post('/api/sign-in', {
-            username: username,
-            password: password
+            'username': username,
+            'password': password
 
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {

@@ -29,6 +29,7 @@
                             <th width="30%">File_path</th>
                             <th width="10%">Created At</th>
                             <th width="5%">Status</th>
+                            <th width="5%" colspan="2">Enable</th>
                             <th width="10%" colspan="2">Action</th>
                         </tr>
                     </thead>
@@ -39,16 +40,25 @@
                             <td class="username">@{{a.description}}</td>
                             <td class="email">@{{a.image_path}}</td>
                             <td class="coin">@{{a.created_at}}</td>
-                            <td class="coin">@{{a.enable}}</td>
+                            <td class="coin">@{{a.status}}</td>
+                            <td>
+                                <a ng-click="avtEnable( a.id , 1 )"><i class="glyphicon glyphicon-ok"></i></a>
+                            </td>
+                            <td>
+                                <a ng-click="avtEnable( a.id , 0 )"><i class="glyphicon glyphicon-remove"></i></a>
+                            </td>
+
                             <td>
                                 <a href="/admin/banner/advertisement/@{{a.id}}"><button type="submit" class="btn btn-success btn-sm" >Update</button></a>
                             </td>
+
                              <td>
                                 <a><button type="submit" class="btn btn-success btn-sm" ng-click="removeImg( a.id )">Remove </button></a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                
                 <nav>
                     <ul class="pagination pagination-sm">
                         <li>
