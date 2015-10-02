@@ -253,7 +253,7 @@ class CmsController extends Controller {
 			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
 				'inputs' => Request::all(),
 			])]);
-			return ResponseHelper::OutputJSON('exception', $fileUpload->getErrors());
+			return ResponseHelper::OutputJSON('exception');
 		}
 	}
 
