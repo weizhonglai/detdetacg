@@ -198,7 +198,7 @@ class CmsController extends Controller {
 		$startIndex = $pageSize * ($page - 1);
 
 		$sql = "
-			SELECT * 
+			SELECT `id`, `name` , `description` , `image_path` , `created_at` , IF(`enable` = 1 , 'Running', 'Stop') as `status` , `enable`
 				FROM `t0311_banner_advertisement`
 					WHERE `deleted_at` IS NULL
 
@@ -225,71 +225,101 @@ class CmsController extends Controller {
 		}
 
 		$slug = str_slug($imageName, "-");
-
-		if (file_exists("../public/assets/images/advertisement/{$slug}.jpg")) {
-			return ResponseHelper::OutputJSON('fail', "file exist");
+		if (file_exists("./assets/images/advertisement/{$slug}.jpg")) {
+			return ResponseHelper::OutputJSON('fail','image name already exist');
 		}
 
-		$path = './assets/images/advertisement/';
-		$storage = new FileSystem($path, true);
+		try{
+			$storage = new FileSystem('./assets/images/advertisement/');
+			$fileUpload = new File('fileUpload', $storage);
 
-		$fileUpload = new File('fileUpload', $storage);
+			$fileUpload->setName($slug);
+			$fileUpload->addValidations(array(
+				new Mimetype('image/jpeg'),
+				new Size('5M'),
+			));
 
-		if (!intval($fileUpload->getSize())) {
-			return ResponseHelper::OutputJSON('fail', 'please select an image upload');
+			$fileUpload->upload();		
+
+			$advertisement = new BannerAdvertisement;
+			$advertisement->name = $imageName;
+			$advertisement->description = $imageDescription;
+			$advertisement->image_path = '/assets/images/advertisement/'.$slug.'.jpg';
+			$advertisement->save();
+
+			return view('/admin/advertisement');
+
+		} catch (Exception $ex) {
+			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
+				'inputs' => Request::all(),
+			])]);
+			return ResponseHelper::OutputJSON('exception', $fileUpload->getErrors());
 		}
-
-		$fileUpload->setName($slug);
-		$fileUpload->addValidations(array(
-			new Mimetype('image/jpeg'),
-			new Size('1M'),
-		));
-
-		$fileUpload->upload();	
-
-		$advertisement = new BannerAdvertisement;
-		$advertisement->name = $imageName;
-		$advertisement->description = $imageDescription;
-		$advertisement->image_path = $path.$slug.'.jpg';
-		$advertisement->save();
-
-		return ResponseHelper::OutputJSON('success');
-
 	}
 
-	public function changeAvtImage($imageId){
-		$name = Request::input('name');
+	public function updateAvtImage($imageId){
 		$imageDescription = Request::input("description");
 
-		if(!$name){
-			return ResponseHelper::OutputJSON('fail', 'missing parameters');
+		try{
+			$advertisement = BannerAdvertisement::find($imageId);
+
+			$storage = new FileSystem('./assets/images/advertisement/', true);
+			$fileUpload = new File('fileUpload', $storage);
+			$fileUpload->setName($advertisement->name);
+			$fileUpload->addValidations([
+				new Mimetype('image/jpeg'),
+				new Size('5M'),
+			]);
+
+			if(!$fileUpload->getErrors()){
+				$fileUpload->upload();	
+			}
+
+			$advertisement->description = $imageDescription;
+			$advertisement->save();
+
+			return view('/admin/advertisement');
+		} catch (Exception $ex) {
+			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
+				'inputs' => Request::all(),
+			])]);
+			return ResponseHelper::OutputJSON('exception', $fileUpload->getErrors());
 		}
+	}
 
-		$slug = str_slug($name, "-");
-
-		$path = './assets/images/advertisement/';
-		$storage = new FileSystem($path, true);
-
-		$fileUpload = new File('fileUpload', $storage);
-
-		if (!intval($fileUpload->getSize())) {
-			return ResponseHelper::OutputJSON('fail', 'please select an image upload');
-		}
-
-		$fileUpload->setName($slug);
-		$fileUpload->addValidations(array(
-			new Mimetype('image/jpeg'),
-			new Size('1M'),
-		));
-
-		$fileUpload->upload();	
+	public function updateAvtEnable($imageId){
+		$enable = Request::input('enable');
 
 		$advertisement = BannerAdvertisement::find($imageId);
-		$advertisement->name = $name;
-		$advertisement->description = $imageDescription;
-		$advertisement->image_path = $path.$slug.'.jpg';
+
+		if($enable){
+			$advertisement->enable = 1;	
+		}
+
+		if(!$enable){
+			$advertisement->enable = 0;			
+		}
+
 		$advertisement->save();
+		return ResponseHelper::OutputJSON('success');
+	}
+
+	public function deleteAvtImage($imageId){
+		$advertisement = BannerAdvertisement::find($imageId);
+
+		if(!$advertisement){
+			return ResponseHelper::OutputJSON('fail', 'advertiesment not found');
+		}
+
+		unlink('.'.$advertisement->image_path);
+		$advertisement->delete();
 
 		return ResponseHelper::OutputJSON('success');
 	}
+
+	public function avtSlide(){
+		$avt = BannerAdvertisement::where('enable', 1)->orderBy('sequence', 'ASC')->get();
+		return ResponseHelper::OutputJSON('success', '', $avt);
+	}
+
 }
