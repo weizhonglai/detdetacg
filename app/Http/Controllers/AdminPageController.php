@@ -18,7 +18,7 @@ use App\Models\UserAccount;
 use App\Models\BannerAdvertisement;
 
 
-class PageController extends Controller {
+class AdminPageController extends Controller {
 
 	public function userAccess($userId) {
 		$userAccess = UserAccess::find($userId);

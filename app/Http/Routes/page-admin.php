@@ -11,8 +11,8 @@ Route::group(['prefix' => 'admin'], function(){
 
 
 	//page Controller
-	Route::get('member/{userId}/reset-password', 'PageController@userAccess');
-	Route::get('banner/advertisement/{id}', 'PageController@bannerAdvertisement');
+	Route::get('member/{userId}/reset-password', 'AdminPageController@userAccess');
+	Route::get('banner/advertisement/{id}', 'AdminPageController@bannerAdvertisement');
 });
 	
  

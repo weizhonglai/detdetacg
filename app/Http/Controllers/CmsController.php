@@ -226,15 +226,22 @@ class CmsController extends Controller {
 		}
 		if($type == 3){
 			$query = 'WHERE `status` = -1';
+		}else{
+			return ResponseHelper::OutputJSON('fail', "type not found");
 		}
+
 
 		$sql = "
 			SELECT *
 				FROM `t0203_topup_request`
 					{$query}
 
-					ORDER BY `create_at` DESC
+					ORDER BY `created_at` DESC
 		";
+
+		$db = DB::select($sql);
+
+		return ResponseHelper::OutputJSON('success','' ,$db);
 	}
 
 	public function getAdvtList(){

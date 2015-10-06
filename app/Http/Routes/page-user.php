@@ -27,8 +27,5 @@ Route::group(['prefix' => 'user'], function(){
 	// 	});
 	// });
 
-	
+	Route::get('/{userId}/account-information', 'UserPageController@userInformation');
 });
-	
-	Route::get('/activate-success', function(){ return view('contents.website.activate-success'); });
-	Route::get('/activate-fail', function(){ return view('contents.website.activate-fail'); });

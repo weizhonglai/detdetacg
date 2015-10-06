@@ -23,8 +23,15 @@ Route::group(['prefix' => 'api/admin'], function(){
 			Route::put('/advertisement/{id}/enable', 'CmsController@updateAvtEnable');
 			Route::delete('/advertisement/{id}', 'CmsController@deleteAvtImage');
 			Route::get('/advertisement/slide', 'CmsController@avtSlide');
+		});
+
+		Route::group(['prefix' => 'top-up'], function(){
+			Route::post('/request', 'CmsController@topUpRequest');
+			Route::get('/list/{type}', 'CmsController@topUpRequestList');
 
 		});
+
+
 
 	// });
 });
