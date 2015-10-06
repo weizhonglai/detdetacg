@@ -24,6 +24,7 @@ use App\Models\CategoryMain;
 use App\Models\CategorySub;
 use App\Models\TransactionBook;
 use App\Models\BannerAdvertisement;
+use App\Models\TopUpRequest;
 
 
 class CmsController extends Controller {
@@ -166,7 +167,7 @@ class CmsController extends Controller {
 		}
 	}
 
-	public function accountTopUp(){
+	public function topUp(){
 		$userId = Request::input('user_id');
 		$amount = Request::input('amount');
 		$remark = Request::input('remark', 'Top Up');
@@ -189,6 +190,51 @@ class CmsController extends Controller {
 
 		DatabaseUtilHelper::LogTopup($userId, $amount);
 		return ResponseHelper::OutputJSON("success");
+	}
+
+	public function topUpRequest(){
+		$username = Request::input('username');
+		$amount = Request::input('amount');
+		$description = Request::input('description');
+
+		$userAccess = UserAccess::where('username' , $username)->first();
+		if(!$userAccess){
+			return ResponseHelper::OutputJSON('fail', "user not found");
+		} 
+
+		$user = User::find($userAccess->user_id);
+		if(!$user){
+			return ResponseHelper::OutputJSON('fail', "user not found");
+		}
+
+		$topUpRequest = new TopUpRequest;
+		$topUpRequest->user_id = $userAccess->user_id;
+		$topUpRequest->username = $username;
+		$topUpRequest->amount = $amount;
+		$topUpRequest->description = $description;
+		$topUpRequest->save();
+
+		return ResponseHelper::OutputJSON('success');
+	}
+
+	public function topUpRequestList($type = 1){
+		if($type == 1){
+			$query = 'WHERE `status` = 0';
+		}
+		if($type == 2){
+			$query = 'WHERE `status` = 1';
+		}
+		if($type == 3){
+			$query = 'WHERE `status` = -1';
+		}
+
+		$sql = "
+			SELECT *
+				FROM `t0203_topup_request`
+					{$query}
+
+					ORDER BY `create_at` DESC
+		";
 	}
 
 	public function getAdvtList(){

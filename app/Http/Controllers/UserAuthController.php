@@ -43,20 +43,20 @@ class UserAuthController extends Controller {
 			$userAccess->save();
 
 			Session::put('access_token', $accessToken);
-			return ResponseHelper::OutputJSON('success', '', [], [
+			return ResponseHelper::OutputJSON('success', '', ['username' => $userAccess->username], [
 				'X-access-token' => $accessToken,
 			], [
 				'access_token' => $accessToken,
 			]);
 
-			} catch (Exception $ex) {
-			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
-				'source' => 'AuthUserController > signIn',
-				'inputs' => Request::all(),
-			])]);
-			return ResponseHelper::OutputJSON('exception');
-			}
+		} catch (Exception $ex) {
+		LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
+			'source' => 'AuthUserController > signIn',
+			'inputs' => Request::all(),
+		])]);
+		return ResponseHelper::OutputJSON('exception');
 		}
+	}
 
 	public function signUp() {
 		// $username = Request::input('username'); 
