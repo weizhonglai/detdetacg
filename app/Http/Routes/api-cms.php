@@ -8,7 +8,6 @@ Route::group(['prefix' => 'api/admin'], function(){
 		Route::group(['prefix' => 'member'], function(){
 			Route::get('/list', 'CmsController@memberList');
 			Route::put('/{userId}/reset-password', 'CmsController@resetPassword');
-			Route::put('/top-up', 'CmsController@TopUp');
 		});
 
 		Route::group(['prefix' => 'category'], function(){
@@ -26,6 +25,8 @@ Route::group(['prefix' => 'api/admin'], function(){
 		});
 
 		Route::group(['prefix' => 'top-up'], function(){
+			Route::post('/', 'CmsController@TopUp');
+			Route::put('/deny', 'CmsController@topUpDeny');
 			Route::post('/request', 'CmsController@topUpRequest');
 			Route::get('/list/{type}', 'CmsController@topUpRequestList');
 

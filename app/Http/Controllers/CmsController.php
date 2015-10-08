@@ -170,25 +170,44 @@ class CmsController extends Controller {
 	public function topUp(){
 		$userId = Request::input('user_id');
 		$amount = Request::input('amount');
-		$remark = Request::input('remark', 'Top Up');
-		$password = Request::input('password');
-
-		if($password != Config::get('app.topup_key') ){
-			return ResponseHelper::OutputJSON('fail', "invalid sercet key");
-		}
+		$requestId = Request::input('request_id');
 
 		$userAccess = UserAccess::find($userId);
 		if(!$userAccess){
 			return ResponseHelper::OutputJSON('fail', "user not found");
 		}
+
+		$topUpRequest = TopUpRequest::find($requestId);
+
+		if($topUpRequest->status != '0'){
+			return ResponseHelper::OutputJSON('fail', "request not found");
+		}
 		
 		$transcation = new TransactionBook;
 		$transcation->user_id = $userId;
 		$transcation->account_debit = $amount;
-		$transcation->remark = $remark;
+		$transcation->remark = 'Top Up';
 		$transcation->save();
 
-		DatabaseUtilHelper::LogTopup($userId, $amount);
+		$topUpRequest->status = 1;
+		$topUpRequest->save();
+
+		DatabaseUtilHelper::LogTopup($userId, $amount , $requestId);
+		return ResponseHelper::OutputJSON("success");
+	}
+
+	public function topUpDeny(){
+		$requestId = Request::input('request_id');
+		
+		$topUpRequest = TopUpRequest::find($requestId);
+
+		if($topUpRequest->status != '0'){
+			return ResponseHelper::OutputJSON('fail', "request not found");
+		}
+
+		$topUpRequest->status = '-1';
+		$topUpRequest->save();
+
 		return ResponseHelper::OutputJSON("success");
 	}
 
@@ -218,18 +237,23 @@ class CmsController extends Controller {
 	}
 
 	public function topUpRequestList($type = 1){
+		$page = Request::input("page", '1');
+		$pageSize = Request::input("page_size", '15');
+
+		$startIndex = $pageSize * ($page - 1);
+
 		if($type == 1){
 			$query = 'WHERE `status` = 0';
+			$orm = '0';
 		}
 		if($type == 2){
 			$query = 'WHERE `status` = 1';
+			$orm = '1';
 		}
 		if($type == 3){
 			$query = 'WHERE `status` = -1';
-		}else{
-			return ResponseHelper::OutputJSON('fail', "type not found");
+			$orm = '-1';
 		}
-
 
 		$sql = "
 			SELECT *
@@ -237,11 +261,21 @@ class CmsController extends Controller {
 					{$query}
 
 					ORDER BY `created_at` DESC
+					LIMIT {$startIndex} , {$pageSize}
+
 		";
 
 		$db = DB::select($sql);
+		
 
-		return ResponseHelper::OutputJSON('success','' ,$db);
+		$total = TopUpRequest::where('status' , $orm)->count();
+				
+		return ResponseHelper::OutputJSON('success','' ,[
+				'top_up' => $db,
+				'page' => $page,
+				'page_size' => $pageSize, 
+				'pageTotal' => ceil($total/$pageSize) ,
+			]);
 	}
 
 	public function getAdvtList(){

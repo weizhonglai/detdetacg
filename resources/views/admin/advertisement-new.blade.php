@@ -1,7 +1,7 @@
 @extends('layouts.master-admin')
  
 @section('css_include')
-<link rel="stylesheet" type="text/css" href="/templates/admin/css/frontend/admin-template.css" />
+<link rel="stylesheet" type="text/css" href="/assets/admin/css/admin-template.css" />
 @stop
 
 @section('javascript_include')

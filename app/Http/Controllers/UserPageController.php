@@ -45,12 +45,10 @@ class UserPageController extends Controller {
 
 		$db = DB::select($sql);
 		$result = $db[0];
-		
-		var_export($result); die();
 
-		return view('admin.reset-password' , [
-			'useraccess' => $userAccess 
-			]);
+		// return view('admin.reset-password' , [
+		// 	'useraccess' => $userAccess 
+		// 	]);
 	}
 
 	public function bannerAdvertisement($id) {

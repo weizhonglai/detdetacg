@@ -16,7 +16,7 @@ App.controller('MainController', function($scope, $http){
         var pageSize = pageSize || $scope.pageSize;
 
         page = (page < 1)?1:page;
-        page = (page > $scope.pageTotal)?$scope.pageTotal:page;
+        page = (page < $scope.pageTotal)?$scope.pageTotal:page;
 
         searchValue = angular.element(".search input").val();
 

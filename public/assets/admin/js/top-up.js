@@ -9,26 +9,23 @@ App.controller('MainController', function($scope, $http) {
     $scope.page = 1;
 
     $scope.init = function() {     
-       $scope.fetchMemberList(1, $scope.pageSize); 
+       $scope.topUpList(1, 1, $scope.pageSize); 
     }
 
-    $scope.fetchMemberList = function(page, pageSize){  
-        var pageSize = pageSize || $scope.pageSize;
+    $scope.topUpList = function(type, page, pageSize){ //not complete , when deny tab is blank , will error
+
+        var pageSize = pageSize || $scope.pageSize,
 
         page = (page < 1)?1:page;
-        page = (page > $scope.pageTotal)?$scope.pageTotal:page;
+        page = (page < $scope.pageTotal)?$scope.pageTotal:page;
 
-        searchValue = angular.element(".search input").val();
-
-        $scope.member = [];
-        $http.get('/api/admin/member/list?' + [
+        $scope.topUp = [];
+        $http.get('/api/admin/top-up/list/'+type+'?' + [
             'page=' + page,
             'page_size=' + pageSize,
-            'search=' + searchValue
         ].join('&')).success(function(data, status, headers, config) {
             if (data.status == 'success') {
-                $scope.member = data.data.member;
-
+                $scope.topUp = data.data.top_up;
                 $scope.pagination = [];
                 $scope.page = +data.data.page;
                 $scope.pageTotal = +data.data.pageTotal;
@@ -41,36 +38,39 @@ App.controller('MainController', function($scope, $http) {
         });  
     }
 
-    $scope.topUp = function() {
-        var userid = angular.element("input.userid").val(),
-            amount = angular.element("input.amount").val(),
-            password = angular.element("input.password").val();
-            remark = angular.element("input.remark").val();
-
-        if (userid == '' || amount == ''|| password == '') {
-            alert('Please fill out all the contents and continue.');
-            return;
-        }
-
-       
-        $http.put('/api/admin/member/account-topup', {
-            'user_id': userid,
+    $scope.topUpApprove = function(request_id , userId, amount) {
+        $http.post('/api/admin/top-up', {
+            'request_id' : request_id,
+            'user_id': userId,
             'amount': amount,
-            'password': password,
-            'remark': remark
-
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {
                 alert('success')
-                location = "/admin/top-up";
+                $scope.topUpList(1, 1, $scope.pageSize); 
             } else {
                 alert(data.message);
             }
         });
     }
 
-    $scope.selectId = function(user_id, username) {
+     $scope.topUpDeny = function(request_id ){
+        $http.put('/api/admin/top-up/deny', {
+            'request_id' : request_id,
+        }).success(function(data, status, headers, config) {
+            if (data.status == 'success') {
+                alert('success')
+                $scope.topUpList(1, 1, $scope.pageSize); 
+            } else {
+                alert(data.message);
+            }
+        });
+     }
+
+    $scope.selectId = function(user_id,username,amount,description) {
         $scope.userId = user_id;
-        $scope.userName = username;
+        $scope.username = username;
+        $scope.amount = amount;
+        $scope.description = description;
     }
+
 });
