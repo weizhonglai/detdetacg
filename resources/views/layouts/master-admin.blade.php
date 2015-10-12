@@ -68,7 +68,7 @@
                     <li><a href="#"><i class="fa fa-edit fa-fw">
                     </i><span class="menu-title">Content</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="/admin/catergory"><i class="fa fa-user"></i><span class="submenu-title">Manage Category</span></a></li>
+                            <li><a href="/admin/category"><i class="fa fa-user"></i><span class="submenu-title">Manage Category</span></a></li>
                             <li><a href="/admin/advertisement"><i class="fa fa-cube"></i><span class="submenu-title">Advertisement</span></a></li>
                         </ul>
                     </li>
@@ -83,7 +83,7 @@
         </div>
     </div>
 </div>
-</div>
+</div>  
 
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="/bower_components/angular/angular.min.js"></script>
