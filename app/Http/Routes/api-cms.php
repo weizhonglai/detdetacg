@@ -12,6 +12,7 @@ Route::group(['prefix' => 'api/admin'], function(){
 
 		Route::group(['prefix' => 'category'], function(){
 			Route::post('/main', 'CmsController@createMainCategory');
+			Route::get('/main', 'CmsController@createMainCategory');
 			Route::post('/sub', 'CmsController@createSubCategory'); 
 		});
 

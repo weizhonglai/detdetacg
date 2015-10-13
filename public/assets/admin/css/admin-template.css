@@ -23,6 +23,10 @@
     vertical-align: middle;
 }
 
+.table {
+    width: 65%;
+}
+
 .glyphicon{
 	font-size : 20px;
 }
@@ -42,4 +46,8 @@
   background-color: #5cb85c;
   border-color: #55b555;
   width : 100px;
+}
+
+.row {
+  margin-right: 0px;
 }

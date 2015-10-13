@@ -73,10 +73,8 @@ class CmsController extends Controller {
 		}
 	}
 
-	public function createMainCategory() {
-//need test
+	public function createMainCategory(){
 		$name = Request::input('name');
-		$description = Request::input('description');
 		$enable = Request::input('enable', 1);
 
 		$mainCategory = CategoryMain::where('name' , $name)->first();
@@ -87,16 +85,32 @@ class CmsController extends Controller {
 
 		$mainCategory = new CategoryMain;
 		$mainCategory->name = $name;
-		$mainCategory->description = $description;
 		$mainCategory->enable = $enable;
 		$mainCategory->save();
 
 		return ResponseHelper::OutputJSON('success');
+	}
+
+	public function getMainCategory(){ //in progress
+		$page = Request::input("page", '1');
+		$pageSize = Request::input("page_size", '15');
+
+		$startIndex = $pageSize * ($page - 1);
+
+		$sql = "
+			SELECT * 
+				FROM `t0301_category_main`
+					ORDER BY `enable` DESC , `sequence` ASC
+					LIMIT {$startIndex} , {$pageSize}
+		";
+
+		$main = DB::select($sql);
+		$total = CategoryMain::all()->count();
+
 
 	}
 
-	public function createSubCategory() {
-//need test
+	public function createSubCategory(){
 		$mainId = Request::input('main_id');
 		$name = Request::input('name');
 		$description = Request::input('description');
@@ -116,7 +130,6 @@ class CmsController extends Controller {
 		$subCategory->save();
 
 		return ResponseHelper::OutputJSON('success');
-
 	}
 
 	public function resetPassword($userId){
