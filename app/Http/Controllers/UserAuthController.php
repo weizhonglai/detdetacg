@@ -15,6 +15,7 @@ use App\Models\LogPasswordReset;
 use App\Models\User;
 use App\Models\UserAccess;
 use App\Models\UserAccount;
+use App\Models\UserSetting;
 
 
 class UserAuthController extends Controller {
@@ -43,20 +44,20 @@ class UserAuthController extends Controller {
 			$userAccess->save();
 
 			Session::put('access_token', $accessToken);
-			return ResponseHelper::OutputJSON('success', '', [], [
+			return ResponseHelper::OutputJSON('success', '', ['username' => $userAccess->username, 'user_id' =>  $userAccess->user_id ], [
 				'X-access-token' => $accessToken,
 			], [
 				'access_token' => $accessToken,
 			]);
 
-			} catch (Exception $ex) {
-			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
-				'source' => 'AuthUserController > signIn',
-				'inputs' => Request::all(),
-			])]);
-			return ResponseHelper::OutputJSON('exception');
-			}
+		} catch (Exception $ex) {
+		LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
+			'source' => 'AuthUserController > signIn',
+			'inputs' => Request::all(),
+		])]);
+		return ResponseHelper::OutputJSON('exception');
 		}
+	}
 
 	public function signUp() {
 		// $username = Request::input('username'); 
@@ -78,9 +79,9 @@ class UserAuthController extends Controller {
 		$fax = Request::input('fax_number');
 		$mobile = Request::input('mobile');
 
-		if (!$password || !$name || !$email || !$nric || !$dob || !$mobile) {
-			return ResponseHelper::OutputJSON('fail', "missing parameters");
-		}
+		// if (!$password || !$name || !$email || !$nric || !$dob || !$mobile) {
+		// 	return ResponseHelper::OutputJSON('fail', "missing parameters");
+		// }
 
 		if (strlen($password) < 6) {
 			return ResponseHelper::OutputJSON('fail', 'password must be atleast 6 chars');
@@ -127,6 +128,11 @@ class UserAuthController extends Controller {
 			$userAccount->user_id = $user->id;
 			$userAccount->save();
 
+			$userSetting = new UserSetting;
+			$userSetting->user_id = $user->id;
+			$userSetting->save();
+
+
 			// $secretKey = sha1(time() . $email);
 			// $edmHtml = (string) view('emails.account-activation', [
 			// 	'name' => $name,
@@ -167,7 +173,7 @@ class UserAuthController extends Controller {
 			])]);
 			return ResponseHelper::OutputJSON('exception');
 		}
-			return ResponseHelper::OutputJSON('success', '', $userAccess, [
+			return ResponseHelper::OutputJSON('success', '', ['user_id'=>$userAccess->user_id,'username'=>$userAccess->username] , [
 				'X-access-token' => $accessToken
 			],[
 				'access_token' => $accessToken

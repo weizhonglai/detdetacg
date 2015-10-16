@@ -129,10 +129,12 @@ class DatabaseUtilHelper {
 		return true;
 	}
 
-	public static function LogTopup($userId , $amount){
+	public static function LogTopup($userId , $amount , $requestId , $status){
 		$logTopUp = new LogAccountTopup;
 		$logTopUp->user_id = $userId;		
+		$logTopUp->request_id = $requestId;		
 		$logTopUp->amount = $amount;
+		$logTopUp->status = $status;
 		$logTopUp->save();
 	}
 

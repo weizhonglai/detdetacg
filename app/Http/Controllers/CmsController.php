@@ -24,7 +24,8 @@ use App\Models\CategoryMain;
 use App\Models\CategorySub;
 use App\Models\TransactionBook;
 use App\Models\BannerAdvertisement;
-
+use App\Models\TopUpRequest;
+use App\Models\LogAccountTopup;
 
 class CmsController extends Controller {
 
@@ -36,7 +37,7 @@ class CmsController extends Controller {
 		$sqlSearch = '';
 
 		if($search || $search == '0' ){
-			$sqlSearch  = " WHERE r.`id` LIKE '%{$search}%' OR r.`name` LIKE '%{$search}%' OR r.`email` LIKE '%{$search}%' OR r.`username` LIKE '%{$search}%'  ";
+			$sqlSearch  = " WHERE r.`id` LIKE '%{$search}%' OR r.`first_name` LIKE '%{$search}%' OR r.`last_name` LIKE '%{$search}%' OR r.`email` LIKE '%{$search}%' OR r.`username` LIKE '%{$search}%'  ";
 		}
 
 		try{	
@@ -45,7 +46,7 @@ class CmsController extends Controller {
 			$sql = "
 			SELECT * 
 				FROM (
-					SELECT u.`id`, u.`name` , u.`email`, acc.`username` ,( SUM(`account_debit`) - IFNULL(SUM(`account_credit`),0) ) as `coin`
+					SELECT u.`id`, u.`first_name`, u.`last_name` , u.`email`, acc.`username` ,( SUM(`account_debit`) - IFNULL(SUM(`account_credit`),0) ) as `coin`
 						FROM (`t0101_user` u, `t0102_user_access` acc )
 						LEFT JOIN `t0202_transaction_book` tb ON (u.`id` = tb.`user_id`)
 							WHERE  u.`id` = acc.`user_id`
@@ -64,7 +65,7 @@ class CmsController extends Controller {
 					'page_size' => $pageSize, 
 					'pageTotal' => ceil($total/$pageSize) ,
 				]);
-		} catch (Exception $ex) {
+		} catch (Exception $ex) {	
 			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
 				'inputs' => \Request::all(),
 			])]);
@@ -72,30 +73,113 @@ class CmsController extends Controller {
 		}
 	}
 
-	public function createMainCategory() {
-//need test
+	public function memberDetail($id){ // still need add on function
+		$page = Request::input("page", '1');
+		$pageSize = Request::input("page_size", '15');
+
+		$totalType = Request::input("total_type");
+		$startIndex = $pageSize * ($page - 1);
+
+		$user = User::find($id);
+		if(!$user){
+			return ResponseHelper::OutputJSON('fail' , 'user not found');
+		}
+
+		$sqlTopUp = "
+			SELECT *
+				FROM `t9402_log_account_topup`
+					WHERE `user_id` = {$id}
+
+					ORDER BY `created_at` DESC
+					LIMIT {$startIndex} , {$pageSize}
+		";
+
+		$topUp = DB::select($sqlTopUp);
+
+		if($totalType == 'topUp'){
+			$total = LogAccountTopup::where('user_id', $id)->count();
+		}
+
+		return ResponseHelper::OutputJSON('success', '', [
+			'top_up_history' => $topUp,
+			'page' => $page,
+			'page_size' => $pageSize, 
+			'pageTotal' => ceil($total/$pageSize) ,
+		]);	
+	}
+
+	public function createMainCategory(){
 		$name = Request::input('name');
-		$description = Request::input('description');
-		$enable = Request::input('enable', 1);
+		$sequence = Request::input('sequence');
 
 		$mainCategory = CategoryMain::where('name' , $name)->first();
 
-		if($mainCategory){
-			return ResponseHelper::OutputJSON('fail', "name is already use");
+		if(!$mainCategory){
+			$mainCategory = new CategoryMain;
 		}
 
-		$mainCategory = new CategoryMain;
 		$mainCategory->name = $name;
-		$mainCategory->description = $description;
-		$mainCategory->enable = $enable;
+		$mainCategory->sequence = $sequence;
 		$mainCategory->save();
 
 		return ResponseHelper::OutputJSON('success');
-
 	}
 
-	public function createSubCategory() {
-//need test
+	public function getMainCategory(){ 
+		$page = Request::input("page", '1');
+		$pageSize = Request::input("page_size", '15');
+
+		$startIndex = $pageSize * ($page - 1);
+
+		$sql = "
+			SELECT * 
+				FROM `t0301_category_main`
+					WHERE `deleted_at` IS NULL
+					ORDER BY `enable` DESC , `sequence` ASC
+					LIMIT {$startIndex} , {$pageSize}
+		";
+
+		$main = DB::select($sql);
+		$total = CategoryMain::all()->count();
+
+		return ResponseHelper::OutputJSON('success', '', [
+			'category_main' => $main,
+			'page' => $page,
+			'page_size' => $pageSize, 
+			'pageTotal' => ceil($total/$pageSize) ,
+		]);
+	}
+
+	public function enableMainCategory($id){
+		$enable = Request::input('enable');
+
+		$categoryMain = CategoryMain::find($id);
+
+		if($enable){
+			$categoryMain->enable = 1;	
+		}
+
+		if(!$enable){
+			$categoryMain->enable = 0;			
+		}
+
+		$categoryMain->save();
+		return ResponseHelper::OutputJSON('success');
+	}
+
+	public function removeMainCategory($id){
+		$categoryMain = CategoryMain::find($id);
+
+		if(!$categoryMain){
+			return ResponseHelper::OutputJSON('fail', 'advertiesment not found');
+		}
+
+		$categoryMain->delete();
+
+		return ResponseHelper::OutputJSON('success');
+	}
+
+	public function createSubCategory(){
 		$mainId = Request::input('main_id');
 		$name = Request::input('name');
 		$description = Request::input('description');
@@ -115,7 +199,6 @@ class CmsController extends Controller {
 		$subCategory->save();
 
 		return ResponseHelper::OutputJSON('success');
-
 	}
 
 	public function resetPassword($userId){
@@ -166,29 +249,109 @@ class CmsController extends Controller {
 		}
 	}
 
-	public function accountTopUp(){
+	public function topUp(){
 		$userId = Request::input('user_id');
 		$amount = Request::input('amount');
-		$remark = Request::input('remark', 'Top Up');
-		$password = Request::input('password');
-
-		if($password != Config::get('app.topup_key') ){
-			return ResponseHelper::OutputJSON('fail', "invalid sercet key");
-		}
+		$requestId = Request::input('request_id');
+		$status = Request::input('status');
 
 		$userAccess = UserAccess::find($userId);
 		if(!$userAccess){
 			return ResponseHelper::OutputJSON('fail', "user not found");
 		}
+
+		$topUpRequest = TopUpRequest::find($requestId);
+
+		if($topUpRequest->status != '0'){
+			return ResponseHelper::OutputJSON('fail', "request not found");
+		}
 		
 		$transcation = new TransactionBook;
 		$transcation->user_id = $userId;
 		$transcation->account_debit = $amount;
-		$transcation->remark = $remark;
+		$transcation->remark = 'Top Up';
 		$transcation->save();
 
-		DatabaseUtilHelper::LogTopup($userId, $amount);
+		$topUpRequest->status = $status;
+		$topUpRequest->save();
+
+		if($status == 1){
+			$status = 'success';
+		}elseif($status == '-1'){
+			$status = 'deny';
+		}
+
+		DatabaseUtilHelper::LogTopup($userId, $amount , $requestId , $status);
 		return ResponseHelper::OutputJSON("success");
+	}
+
+	public function topUpRequest(){
+		$username = Request::input('username');
+		$amount = Request::input('amount');
+		$description = Request::input('description');
+
+		$userAccess = UserAccess::where('username' , $username)->first();
+		if(!$userAccess){
+			return ResponseHelper::OutputJSON('fail', "user not found");
+		} 
+
+		$user = User::find($userAccess->user_id);
+		if(!$user){
+			return ResponseHelper::OutputJSON('fail', "user not found");
+		}
+
+		$topUpRequest = new TopUpRequest;
+		$topUpRequest->user_id = $userAccess->user_id;
+		$topUpRequest->username = $username;
+		$topUpRequest->amount = $amount;
+		$topUpRequest->description = $description;
+		$topUpRequest->save();
+
+		return ResponseHelper::OutputJSON('success');
+	}
+
+	public function topUpRequestList($type = 1){
+		$page = Request::input("page", '1');
+		$pageSize = Request::input("page_size", '15');
+
+		$startIndex = $pageSize * ($page - 1);
+
+		if($type == 1){
+			$query = 'WHERE `status` = 0';
+			$orm = '0';
+		}
+		if($type == 2){
+			$query = 'WHERE `status` = 1';
+			$orm = '1';
+		}
+		if($type == 3){
+			$query = 'WHERE `status` = -1';
+			$orm = '-1';
+		}
+
+		$sql = "
+			SELECT *
+				FROM `t0203_topup_request`
+					{$query}
+
+					ORDER BY `created_at` DESC
+					LIMIT {$startIndex} , {$pageSize}
+
+		";
+
+		$db = DB::select($sql);
+		
+
+		$total = TopUpRequest::where('status' , $orm)->count();
+		if(!$total){
+			$total = 1;
+		}
+		return ResponseHelper::OutputJSON('success','' ,[
+				'top_up' => $db,
+				'page' => $page,
+				'page_size' => $pageSize, 
+				'pageTotal' => ceil($total/$pageSize) ,
+			]);
 	}
 
 	public function getAdvtList(){

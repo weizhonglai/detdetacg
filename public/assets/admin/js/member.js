@@ -16,7 +16,7 @@ App.controller('MainController', function($scope, $http){
         var pageSize = pageSize || $scope.pageSize;
 
         page = (page < 1)?1:page;
-        page = (page > $scope.pageTotal)?$scope.pageTotal:page;
+        page = (page < $scope.pageTotal)?$scope.pageTotal:page;
 
         searchValue = angular.element(".search input").val();
 
@@ -28,7 +28,6 @@ App.controller('MainController', function($scope, $http){
         ].join('&')).success(function(data, status, headers, config) {
             if (data.status == 'success') {
                 $scope.member = data.data.member;
-
                 $scope.pagination = [];
                 $scope.page = +data.data.page;
                 $scope.pageTotal = +data.data.pageTotal;

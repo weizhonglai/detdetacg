@@ -48,7 +48,6 @@ App.controller('MainController', function($scope, $http){
     }
 
     $scope.avtEnable = function(imageId , enable){ 
-        console.log(imageId)
         $http.put('/api/admin/banner/advertisement/'+imageId+'/enable/', {
             'enable' : enable
         }).success(function(data, status, headers, config) {

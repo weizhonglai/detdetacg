@@ -6,5 +6,6 @@ require __DIR__ . '/Routes/page-admin.php';
 
 require __DIR__ . '/Routes/api-auth.php';
 require __DIR__ . '/Routes/api-cms.php';
+require __DIR__ . '/Routes/api-member.php';
 
 

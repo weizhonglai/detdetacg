@@ -1,7 +1,7 @@
 @extends('layouts.master-admin')
  
 @section('css_include')
-<link rel="stylesheet" type="text/css" href="/templates/admin/css/frontend/admin-template.css" />
+<link rel="stylesheet" type="text/css" href="/assets/admin/css/admin-template.css" />
 @stop
 
 @section('javascript_include')
@@ -31,8 +31,9 @@
                     <thead>
                         <tr>
                             <th width="5%">#</th>
-                            <th width="10%">Member ID</th>
-                            <th width="15%">Name</th>
+                            <th width="9%">Member ID</th>
+                            <th width="10%">First Name</th>
+                            <th width="10%">Last Name</th>
                             <th width="20%">Username</th>
                             <th width="20%">Email</th>
                             <th width="10%">Balance(Coin)</th>
@@ -44,12 +45,13 @@
                         <tr ng-repeat="m in member">
                             <td>@{{$index+1}}</td> 
                             <td class="user-id">@{{m.id}}</td>
-                            <td class="name">@{{m.name}}</td>
+                            <td class="name">@{{m.first_name}}</td>
+                            <td class="name">@{{m.last_name}}</td>
                             <td class="username">@{{m.username}}</td>
                             <td class="email">@{{m.email}}</td>
                             <td class="coin">@{{m.coin}}</td>
                             <td>
-                                <a href="/admin/member/@{{m.id}}/reset-password"><button type="submit" class="btn btn-success btn-sm" >View Account Info</button></a>
+                                <a href="/admin/member/@{{m.id}}/detail"><button type="submit" class="btn btn-success btn-sm" >View Account Info</button></a>
                             </td>
                              <td>
                                 <a href="/admin/member/@{{m.id}}/reset-password"><button type="submit" class="btn btn-success btn-sm" >Reset Password</button></a>
