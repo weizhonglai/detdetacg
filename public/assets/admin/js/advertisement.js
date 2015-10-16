@@ -15,7 +15,7 @@ App.controller('MainController', function($scope, $http){
         var pageSize = pageSize || $scope.pageSize;
 
         page = (page < 1)?1:page;
-        page = (page < $scope.pageTotal)?$scope.pageTotal:page;
+        page = (page > $scope.pageTotal)?$scope.pageTotal:page;
 
         $scope.advertisement = [];
         $http.get('/api/admin/banner/advertisement?' + [
@@ -48,7 +48,6 @@ App.controller('MainController', function($scope, $http){
     }
 
     $scope.avtEnable = function(imageId , enable){ 
-        console.log(imageId)
         $http.put('/api/admin/banner/advertisement/'+imageId+'/enable/', {
             'enable' : enable
         }).success(function(data, status, headers, config) {

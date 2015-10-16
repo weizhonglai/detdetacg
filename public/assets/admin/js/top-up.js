@@ -17,7 +17,7 @@ App.controller('MainController', function($scope, $http) {
         var pageSize = pageSize || $scope.pageSize,
 
         page = (page < 1)?1:page;
-        page = (page < $scope.pageTotal)?$scope.pageTotal:page;
+        page = (page > $scope.pageTotal)?$scope.pageTotal:page;
 
         $scope.topUp = [];
         $http.get('/api/admin/top-up/list/'+type+'?' + [
@@ -38,11 +38,12 @@ App.controller('MainController', function($scope, $http) {
         });  
     }
 
-    $scope.topUpApprove = function(request_id , userId, amount) {
+    $scope.AccountTopUp = function(request_id , userId, amount ,status) {
         $http.post('/api/admin/top-up', {
             'request_id' : request_id,
             'user_id': userId,
             'amount': amount,
+            'status': status,
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {
                 alert('success')
@@ -53,18 +54,18 @@ App.controller('MainController', function($scope, $http) {
         });
     }
 
-     $scope.topUpDeny = function(request_id ){
-        $http.put('/api/admin/top-up/deny', {
-            'request_id' : request_id,
-        }).success(function(data, status, headers, config) {
-            if (data.status == 'success') {
-                alert('success')
-                $scope.topUpList(1, 1, $scope.pageSize); 
-            } else {
-                alert(data.message);
-            }
-        });
-     }
+    // $scope.topUpDeny = function(request_id ){
+    //     $http.put('/api/admin/top-up/deny', {
+    //         'request_id' : request_id,
+    //     }).success(function(data, status, headers, config) {
+    //         if (data.status == 'success') {
+    //             alert('success')
+    //             $scope.topUpList(1, 1, $scope.pageSize); 
+    //         } else {
+    //             alert(data.message);
+    //         }
+    //     });
+    //  }
 
     $scope.selectId = function(user_id,username,amount,description) {
         $scope.userId = user_id;

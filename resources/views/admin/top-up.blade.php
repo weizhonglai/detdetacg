@@ -44,10 +44,10 @@
                                                 <button type="submit" class="btn btn-topup btn-sm" data-target="#modal-detail" data-toggle="modal" ng-click="selectId(t.user_id,t.username,t.amount,t.description)" >Details</button>
                                             </td>
                                              <td>
-                                                <button type="submit" class="btn btn-topup btn-sm" ng-click="topUpApprove(t.id, t.user_id, t.amount)">Approve</button>
+                                                <button type="submit" class="btn btn-topup btn-sm" ng-click="AccountTopUp(t.id, t.user_id, t.amount , 1)">Approve</button>
                                             </td>
                                              <td>
-                                                <button type="submit" class="btn btn-topup btn-sm" ng-click="topUpDeny(t.id)">Deny</button>
+                                                <button type="submit" class="btn btn-topup btn-sm" ng-click="AccountTopUp(t.id, t.user_id, t.amount , -1)">Deny</button>
                                             </td>
                                         </tr>
                                     </tbody>

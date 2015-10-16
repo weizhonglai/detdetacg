@@ -4,7 +4,7 @@ App.controller('MainController', function($scope, $http){
     $scope.categoryMain = [];
     $scope.pagination = [];
     $scope.pageTotal = 1;
-    $scope.pageSize = 15;
+    $scope.pageSize = 10;
     $scope.page = 1;
 
     $scope.init = function() {     
@@ -13,7 +13,8 @@ App.controller('MainController', function($scope, $http){
 
     $scope.newCategoryMain = function() {
 
-        var categoryMainName = angular.element("#category-main").val();
+        var categoryMainName = angular.element("#category-main").val(),
+            sequence = angular.element("#sequence").val();
 
         if (categoryMainName == '') {
             alert('Please enter new category name and continue.');
@@ -21,13 +22,14 @@ App.controller('MainController', function($scope, $http){
         }
        
         $http.post('/api/admin/category/main', {
-            "name": categoryMainName
+            'name': categoryMainName,
+            'sequence': sequence
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {
                 alert("success");
+                $scope.fetchCategory( $scope.page , $scope.pageSize); 
             } else {
-                alert('name aleready exist');
-                console.log(data.message);
+                alert(data.message);
             }
         });
     }
@@ -36,7 +38,7 @@ App.controller('MainController', function($scope, $http){
         var pageSize = pageSize || $scope.pageSize;
 
         page = (page < 1)?1:page;
-        page = (page < $scope.pageTotal)?$scope.pageTotal:page;
+        page = (page > $scope.pageTotal)?$scope.pageTotal:page;
 
         $scope.categoryMain = [];
         $http.get('/api/admin/category/main?' + [
@@ -44,7 +46,7 @@ App.controller('MainController', function($scope, $http){
             'page_size=' + pageSize
         ].join('&')).success(function(data, status, headers, config) {
             if (data.status == 'success') {
-                $scope.categoryMain = data.data;
+                $scope.categoryMain = data.data.category_main;
                 $scope.pagination = [];
                 $scope.page = +data.data.page;
                 $scope.pageTotal = +data.data.pageTotal;
@@ -57,16 +59,26 @@ App.controller('MainController', function($scope, $http){
         });  
     }
 
-    // $scope.categoryMainEnable = function(imageId , enable){ 
-    //     console.log(imageId)
-    //     $http.put('/api/admin/banner/category_main/'+imageId+'/enable/', {
-    //         'enable' : enable
-    //     }).success(function(data, status, headers, config) {
-    //         if (data.status == 'success') {
-    //             $scope.fetchCategory($scope.page, $scope.pageSize);
-    //         } else {
-    //             alert(data.message);
-    //         }
-    //     });
-    // }
+    $scope.avtEnable = function(id , enable){ 
+        $http.put('/api/admin/category/'+id+'/main', {
+            'enable' : enable
+        }).success(function(data, status, headers, config) {
+            if (data.status == 'success') {
+                $scope.fetchCategory($scope.page, $scope.pageSize);
+            } else {
+                alert(data.message);
+            }
+        });
+    }
+
+    $scope.removeCategory = function(id){  
+        $http.delete('/api/admin/category/'+id+'/main').success(function(data, status, headers, config) {
+            if (data.status == 'success') {
+                alert('category removed');
+                $scope.fetchCategory($scope.page, $scope.pageSize);
+            } else {
+                alert(data.message);
+            }
+        });
+    }
 });	

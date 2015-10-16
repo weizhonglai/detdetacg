@@ -16,9 +16,23 @@ use App\Models\User;
 use App\Models\UserAccess;
 use App\Models\UserAccount;
 use App\Models\BannerAdvertisement;
+use App\Models\LogAccountTopup;
+
 
 
 class AdminPageController extends Controller {
+
+	public function user($userId){
+		$user = User::find($userId);
+
+		if(!$user){
+			return ResponseHelper::OutputJSON('fail' , 'user not found');
+		}
+
+		return view('admin.member-detail' , [
+			'user' => $user 
+			]);
+	}
 
 	public function userAccess($userId) {
 		$userAccess = UserAccess::find($userId);

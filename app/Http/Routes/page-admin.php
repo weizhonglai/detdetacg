@@ -5,6 +5,7 @@ Route::group(['prefix' => 'admin'], function(){
 	
 
 	Route::get('/member-list', function(){ return view('admin.member-list'); });
+	Route::get('/member-detail', function(){ return view('admin.member-detail'); });
 	Route::get('/top-up', function(){ return view('admin.top-up'); });
 
 	Route::get('/advertisement', function(){ return view('admin.advertisement'); });
@@ -14,8 +15,10 @@ Route::group(['prefix' => 'admin'], function(){
 
 
 	//page Controller
+	Route::get('member/{userId}/detail', 'AdminPageController@user');
 	Route::get('member/{userId}/reset-password', 'AdminPageController@userAccess');
 	Route::get('banner/advertisement/{id}', 'AdminPageController@bannerAdvertisement');
+	
 });
 	
  
