@@ -1,10 +1,14 @@
 <?php namespace App\Libraries;
 
 use App\Models\LogInsert;
+use App\Models\LogAccountTopup;
+use App\Models\LogSigninAdmin;
+
 use DB;
 use Exception;
 use PDO;
 use Request;
+
 
 class DatabaseUtilHelper {
 
@@ -123,5 +127,23 @@ class DatabaseUtilHelper {
 		if ($userCount[0]->count > 4) {return false;}
 
 		return true;
+	}
+
+	public static function LogTopup($userId , $amount , $requestId , $status){
+		$logTopUp = new LogAccountTopup;
+		$logTopUp->user_id = $userId;		
+		$logTopUp->request_id = $requestId;		
+		$logTopUp->amount = $amount;
+		$logTopUp->status = $status;
+		$logTopUp->save();
+	}
+
+	public static function LogSigninAdmin($username , $password, $success){
+		$logTopUp = new LogSigninAdmin;
+		$logTopUp->username = $username;		
+		$logTopUp->password_sha1 = $password;
+		$logTopUp->success = $success;
+		$logTopUp->created_ip = Request::ip();
+		$logTopUp->save();
 	}
 }

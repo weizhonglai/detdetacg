@@ -4,12 +4,12 @@ Route::get('/',  function(){ return Redirect::to('/index'); });
 
 Route::get('/index', function(){ return  view('index'); });
 
-Route::get('/cart', function(){ return  view('cart'); });
+Route::get('/aution', function(){ return  view('aution'); });
 
-Route::get('/listing', function(){ return view('listing'); });
+Route::get('/services', function(){ return view('services'); });
 
-Route::get('/categories', function(){ return view('categories'); });
+Route::get('/detdetforum', function(){ return view('detdetforum'); });
 
-Route::get('/prod_detail', function(){ return view('prod_detail'); });
+Route::get('/faq', function(){ return view('faq'); });
 
 Route::get('/contact', function(){ return view('contact'); });

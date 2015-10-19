@@ -1,0 +1,25 @@
+
+.header-content h1 {
+    line-height: 40px;
+}
+.btn-enter {
+    color: #fff;
+    background-color: #009900;
+    border-color: #4cae4c;
+}
+.btn-enter:hover, .btn-enter:focus, .btn-enter:active, .btn-enter.active, .open > .dropdown-toggle.btn-enter {
+    color: #fff;
+    background-color: #00CC00;
+    border-color: #398439;
+}
+.btn-enter:active, .btn-enter.active, .open > .dropdown-toggle.btn-enter {
+    background-image: none;
+}
+.btn-enter.disabled, .btn-enter[disabled], fieldset[disabled] .btn-enter, .btn-enter.disabled:hover, .btn-enter[disabled]:hover, fieldset[disabled] .btn-enter:hover, .btn-enter.disabled:focus, .btn-enter[disabled]:focus, fieldset[disabled] .btn-enter:focus, .btn-enter.disabled:active, .btn-enter[disabled]:active, fieldset[disabled] .btn-enter:active, .btn-enter.disabled.active, .btn-enter[disabled].active, fieldset[disabled] .btn-enter.active {
+    background-color: #00CC00;
+    border-color: #4cae4c;
+}
+.btn-enter .badge {
+    color: #00CC00;
+    background-color: #fff;
+}

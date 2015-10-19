@@ -12,11 +12,10 @@ CSS Document
 body {
 	background-image:url(/templates/images/bg.gif);
 	background-repeat:repeat-x;
-	background-color:#FFF;
+	background-color:#FFF`;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
 	color:#666666;
-	border-top:#999a8c solid 8px;
 }
 
 /*
@@ -158,28 +157,28 @@ Cart and Top Navigation Rules
 .cart_tab {
 	clear:both;
 	float:right;
-	margin-bottom:25px;
+	margin-bottom:35px;
 }
 .cart_tab .left_curv{
 	float:left;
-	width:20px;
+	width: 20px;
 	height:28px;
 	background-image:url(/templates/images/left_curve.png);
 	background-repeat:no-repeat;
 }
 .cart_tab .right_curv{
 	float:left;
-	width:20px;
+	width:40px;
 	height:28px;
 	background-image:url(/templates/images/right_curve.png);
 	background-repeat:no-repeat;
 }
 .cart_tab .center_curv{
 	float:left;
-	height:24px;
+	max-height:100%;
 	background-image:url(/templates/images/curve_bg.gif);
 	background-repeat:repeat-x;
-	padding:4px 0px 0px 0px;
+	padding:6px 0px 0px 0px;
 }
 .center_curv ul li{
 	margin-top:2px;
@@ -347,8 +346,15 @@ Easy Slider Rules
 	#slider{
 		border:#b4b4b4 solid 1px;
 		margin:0px 0px 15px 0px;
-		width:938px !important;
-		height:288px !important;
+		max-width:100% !important;
+		height:200px !important;
+		overflow:hidden;
+		}	
+		#slider1{
+		border:#b4b4b4 solid 1px;
+		margin:0px 0px 15px 0px;
+		max-width:100% !important;
+		height:200px !important;
 		overflow:hidden;
 		}	
 	
@@ -368,13 +374,13 @@ Content Section Rules
 	float:left;
 }
 .section {
-	width:202px;
+	max-width:100%;
 	border:#dfe0e2 solid 1px;
 	padding:8px;
 	margin-bottom:8px;
 }
 .section h4{
-	width:202px;
+	max-width:100%;
 	border-bottom:#dfe0e2 dotted 1px;
 	padding-bottom:6px;
 	text-transform:uppercase;
@@ -390,7 +396,7 @@ Accourdin Menu Rules
 .glossymenu{
 margin: 5px 0;
 padding: 0;
-width: 202px; /*width of menu*/
+max-width:100%; /*width of menu*/
 border: 1px solid #dfe0e2;
 border-bottom-width: 0;
 }
@@ -559,7 +565,7 @@ Bread Crumb Rules
 }
 ul.crumb li{
 	float:left;
-	height:24px;
+	height:30px;
 	background:url(/templates/images/sep_crumb.gif) right no-repeat;
 	padding:7px 20px 0px 10px;
 }
@@ -1339,8 +1345,8 @@ height:125px;
 	margin-top:15px;
 }
 
-.anythingSlider                         { width: 938px; height: 285px; position: relative; margin: 0 auto 15px; border:#aeaeae solid 1px; z-index:1 !important; }
-.anythingSlider .wrapper                { width: 938px; overflow: auto; height: 285px; margin: 0px; position: absolute; top: 0; left: 0; }
+.anythingSlider                         {max-width:100%; height: 200px; position: relative; margin: 0 auto 15px; border:#aeaeae solid 1px; z-index:1 !important; }
+.anythingSlider .wrapper                { max-width:100%; overflow: auto; height: 200px; margin: 0px; position: absolute; top: 0; left: 0; }
 .anythingSlider .wrapper ul             { width: 99999px; list-style: none; position: absolute; top: 0; left: 0;  margin: 0; }
 .anythingSlider ul li                   { display: block; float: left; padding: 0; height: 288px; width: 938px; margin: 0; }
 .anythingSlider .arrow                  { display: block; height: 32px; width: 20px; background: url(/templates/images/arrows.png) no-repeat 0 0; text-indent: -9999px; position: absolute; top: 125px; cursor: pointer;}
@@ -1497,7 +1503,7 @@ a.next_btn {
 }
 .nivo-controlNav {
 	float:right;
-	margin-top:260px;
+	margin-top:170px;
 	margin-right:10px;
 }
 .nivo-controlNav a {

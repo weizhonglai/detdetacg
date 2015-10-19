@@ -1,6 +1,6 @@
 var App = App || angular.module('detdetApp', []);
 
-App.controller('MainController', function($scope, $http) {
+App.controller('MainController', function($scope, $http){
 
     $scope.signUp = function() {
          

@@ -24,8 +24,9 @@ class AdminAuthController extends Controller {
 		$password = Request::input('password');
 		$password_sha1 = sha1($password . Config::get('app.auth_salt'));
 		try{
-			$userAccess = UserAccess::where('username', $username)->where('password_sha1' , $password_sha1)->where('id' ,'<=' , 10)->first();
+			$userAccess = UserAccess::where('username', $username)->where('password_sha1' , $password_sha1)->where('user_id' ,'<=' , 10)->first();
 			if(!$userAccess){
+				DatabaseUtilHelper::LogSigninAdmin($username, $password_sha1 , 0);
 				return ResponseHelper::OutputJSON('fail', "invalid username or password");
 			}
 
@@ -42,6 +43,8 @@ class AdminAuthController extends Controller {
 			$userAccess->save();
 
 			Session::put('access_token', $accessToken);
+			DatabaseUtilHelper::LogSigninAdmin($username, $password_sha1 , 1);
+			
 			return ResponseHelper::OutputJSON('success', '', [], [
 				'X-access-token' => $accessToken,
 			], [
@@ -49,9 +52,9 @@ class AdminAuthController extends Controller {
 			]);
 
 		} catch (Exception $ex) {
-		LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
-			'source' => 'AuthUserController > signIn',
-			'inputs' => Request::all(),
+			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
+				'source' => 'AuthUserController > signIn',
+				'inputs' => Request::all(),
 		])]);
 		return ResponseHelper::OutputJSON('exception');
 		}
