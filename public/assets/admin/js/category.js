@@ -8,7 +8,8 @@ App.controller('MainController', function($scope, $http){
     $scope.page = 1;
 
     $scope.init = function() {     
-       $scope.fetchCategory(1, $scope.pageSize); 
+       $scope.fetchMainCategory(1, $scope.pageSize); 
+       $scope.fetchSubCategory(1, $scope.pageSize); 
     }
 
     $scope.newCategoryMain = function() {
@@ -27,14 +28,14 @@ App.controller('MainController', function($scope, $http){
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {
                 alert("success");
-                $scope.fetchCategory( $scope.page , $scope.pageSize); 
+                $scope.fetchMainCategory( $scope.page , $scope.pageSize); 
             } else {
                 alert(data.message);
             }
         });
     }
 
-    $scope.fetchCategory = function(page, pageSize){  
+    $scope.fetchMainCategory = function(page, pageSize){  
         var pageSize = pageSize || $scope.pageSize;
 
         page = (page < 1)?1:page;
@@ -59,23 +60,94 @@ App.controller('MainController', function($scope, $http){
         });  
     }
 
-    $scope.avtEnable = function(id , enable){ 
+    $scope.MainCtgEnable = function(id , enable){ 
         $http.put('/api/admin/category/'+id+'/main', {
             'enable' : enable
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {
-                $scope.fetchCategory($scope.page, $scope.pageSize);
+                $scope.fetchMainCategory($scope.page, $scope.pageSize);
             } else {
                 alert(data.message);
             }
         });
     }
 
-    $scope.removeCategory = function(id){  
+    $scope.removeMainCategory = function(id){  
         $http.delete('/api/admin/category/'+id+'/main').success(function(data, status, headers, config) {
             if (data.status == 'success') {
                 alert('category removed');
-                $scope.fetchCategory($scope.page, $scope.pageSize);
+                $scope.fetchMainCategory($scope.page, $scope.pageSize);
+            } else {
+                alert(data.message);
+            }
+        });
+    }
+
+    $scope.newCategorySub = function() {
+
+        var categorySubName = angular.element("#category-sub").val(),
+            sequenceSub = angular.element("#sequence-sub").val();
+
+        if (categorySubName == '') {
+            alert('Please enter new category name and continue.');
+            return;
+        }
+       
+        $http.post('/api/admin/category/main', {
+            'name': categorySubName,
+            'sequence': sequenceSub
+        }).success(function(data, status, headers, config) {
+            if (data.status == 'success') {
+                alert("success");
+                $scope.fetchSubCategory( $scope.page , $scope.pageSize); 
+            } else {
+                alert(data.message);
+            }
+        });
+    }
+
+    $scope.fetchSubCategory = function(page, pageSize){  
+        var pageSize = pageSize || $scope.pageSize;
+
+        page = (page < 1)?1:page;
+        page = (page > $scope.pageTotal)?$scope.pageTotal:page;
+
+        $scope.categoryMain = [];
+        $http.get('/api/admin/category/sub?' + [
+            'page=' + page,
+            'page_size=' + pageSize
+        ].join('&')).success(function(data, status, headers, config) {
+            if (data.status == 'success') {
+                $scope.categorySub = data.data.category_sub;
+                $scope.pagination = [];
+                $scope.page = +data.data.page;
+                $scope.pageTotal = +data.data.pageTotal;
+                for(var i=1; i<=data.data.pageTotal; i++ ){
+                    $scope.pagination.push({no: i, active: i==data.data.page});
+                }
+            } else {
+                alert(data.message);
+            }
+        });  
+    }
+
+    $scope.SubCtgEnable = function(id , enable){
+        $http.put('/api/admin/category/'+id+'/sub', {
+            'enable' : enable
+        }).success(function(data, status, headers, config) {
+            if (data.status == 'success') {
+                $scope.fetchSubCategory($scope.page, $scope.pageSize);
+            } else {
+                alert(data.message);
+            }
+        });
+    }
+
+    $scope.removeSubCategory = function(id){  
+        $http.delete('/api/admin/category/'+id+'/sub').success(function(data, status, headers, config) {
+            if (data.status == 'success') {
+                alert('category removed');
+                $scope.fetchSubCategory($scope.page, $scope.pageSize);
             } else {
                 alert(data.message);
             }

@@ -14,10 +14,13 @@ Route::group(['prefix' => 'api/admin'], function(){
 		Route::group(['prefix' => 'category'], function(){
 			Route::post('/main', 'CmsController@createMainCategory');
 			Route::get('/main', 'CmsController@getMainCategory');
-			Route::post('/sub', 'CmsController@createSubCategory');
-
 			Route::put('/{id}/main', 'CmsController@enableMainCategory');
 			Route::delete('/{id}/main', 'CmsController@removeMainCategory');
+
+			Route::post('/sub', 'CmsController@createSubCategory');
+			Route::get('/sub', 'CmsController@getSubCategory');
+			Route::put('/{id}/sub', 'CmsController@enableSubCategory');
+			Route::delete('/{id}/sub', 'CmsController@removeSubCategory');
 		});
 
 		Route::group(['prefix' => 'banner'], function(){

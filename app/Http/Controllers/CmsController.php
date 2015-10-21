@@ -201,6 +201,62 @@ class CmsController extends Controller {
 		return ResponseHelper::OutputJSON('success');
 	}
 
+	public function getSubCategory(){ 
+		$page = Request::input("page", '1');
+		$pageSize = Request::input("page_size", '15');
+
+		$startIndex = $pageSize * ($page - 1);
+
+		$sql = "
+			SELECT s.`id` , s.`name`, s.`description` , s.`sequence` , s.`enable` , m.`name` AS `main_name` , m.`id` AS `main_id`
+				FROM `t0302_category_sub` s
+					LEFT JOIN `t0301_category_main` m ON (s.`main_id` = m.`id`)
+					WHERE s.`deleted_at` IS NULL
+
+					ORDER BY s.`enable` DESC ,m.`id`, s.`sequence` ASC
+					LIMIT {$startIndex} , {$pageSize}
+		";
+
+		$sub = DB::select($sql);
+		$total = CategoryMain::all()->count();
+
+		return ResponseHelper::OutputJSON('success', '', [
+			'category_sub' => $sub,
+			'page' => $page,
+			'page_size' => $pageSize, 
+			'pageTotal' => ceil($total/$pageSize) ,
+		]);
+	}
+
+	public function enableSubCategory($id){
+		$enable = Request::input('enable');
+
+		$categorySub = CategorySub::find($id);
+
+		if($enable){
+			$categorySub->enable = 1;	
+		}
+
+		if(!$enable){
+			$categorySub->enable = 0;			
+		}
+
+		$categorySub->save();
+		return ResponseHelper::OutputJSON('success');
+	}
+
+	public function removeSubCategory($id){
+		$categorySub = categorySub::find($id);
+
+		if(!$categorySub){
+			return ResponseHelper::OutputJSON('fail', 'advertiesment not found');
+		}
+
+		$categorySub->delete();
+
+		return ResponseHelper::OutputJSON('success');
+	}
+
 	public function resetPassword($userId){
 		$password = Request::input('password');
 		$sendEmail = Request::input('send_email', 0);
