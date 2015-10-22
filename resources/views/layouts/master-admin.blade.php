@@ -70,6 +70,7 @@
                         <ul class="nav nav-second-level">
                             <li><a href="/admin/category"><i class="fa fa-user"></i><span class="submenu-title">Manage Category</span></a></li>
                             <li><a href="/admin/advertisement"><i class="fa fa-cube"></i><span class="submenu-title">Advertisement</span></a></li>
+                            <li><a href="/admin/top-up-amount"><i class="fa fa-cube"></i><span class="submenu-title">Top up Amount</span></a></li>
                         </ul>
                     </li>
                     

@@ -13,6 +13,7 @@ Route::group(['prefix' => 'admin'], function(){
 
 	Route::get('/category', function(){ return view('admin.manage-category'); });
 
+	Route::get('/top-up-amount', function(){ return view('admin.top-up-amount'); });
 
 	//page Controller
 	Route::get('member/{userId}/detail', 'AdminPageController@user');

@@ -38,6 +38,8 @@ Route::group(['prefix' => 'api/admin'], function(){
 			Route::post('/request', 'CmsController@topUpRequest');
 			Route::get('/list/{type}', 'CmsController@topUpRequestList');
 
+			Route::get('/amount', 'CmsController@topUpAmountList');
+
 		});
 
 
