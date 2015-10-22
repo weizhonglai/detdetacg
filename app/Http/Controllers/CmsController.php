@@ -410,6 +410,20 @@ class CmsController extends Controller {
 			]);
 	}
 
+	public function topUpAmount(){
+		
+	}
+
+	public function topUpAmountList(){
+		$topUpAmount = TopUpAmount::all();
+
+		return ResponseHelper::OutputJSON('success','' , $topUpAmount);
+	}
+
+	public function topUpAmountEnable(){
+		
+	}
+
 	public function getAdvtList(){
 		$page = Request::input("page", '1');
 		$pageSize = Request::input("page_size", '15');
