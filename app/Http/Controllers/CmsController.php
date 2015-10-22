@@ -25,6 +25,7 @@ use App\Models\CategorySub;
 use App\Models\TransactionBook;
 use App\Models\BannerAdvertisement;
 use App\Models\TopUpRequest;
+use App\Models\TopUpAmount;
 use App\Models\LogAccountTopup;
 
 class CmsController extends Controller {
