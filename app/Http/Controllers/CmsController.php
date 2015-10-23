@@ -25,6 +25,7 @@ use App\Models\CategorySub;
 use App\Models\TransactionBook;
 use App\Models\BannerAdvertisement;
 use App\Models\TopUpRequest;
+use App\Models\TopUpAmount;
 use App\Models\LogAccountTopup;
 
 class CmsController extends Controller {
@@ -410,8 +411,16 @@ class CmsController extends Controller {
 			]);
 	}
 
-	public function topUpAmount(){
-		
+	public function topUpAmount(){	
+		$amount = Request::input('amount');
+		$detdetcoin = Request::input('detdetcoin');
+
+		$topUpAmount = new TopUpAmount;
+		$topUpAmount->amount = $amount;
+		$topUpAmount->detdetcoin = $detdetcoin;
+		$topUpAmount->save();
+
+		return ResponseHelper::OutputJSON('success');
 	}
 
 	public function topUpAmountList(){
@@ -420,8 +429,33 @@ class CmsController extends Controller {
 		return ResponseHelper::OutputJSON('success','' , $topUpAmount);
 	}
 
-	public function topUpAmountEnable(){
-		
+	public function topUpAmountEnable($id){
+		$enable = Request::input('enable');
+
+		$topUpAmount = TopUpAmount::find($id);
+
+		if($enable){
+			$topUpAmount->enable = 1;	
+		}
+
+		if(!$enable){
+			$topUpAmount->enable = 0;			
+		}
+
+		$topUpAmount->save();
+		return ResponseHelper::OutputJSON('success');
+	}
+
+	public function topUpAmountRemove($id){
+		$topUpAmount = TopUpAmount::find($id);
+
+		if(!$topUpAmount){
+			return ResponseHelper::OutputJSON('fail', 'amount not found');
+		}
+
+		$topUpAmount->delete();
+
+		return ResponseHelper::OutputJSON('success');
 	}
 
 	public function getAdvtList(){

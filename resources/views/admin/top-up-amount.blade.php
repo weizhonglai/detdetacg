@@ -6,7 +6,7 @@
 @stop
 
 @section('javascript_include')
-<script src="/assets/admin/js/top-up.js"></script>
+<script src="/assets/admin/js/top-up-amount.js"></script>
 @stop
 
 @section('content')
@@ -15,20 +15,20 @@
         <div id="main" class="tab-pane fade in active">
           <div class="form form-horizontal col-lg-4">  
             <div class="form-group">
-              <label for="category-main" class="control-label col-lg-4">RM</label>
-              <div class="col-xs-8 col-md-8 col-lg-8 category-main">
-                <input id="category-main" type="text" class="fix-width form-control" />
+              <label for="amount" class="control-label col-lg-4">RM</label>
+              <div class="col-xs-8 col-md-8 col-lg-8 amount">
+                <input id="amount" type="text" class="fix-width form-control" />
               </div>
             </div>
             <div class="form-group">
-              <label for="sequence" class="control-label col-lg-4">DetDet Coin</label>
-              <div class="col-xs-8 col-md-8 col-lg-8 sequence">
-                <input id="sequence" type="text" class="fix-width form-control" />
+              <label for="detdetcoin" class="control-label col-lg-4">DetDet Coin</label>
+              <div class="col-xs-8 col-md-8 col-lg-8 detdetcoin">
+                <input id="detdetcoin" type="text" class="fix-width form-control" />
               </div>
             </div>
             <div class="form-group">
               <div style="float:right; margin-right:16px;">
-               <button type="submit" class="btn btn-success" ng-click="newCategoryMain()">Confirm</button>
+               <button type="submit" class="btn btn-success" ng-click="amountCreate()">Confirm</button>
               </div>
             </div>
           </div>
@@ -40,19 +40,24 @@
                   <th width="30%">RM</th>
                   <th width="30%">DetDet Coin</th>
                   <th width="20%">Status</th>
-                  <th width="20%" colspan="2">Enable</th>
+                  <th width="15%" colspan="2">Enable</th>
+                  <th width="5%">Action</th>
+
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="cm in categoryMain">
-                  <td>@{{cm.name}}</td>
-                  <td>@{{cm.sequence}}</td>
-                  <td>@{{cm.enable}}</td>
+                <tr ng-repeat="a in amount">
+                  <td>@{{a.amount}}</td>
+                  <td>@{{a.detdetcoin}}</td>
+                  <td>@{{a.enable}}</td>
                   <td>
-                    <a ng-click="MainCtgEnable( cm.id , 1 )"><i class="glyphicon glyphicon-ok"></i></a>
+                    <a ng-click="amountEnable( a.id , 1 )"><i class="glyphicon glyphicon-ok"></i></a>
                   </td>
                   <td>
-                    <a ng-click="MainCtgEnable( cm.id , 0 )"><i class="glyphicon glyphicon-remove"></i></a>
+                    <a ng-click="amountEnable( a.id , 0 )"><i class="glyphicon glyphicon-remove"></i></a>
+                  </td>
+                  <td>
+                    <a><button type="submit" class="btn btn-success btn-sm" ng-click="amountDelete(a.id)">Remove</button></a>
                   </td>
                 </tr>
               </tbody>

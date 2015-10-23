@@ -1,8 +1,6 @@
 var App = App || angular.module('detdetApp', []);
 
 App.controller('MainController', function($scope, $http) {
-    $scope.searchResult = {};
-    $scope.member = [];
     $scope.pagination = [];
     $scope.pageTotal = 1;
     $scope.pageSize = 15;
@@ -53,19 +51,6 @@ App.controller('MainController', function($scope, $http) {
             }
         });
     }
-
-    // $scope.topUpDeny = function(request_id ){
-    //     $http.put('/api/admin/top-up/deny', {
-    //         'request_id' : request_id,
-    //     }).success(function(data, status, headers, config) {
-    //         if (data.status == 'success') {
-    //             alert('success')
-    //             $scope.topUpList(1, 1, $scope.pageSize); 
-    //         } else {
-    //             alert(data.message);
-    //         }
-    //     });
-    //  }
 
     $scope.selectId = function(user_id,username,amount,description) {
         $scope.userId = user_id;
