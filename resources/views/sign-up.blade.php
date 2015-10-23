@@ -10,8 +10,8 @@
 @stop
 
 @section('content')
-        <!-- Right Column Start-->
-        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <!-- Right Column Start-->
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
         <div class="right_colmn" ng-controller="MainController">           
             <!-- Register Section -->
             <div class="register">
@@ -119,9 +119,6 @@
         </div>
         <div class="clear"></div>
         <!-- Right Column End-->
-        </div>
-<div class="clear"></div>
-</div>
-
+    </div>
 
 @stop

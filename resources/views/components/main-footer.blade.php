@@ -5,11 +5,11 @@
         <div class="foot_sec">
             <h4>Useful Links</h4>
             <ul class="botm_links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="/index">Home</a></li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">How to buy</a></li>
                 <li><a href="#">FAQs</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="/contact">Contact Us</a></li>
             </ul>
         </div>
         <div class="foot_sec">
