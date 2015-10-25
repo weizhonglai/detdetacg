@@ -4,6 +4,8 @@ Route::get('/',  function(){ return Redirect::to('/index'); });
 
 Route::get('/index', function(){ return  view('index'); });
 
+Route::get('/home', function(){ return  view('home'); });
+
 Route::get('/aution', function(){ return  view('aution'); });
 
 Route::get('/services', function(){ return view('services'); });

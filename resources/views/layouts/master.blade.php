@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="detdetApp">+
+<html ng-app="detdetApp">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="google-site-verification" content="qtpQeHr_--jYsGm7ZGTRRrSzDT0Bq9-tikaET9ho8OY" />
@@ -20,7 +20,8 @@
 <body>
   <div class="row">
     <div class="container">
-       <div class="cart_topnavi">
+        <div class="blank">&nbsp;</div>
+        <div class="cart_topnavi">
               <!-- Cart Tab Start -->
               <div class="cart_tab">
                   <div class="left_curv">&nbsp;</div>
@@ -138,7 +139,7 @@
     <!-- Banner Start -->  
     <!-- Navi End -->
   <!-- Content Start -->
-  <div div class="container">
+  <div div class="container" ng-controller="MainController">
       @yield('menu-left')   
       @yield('content')
       @yield('menu-right')

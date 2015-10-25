@@ -3,6 +3,7 @@ var App = App || angular.module('detdetApp', []);
 App.controller('GlobalController', function ($scope, $http){
 
 });
+
 App.controller('SignInController', function($scope, $http) {
 
     $scope.signIn = function() {
@@ -15,7 +16,6 @@ App.controller('SignInController', function($scope, $http) {
             return;
         }
 
-       
         $http.post('/api/sign-in', {
             'username': username,
             'password': password
