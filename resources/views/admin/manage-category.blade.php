@@ -31,6 +31,8 @@
       </ul>
       <!-- pendding -->
       <div id="myTabContent" class="tab-content" style="height:800px;">
+
+        <!-- Main Category -->
         <div id="main" class="tab-pane fade in active">
           <div class="form form-horizontal col-lg-4">  
             <div class="form-group">
@@ -39,15 +41,12 @@
                 <input id="category-main" type="text" class="fix-width form-control" />
               </div>
             </div>
-
             <div class="form-group">
               <label for="sequence" class="control-label col-lg-4">Sequence</label>
               <div class="col-xs-8 col-md-8 col-lg-8 sequence">
                 <input id="sequence" type="text" class="fix-width form-control" />
               </div>
             </div>
-
-
             <div class="form-group">
               <div style="float:right; margin-right:16px;">
                <button type="submit" class="btn btn-success" ng-click="newCategoryMain()">Confirm</button>
@@ -73,13 +72,13 @@
                   <td>@{{cm.sequence}}</td>
                   <td>@{{cm.enable}}</td>
                   <td>
-                    <a ng-click="avtEnable( cm.id , 1 )"><i class="glyphicon glyphicon-ok"></i></a>
+                    <a ng-click="MainCtgEnable( cm.id , 1 )"><i class="glyphicon glyphicon-ok"></i></a>
                   </td>
                   <td>
-                    <a ng-click="avtEnable( cm.id , 0 )"><i class="glyphicon glyphicon-remove"></i></a>
+                    <a ng-click="MainCtgEnable( cm.id , 0 )"><i class="glyphicon glyphicon-remove"></i></a>
                   </td>
                    <td>
-                    <a><button type="submit" class="btn btn-success btn-sm" ng-click="removeCategory(cm.id)">Remove</button></a>
+                    <a><button type="submit" class="btn btn-success btn-sm" ng-click="removeMainCategory(cm.id)">Remove</button></a>
                   </td>
                 </tr>
               </tbody>
@@ -88,13 +87,13 @@
               <nav>
                 <ul class="pagination pagination-sm">
                 <li>
-                  <a href="javascript:;" aria-label="Previous" ng-click="fetchCategory(page - 1, pageSize,)">
+                  <a href="javascript:;" aria-label="Previous" ng-click="fetchMainCategory(page - 1, pageSize,)">
                   <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
-                <li ng-repeat="p in pagination" ng-class="{active:p.active}"><a ng-click="fetchCategory($index + 1, pageSize)">@{{$index + 1}}</a></li>
+                <li ng-repeat="p in pagination" ng-class="{active:p.active}"><a ng-click="fetchMainCategory($index + 1, pageSize)">@{{$index + 1}}</a></li>
                 <li>
-                  <a href="javascript:;" aria-label="Next" ng-click="fetchCategory(page + 1, pageSize)">
+                  <a href="javascript:;" aria-label="Next" ng-click="fetchMainCategory(page + 1, pageSize)">
                   <span aria-hidden="true">&raquo;</span>
                   </a>
                 </li>
@@ -103,15 +102,88 @@
             </div>
           </div>
         </div>
-        <!-- complete -->
-        <div id="sub" class="tab-pane fade" ng-repeat="cname in categoryMain">
-          <label class="control-label col-md-3">Main Menu</label>
-          <select data-style="btn-white" class="selectpicker form-control show-tick">
-            <option>@{{cname.name}}</option>
-          </select>
+
+        <!-- sub Category -->
+        <div id="sub" class="tab-pane fade">
+          <div class="form form-horizontal col-lg-4">  
+            <div class="form-group">
+              <label for="category-main" class="control-label col-lg-4">Name</label>
+              <div class="col-xs-8 col-md-8 col-lg-8 category-main">
+                <input id="category-main" type="text" class="fix-width form-control" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="sequence" class="control-label col-lg-4">Sequence</label>
+              <div class="col-xs-8 col-md-8 col-lg-8 sequence">
+                <input id="sequence" type="text" class="fix-width form-control" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="sequence" class="control-label col-lg-4">Category</label>
+              <div style="float:right; margin-right:16px;">
+               <select data-style="btn-white" class="selectpicker form-control show-tick">
+                <option>cname.name}}</option>
+              </select>
+              </div>
+            </div>   
+            <div class="form-group">
+              <div style="float:right; margin-right:16px;">
+               <button type="submit" class="btn btn-success" ng-click="newCategorySub()">Confirm</button>
+              </div>
+            </div>      
+          </div>
+          <div>
+            <table class="agent-account-table table table-striped table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th width="5%">ID</th>
+                  <th width="50%">Name</th>
+                  <th width="10%">Sequence</th>
+                  <th width="10%">Status</th>
+                  <th width="5%" colspan="2">Enable</th>
+                  <th width="5%">Main Catergoy</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="cs in categorySub">
+                  <td>@{{$index+1}}</td>
+                  <td>@{{cs.name}}</td>
+                  <td>@{{cs.sequence}}</td>
+                  <td>@{{cs.enable}}</td>
+                  <td>
+                    <a ng-click="SubCtgEnable( cs.id , 1 )"><i class="glyphicon glyphicon-ok"></i></a>
+                  </td>
+                  <td>
+                    <a ng-click="SubCtgEnable( cs.id , 0 )"><i class="glyphicon glyphicon-remove"></i></a>
+                  </td>
+                   <td>
+                    <select data-style="btn-white" class="selectpicker form-control show-tick">
+                      <option>@{{cname.name}}</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div>
+              <nav>
+                <ul class="pagination pagination-sm">
+                <li>
+                  <a href="javascript:;" aria-label="Previous" ng-click="fetchSubCategory(page - 1, pageSize,)">
+                  <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li ng-repeat="p in pagination" ng-class="{active:p.active}"><a ng-click="fetchSubCategory($index + 1, pageSize)">@{{$index + 1}}</a></li>
+                <li>
+                  <a href="javascript:;" aria-label="Next" ng-click="fetchSubCategory(page + 1, pageSize)">
+                  <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
         </div>    
-    </div>
+      </div>
   </div>
 </div>        
 @stop
-
