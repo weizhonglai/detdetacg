@@ -38,7 +38,10 @@ Route::group(['prefix' => 'api/admin'], function(){
 			Route::post('/request', 'CmsController@topUpRequest');
 			Route::get('/list/{type}', 'CmsController@topUpRequestList');
 
-			Route::get('/amount', 'CmsController@topUpAmountList');
+			Route::post('/amount', 'CmsController@topUpAmount');
+			Route::put('/amount/{id}', 'CmsController@topUpAmountEnable');
+			Route::delete('/amount/{id}', 'CmsController@topUpAmountRemove');
+			Route::get('/amount/list', 'CmsController@topUpAmountList');
 
 		});
 
