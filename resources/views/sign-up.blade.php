@@ -33,9 +33,28 @@
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
+                    <div class="option_gender">
+                    <ul class="forms" >
+                        <li class="txt">Gender</li>
+                        <li class="radiobutton"><input name="gender" type="radio" value="male" /> <span>Mr.</span><input name="gender" type="radio" value="female"/> <span>Mrs.</span></li>
+                    </ul>
+                    </div>
+                    <div class="clear"></div>
                     <ul class="forms">
-                    	<li class="txt">E-Mail Address</li>
-                    	<li class="inputfield">
+                        <li class="txt">Date of Birth</li>
+                        <li class="inputfield"><input type="text" class="dob" /></li>
+                        <li class="req">(Required)</li>
+                    </ul>
+                    <div class="clear"></div>
+                    <ul class="forms">
+                        <li class="txt">NRIC</li>
+                        <li class="inputfield"><input type="text" class="nric" placeholder="123456-12-1234"/></li>
+                        <li class="req">(Required)</li>
+                    </ul>
+                    <div class="clear"></div>
+                    <ul class="forms">
+                        <li class="txt">E-Mail Address</li>
+                        <li class="inputfield">
                             <div class="row">
                                 <div class="col-xs-7">
                                     <input type="text" class="mail_domain" style="width: 90%"/> @
@@ -50,25 +69,6 @@
                         </li>
                         <li class="req">(Required)</li>
                     </ul>
-                    <div class="clear"></div>
-                    <ul class="forms">
-                        <li class="txt">NRIC</li>
-                        <li class="inputfield"><input type="text" class="nric" placeholder="123456-12-1234"/></li>
-                        <li class="req">(Required)</li>
-                    </ul>
-                    <div class="clear"></div>
-                    <ul class="forms">
-                        <li class="txt">Date of Birth</li>
-                        <li class="inputfield"><input type="text" class="dob" /></li>
-                        <li class="req">(Required)</li>
-                    </ul>
-                    <div class="clear"></div>
-                    <div class="option_gender">
-                    <ul class="forms" >
-                        <li class="txt">Gender</li>
-                        <li class="radiobutton"><input name="gender" type="radio" value="male" /> <span>Mr.</span><input name="gender" type="radio" value="female"/> <span>Mrs.</span></li>
-                    </ul>
-                    </div>
                     <div class="clear"></div>
 
                 </div>
@@ -100,7 +100,23 @@
                     <div class="clear"></div>
                     <ul class="forms">
                     	<li class="txt">State/Province</li>
-                    	<li class="inputfield"><input type="text" class="state" /></li>
+                    	<li>
+                            <select class="state" style="height: 21px; width: 100%">
+                                <option>Johor</option>
+                                <option>Kedah</option>
+                                <option>Kelantan</option>
+                                <option>Malacca</option>
+                                <option>Negeri Sembilan</option>
+                                <option>Pahang</option>
+                                <option>Perak</option>
+                                <option>Perlis</option>
+                                <option>Penang</option>
+                                <option>Sabah</option>
+                                <option>Sarawak</option>
+                                <option>Selangor</option>
+                                <option>Terengganu</option>
+                            </select>
+                        </li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>
@@ -134,12 +150,12 @@
                 	<h3>Your Password</h3>
                     <ul class="forms">
                     	<li class="txt">Password</li>
-                    	<li class="inputfield"><input type="text" class="first_password" /></li>
+                    	<li class="inputfield"><input type="password" class="first_password" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <ul class="forms">
                     	<li class="txt">Confirm</li>
-                    	<li class="inputfield"><input type="text" class="confirm_password" /></li>
+                    	<li class="inputfield"><input type="password" class="confirm_password" /></li>
                         <li class="req">(Required)</li>
                     </ul>
                     <div class="clear"></div>

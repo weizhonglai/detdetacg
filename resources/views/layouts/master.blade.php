@@ -122,7 +122,7 @@
                               </div>
                               <div class="form-group">
                                 <div class="col-md-9 col-md-offset-3">
-                                      <span>New User? <a href="/user/signup">Click Here to Register</a></span>
+                                      <span>New User? <a href="/user/signup">Join Us !</a></span>
                                   </div>
                                   <div class="col-md-9 col-md-offset-3">
                                       <button type="submit" class="btn btn-primary" ng-click="signIn()">Login</button>

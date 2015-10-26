@@ -6,7 +6,6 @@ App.controller('MainController', function($scope, $http){
         
         var first_name = angular.element("input.first_name").val(),
             last_name = angular.element("input.last_name").val(),  
-            name = first_name + last_name,
             domain = angular.element("input.mail_domain").val(),   
             mail = angular.element("select.mail_sys").val(),   
             email = domain + '@' + mail, 
@@ -17,14 +16,14 @@ App.controller('MainController', function($scope, $http){
             address2 = angular.element("input.address2").val(),
             post_code = angular.element("input.post_code").val(),
             city   = angular.element("input.city").val(),
-            state = angular.element("input.state").val(),
+            state = angular.element("select.state").val(),
             mobile = angular.element("input.mobile").val(),
             home_number = angular.element("input.home_number").val(),
             office_number = angular.element("input.office_number").val(),
             fax_number = angular.element("input.fax_number").val(),
             first_password = angular.element("input.first_password").val(),
             confirm_password = angular.element("input.confirm_password").val();
-        
+
         if (first_name == '' || last_name == '' || mail == ''|| nric == '' || dob == ''|| mobile == '' || first_password == '' || confirm_password == '') {
             alert('You have to fill up all fields to complete the sign up');
             return;
@@ -46,8 +45,8 @@ App.controller('MainController', function($scope, $http){
         }
 
         $http.post('/api/sign-up', {
-            name : name,
-            name : name,
+            first_name : first_name,
+            last_name : last_name,
             email : email,
             nric : nric,
             dob : dob,            
@@ -57,7 +56,9 @@ App.controller('MainController', function($scope, $http){
             post_code : post_code,
             city   : city,
             state : state,
-            mobile :  mobile,           
+            mobile_number :  mobile,           
+            home_number :  home_number,           
+            office_number :  office_number,           
             fax_number : fax_number,
             password : confirm_password
         }).success(function(data, status, headers, config) {

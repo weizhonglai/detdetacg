@@ -64,7 +64,8 @@ class UserAuthController extends Controller {
 		$password = Request::input('password');
 		$password_sha1 = sha1($password . Config::get('app.auth_salt'));
 
-		$name = Request::input('name');
+		$firstName = Request::input('first_name');
+		$lastName = Request::input('last_name');
 		$email = Request::input('email');
 		$nric = Request::input('nric');
 		$dob = Request::input('dob');
@@ -74,10 +75,12 @@ class UserAuthController extends Controller {
 		$address2 = Request::input('address2');
 		$postCode = Request::input('post_code');
 		$city = Request::input('city');
-		$state = Request::input('state');
+		$states = Request::input('state');
 
 		$fax = Request::input('fax_number');
-		$mobile = Request::input('mobile');
+		$officeNumber = Request::input('office_number');
+		$homeNumber = Request::input('home_number');
+		$mobileNumber = Request::input('mobile_number');
 
 		// if (!$password || !$name || !$email || !$nric || !$dob || !$mobile) {
 		// 	return ResponseHelper::OutputJSON('fail', "missing parameters");
@@ -96,9 +99,12 @@ class UserAuthController extends Controller {
 			return ResponseHelper::OutputJSON('fail', "username used");
 		}
 
+		$state = strtolower($states);
+
 		try {
 			$user = new User;
-			$user->name = $name;
+			$user->first_name = $firstName;
+			$user->last_name = $lastName;
 			$user->email = $email;
 			$user->dob = $dob;
 			$user->nric = $nric;
@@ -108,7 +114,9 @@ class UserAuthController extends Controller {
 			$user->post_code = $postCode;
 			$user->city = $city;
 			$user->state = $state;
-			$user->mobile = $mobile;
+			$user->home_number = $homeNumber;
+			$user->office_number = $officeNumber;
+			$user->mobile_number = $mobileNumber;
 			$user->fax_number = $fax;
 			$user->save();
 
