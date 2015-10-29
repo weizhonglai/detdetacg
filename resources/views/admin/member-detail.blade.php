@@ -32,6 +32,10 @@
                         <td>{{$user->nric}}</td>
                     </tr>
                     <tr>
+                        <td width="50%">Passport</td>
+                        <td>{{$user->passport}}</td>
+                    </tr>
+                    <tr>
                         <td width="50%">Gender</td>
                         <td>{{$user->gender}}</td>
                     </tr>
@@ -46,6 +50,22 @@
                     <tr>
                         <td width="50%">Address</td>
                         <td>{{$user->address1}}, {{$user->address2}}, {{$user->post_code}} , {{$user->city}}, {{$user->state}}</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Home Number</td>
+                        <td>{{$user->home_number}}</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Office Number</td>
+                        <td>{{$user->office_number}}</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Mobile Number</td>
+                        <td>{{$user->mobile_number}}</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Fax Number</td>
+                        <td>{{$user->fax_number}}</td>
                     </tr>
                     <tr>
                         <td width="50%">Status</td>
