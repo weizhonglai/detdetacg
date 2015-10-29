@@ -60,7 +60,7 @@ class UserAuthController extends Controller {
 	}
 
 	public function signUp() {
-		// $username = Request::input('username'); 
+		$username = Request::input('username'); 
 		$password = Request::input('password');
 		$password_sha1 = sha1($password . Config::get('app.auth_salt'));
 
@@ -95,7 +95,7 @@ class UserAuthController extends Controller {
 			return ResponseHelper::OutputJSON('fail', "invalid email format");
 		}
 
-		$access = UserAccess::where('username', $email)->first();
+		$access = UserAccess::where('username', $username)->first();
 		if($access){
 			return ResponseHelper::OutputJSON('fail', "username used");
 		}
@@ -126,7 +126,7 @@ class UserAuthController extends Controller {
 
 			$access = new UserAccess;
 			$access->user_id = $user->id;
-			$access->username = $email;
+			$access->username = $username;
 			$access->password_sha1 = $password_sha1;
 			$access->access_token = $accessToken;
 			$access->access_token_issue_at = DB::raw('NOW()');
