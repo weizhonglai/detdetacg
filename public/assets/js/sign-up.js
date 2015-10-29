@@ -60,7 +60,7 @@ App.controller('MainController', function($scope, $http){
 
             mail = angular.element("select.mail_sys").val(),   
             email = domain + '@' + mail, 
-            
+
             nric = angular.element("input.nric").val(),
             passport = angular.element("input.passport").val(),
             dob = angular.element("input.dob").val(),
@@ -82,12 +82,13 @@ App.controller('MainController', function($scope, $http){
             office_area_code = angular.element("input.office_area_code").val(),
             office_num = angular.element("input.office_num").val(),
             office_number = '0' + office_area_code + '-' + office_num;
-
             fax_number = angular.element("input.fax_number").val(),
+
+            username = angular.element(".inputfield input.username").val(),
             first_password = angular.element("input.first_password").val(),
             confirm_password = angular.element("input.confirm_password").val();
-        
-        if (first_name == '' || last_name == '' || mail == ''|| nric == '' || passport == '' || dob == '' || first_password == '' || confirm_password == '') {
+        alert(username);
+        if (first_name == '' || last_name == '' || mail == ''|| nric == '' || passport == '' || dob == '' || username == '' || first_password == '' || confirm_password == '') {
             alert('You have to fill up all fields to complete the sign up');
             return;
         }    
@@ -136,6 +137,7 @@ App.controller('MainController', function($scope, $http){
             home_number :  home_number,           
             office_number :  office_number,           
             fax_number : fax_number,
+            username : username,
             password : confirm_password
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {

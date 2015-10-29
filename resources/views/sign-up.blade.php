@@ -3,6 +3,7 @@
 @extends('components.main-footer')
  
 @section('css_include')
+<link type="text/css" rel="stylesheet" href="/templates/admin/vendors/bootstrap-datepicker/css/datepicker.css">
 @stop
 
 @section('javascript_include')
@@ -184,7 +185,13 @@
                 </div>
                 
                 <div class="gre_sec">
-                	<h3>Your Password</h3>
+                	<h3>Login Information</h3>
+                    <ul class="forms">
+                        <li class="txt">Username</li>
+                        <li class="inputfield"><input type="text" class="username" /></li>
+                        <li class="req">(Required)</li>
+                    </ul>
+                    <div class="clear"></div>
                     <ul class="forms">
                     	<li class="txt">Password</li>
                     	<li class="inputfield"><input type="password" class="first_password" /></li>
