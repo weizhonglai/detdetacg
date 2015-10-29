@@ -68,6 +68,7 @@ class UserAuthController extends Controller {
 		$lastName = Request::input('last_name');
 		$email = Request::input('email');
 		$nric = Request::input('nric');
+		$passport = Request::input('passport');
 		$dob = Request::input('dob');
 		$gender = Request::input('gender');
 
@@ -108,6 +109,7 @@ class UserAuthController extends Controller {
 			$user->email = $email;
 			$user->dob = $dob;
 			$user->nric = $nric;
+			$user->passport = $passport;
 			$user->gender = $gender;
 			$user->address1 = $address1;
 			$user->address2 = $address2;

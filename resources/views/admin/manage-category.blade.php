@@ -87,7 +87,7 @@
               <nav>
                 <ul class="pagination pagination-sm">
                 <li>
-                  <a href="javascript:;" aria-label="Previous" ng-click="fetchMainCategory(page - 1, pageSize,)">
+                  <a href="javascript:;" aria-label="Previous" ng-click="fetchMainCategory(page - 1, pageSize)">
                   <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
@@ -168,7 +168,7 @@
               <nav>
                 <ul class="pagination pagination-sm">
                 <li>
-                  <a href="javascript:;" aria-label="Previous" ng-click="fetchSubCategory(page - 1, pageSize,)">
+                  <a href="javascript:;" aria-label="Previous" ng-click="fetchSubCategory(page - 1, pageSize)">
                   <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
