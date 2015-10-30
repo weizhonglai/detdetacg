@@ -44,7 +44,7 @@ class UserAuthController extends Controller {
 			$userAccess->save();
 
 			Session::put('access_token', $accessToken);
-			return ResponseHelper::OutputJSON('success', '', ['username' => $userAccess->username, 'user_id' =>  $userAccess->user_id ], [
+			return ResponseHelper::OutputJSON('success', '', [ 'inputs' => Request::all() ], [
 				'X-access-token' => $accessToken,
 			], [
 				'access_token' => $accessToken,
@@ -96,13 +96,14 @@ class UserAuthController extends Controller {
 		}
 
 		$access = UserAccess::where('username', $username)->first();
+
 		if($access){
 			return ResponseHelper::OutputJSON('fail', "username used");
 		}
 
 		$state = strtolower($states);
 
-		try {
+		// try {
 			$user = new User;
 			$user->first_name = $firstName;
 			$user->last_name = $lastName;
@@ -175,14 +176,14 @@ class UserAuthController extends Controller {
 			Session::put('access_token', $accessToken);
 			setcookie('access_token', $accessToken, time() + (86400 * 30), "/"); // 86400 = 1 day*/
 
-			$userAccess = UserAccess::where('username', $email)->where('password_sha1', $password_sha1)->first();
-		} catch (Exception $ex) {
-			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
-				'source' => 'AuthUserController > signUp',
-				'inputs' => Request::all(),
-			])]);
-			return ResponseHelper::OutputJSON('exception');
-		}
+			$userAccess = UserAccess::where('username', $username)->where('password_sha1', $password_sha1)->first();
+		// } catch (Exception $ex) {
+		// 	LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
+		// 		'source' => 'AuthUserController > signUp',
+		// 		'inputs' => Request::all(),
+		// 	])]);
+		// 	return ResponseHelper::OutputJSON('exception');
+		// }
 			return ResponseHelper::OutputJSON('success', '', ['user_id'=>$userAccess->user_id,'username'=>$userAccess->username] , [
 				'X-access-token' => $accessToken
 			],[
