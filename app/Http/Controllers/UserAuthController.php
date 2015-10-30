@@ -121,7 +121,7 @@ class UserAuthController extends Controller {
 			$user->mobile_number = $mobileNumber;
 			$user->fax_number = $fax;
 			$user->save();
-
+// var_export($user); die();
 			$accessToken = AuthHelper::GenerateAccessToken($user->id);	
 
 			$access = new UserAccess;

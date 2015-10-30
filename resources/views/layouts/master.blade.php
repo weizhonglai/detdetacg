@@ -26,12 +26,16 @@
               <div class="cart_tab">
                   <div class="left_curv">&nbsp;</div>
                   <div class="center_curv">
+                      @if (\Request::cookie('access_token')=='') 
                       <ul>
                          <!--  <li class="bag bold"><a href="/cart">Shopping Bag</a></li>
                           <li class="items"><a href="/cart">5 items</a></li>
                           <li class="items"><a href="/cart">$ 150 </a></li> -->
                           <li><a href="#myModal" data-toggle="modal" data-target="#modal-login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                       </ul>
+                      @else
+                        <div>aaa, {{\Request::input('username')}}</div>
+                      @endif
                   </div>
                   <div class="right_curv">&nbsp;</div>
               </div>
