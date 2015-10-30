@@ -44,10 +44,12 @@ class UserAuthController extends Controller {
 			$userAccess->save();
 
 			Session::put('access_token', $accessToken);
-			return ResponseHelper::OutputJSON('success', '', [ 'inputs' => Request::all() ], [
+			return ResponseHelper::OutputJSON('success', '', [], [
 				'X-access-token' => $accessToken,
 			], [
 				'access_token' => $accessToken,
+				'username' => $userAccess->username,
+				'user_id' => $userAccess->user_id,
 			]);
 
 		} catch (Exception $ex) {
