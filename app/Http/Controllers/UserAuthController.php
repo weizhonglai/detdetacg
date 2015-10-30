@@ -44,7 +44,7 @@ class UserAuthController extends Controller {
 			$userAccess->save();
 
 			Session::put('access_token', $accessToken);
-			return ResponseHelper::OutputJSON('success', '', ['username' => $userAccess->username, 'user_id' =>  $userAccess->user_id ], [
+			return ResponseHelper::OutputJSON('success', '', [ 'inputs' => Request::all() ], [
 				'X-access-token' => $accessToken,
 			], [
 				'access_token' => $accessToken,
@@ -96,6 +96,7 @@ class UserAuthController extends Controller {
 		}
 
 		$access = UserAccess::where('username', $username)->first();
+
 		if($access){
 			return ResponseHelper::OutputJSON('fail', "username used");
 		}
