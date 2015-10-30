@@ -20,8 +20,12 @@
 <body>
   <div class="row">
     <div class="container">
-        <div class="blank">&nbsp;</div>
-        <div class="cart_topnavi">
+        <div class="blank">
+          <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 ">
+              <img style="width:180px; height:80px; padding: 10px" src="/templates/images/logo_detdet.jpg">
+          </div>
+        </div>
+        <div class="cart_topnavi" style="margin-top: 25px">
               <!-- Cart Tab Start -->
               <div class="cart_tab">
                   <div class="left_curv">&nbsp;</div>
@@ -46,22 +50,14 @@
     </div>
   </div>
      
-  <div class="row">
+  <!-- <div class="row">
     <div class="container"> 
-        <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 ">
-            <img style="width:180px; height:80px;" src="/templates/images/logo_detdet.jpg">
+        <div class="col-lg-12 ">
+            <img style="width: 100px; height:120px" src="/templates/images/logo_detdet.jpg">
         </div>
-        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-            <div id="slider">
-                  <a href="#"><img src="/templates/images/01.jpg" alt="" /></a>
-                  <a href="#"><img src="/templates/images/02.jpg" alt="" /></a>
-                  <a href="#"><img src="/templates/images/03.jpg" alt="" /></a>
-                  <a href="#"><img src="/templates/images/04.jpg" alt="" /></a>
-                  <a href="#"><img src="/templates/images/05.jpg" alt="" /></a>
-              </div>
-        </div>
+        <div class="clear">&nbsp;</div>
     </div>
-  </div>
+  </div> -->
 
   <div class="row"> 
     <div class="container">
@@ -82,63 +78,26 @@
         </div>
         <!-- Navigation End -->
       </div>
-      <div class="row">
-        <div class="container">
-            <div class="col-sm-12">
-              <div class="pull-right">
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                </form>
-              </div>
-          </div>
+    </div>
+  </div>
+
+  <div class="row"> 
+    <div class="container">
+        <h4 style="font-size: 18px">Member Page</h4>
+        <div class="col-xs-2 col-lg-2">
+          <img style="width: 100px; height:120px" src="/templates/images/logo_detdet.jpg">
         </div>
-      </div>
-   </div>
+        <div class="col-xs-6 col-lg-6">
+          <label>Account Name: XXX</label><br>
+          <label>Email: YYY</label>
+        </div>
+          
+        <div class="col-xs-12 col-lg-12"><hr></div>
+        
+    </div>
+
   </div>
 
-  <div class="row" ng-controller="GlobalController">
-  	<!-- Header Start -->
-      <!-- Modal -->
-      <!--  <div class="modal fade" id="myModal" role="dialog" ng-controller="SignInController"> -->
-      <div id="modal-login" tabindex="-1" role="dialog" aria-labelledby="modal-login-label" aria-hidden="true"
-                     class="modal fade" ng-controller="SignInController">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <button type="button" data-dismiss="modal" aria-hidden="true"
-                              class="close">&times;</button>
-                      <h4 id="modal-login-label" class="modal-title">Login</h4></div>
-                  <div class="modal-body">
-                      <div class="form">
-                          <form class="form-horizontal">
-                              <div class="form-group"><label for="username" class="control-label col-md-3">Username</label>
-
-                                  <div class="col-md-9"><input id="username" type="text"
-                                                               class="form-control username" name="username" placeholder="Username"/></div>
-                              </div>
-                              <div class="form-group"><label for="password" class="control-label col-md-3">Password</label>
-
-                                  <div class="col-md-9"><input id="password" type="password"
-                                                               class="form-control password" name="password" placeholder="Password"/></div>
-                              </div>
-                              <div class="form-group">
-                                <div class="col-md-9 col-md-offset-3">
-                                      <span>New User? <a href="/user/signup">Join Us !</a></span>
-                                  </div>
-                                  <div class="col-md-9 col-md-offset-3">
-                                      <button type="submit" class="btn btn-primary" ng-click="signIn()">Login</button>
-                                  </div>
-                              </div>
-                          </form>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
     <!-- Header End -->
     <!-- Banner Start -->  
     <!-- Navi End -->
