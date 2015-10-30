@@ -342,31 +342,6 @@ class CmsController extends Controller {
 		return ResponseHelper::OutputJSON("success");
 	}
 
-	public function topUpRequest(){
-		$username = Request::input('username');
-		$amount = Request::input('amount');
-		$description = Request::input('description');
-
-		$userAccess = UserAccess::where('username' , $username)->first();
-		if(!$userAccess){
-			return ResponseHelper::OutputJSON('fail', "user not found");
-		} 
-
-		$user = User::find($userAccess->user_id);
-		if(!$user){
-			return ResponseHelper::OutputJSON('fail', "user not found");
-		}
-
-		$topUpRequest = new TopUpRequest;
-		$topUpRequest->user_id = $userAccess->user_id;
-		$topUpRequest->username = $username;
-		$topUpRequest->amount = $amount;
-		$topUpRequest->description = $description;
-		$topUpRequest->save();
-
-		return ResponseHelper::OutputJSON('success');
-	}
-
 	public function topUpRequestList($type = 1){
 		$page = Request::input("page", '1');
 		$pageSize = Request::input("page_size", '15');

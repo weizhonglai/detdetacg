@@ -5,6 +5,12 @@ use Exception;
 use Request;
 use Session;
 use Config;
+
+use Upload\File;
+use Upload\Storage\FileSystem;
+use Upload\Validation\Mimetype;
+use Upload\Validation\Size;
+
 use App\Libraries\AuthHelper;
 use App\Libraries\DatabaseUtilHelper;
 use App\Libraries\EmailHelper;
@@ -16,9 +22,10 @@ use App\Models\User;
 use App\Models\UserAccess;
 use App\Models\UserAccount;
 use App\Models\TopUpAmount;
+use App\Models\TopUpRequest;
 
 
-class ProfileController extends Controller {
+class MemberController extends Controller {
 
 	public function userUpdate() {
 		$userId = Request::input('user_id');
@@ -72,6 +79,45 @@ class ProfileController extends Controller {
 		return ResponseHelper::OutputJSON('success' , '' , [
 			'topup_amount' => $topupAmount,
 			]);
+	}
+
+	public function topUpRequest(){
+		$userId = Request::input('user_id');
+		$username = Request::input('username');
+		$amount = Request::input('amount');
+		$description = Request::input('description');
+
+		$userAccess = UserAccess::where('username' , $username)->first();
+		if(!$userAccess){
+			return ResponseHelper::OutputJSON('fail', "user_access not found");
+		} 
+
+		$user = User::find($userAccess->user_id);
+		if(!$user){
+			return ResponseHelper::OutputJSON('fail', "user not found");
+		}
+
+		$sha1 = sha1(date("Y-m-d H:i:s") );
 		
+		$path = './assets/images/topup-slip/';
+
+		$storage = new FileSystem($path, true);
+		$fileUpload = new File('fileUpload', $storage);
+		$fileUpload->setName($userId.'-'.$sha1);
+		$fileUpload->addValidations(array(
+			new Mimetype('image/jpeg'),
+			new Size('5M'),
+		));
+
+		$fileUpload->upload();	
+		$topUpRequest = new TopUpRequest;
+		$topUpRequest->user_id = $userAccess->user_id;
+		$topUpRequest->username = $username;
+		$topUpRequest->amount = $amount;
+		$topUpRequest->description = $description;
+		$topUpRequest->slip_path = $path.$userId.'-'.$sha1.'.jpg';
+		$topUpRequest->save();
+
+		return ResponseHelper::OutputJSON('success');
 	}
 }
