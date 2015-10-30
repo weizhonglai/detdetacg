@@ -87,15 +87,19 @@ App.controller('MainController', function($scope, $http){
             username = angular.element(".inputfield input.username").val(),
             first_password = angular.element("input.first_password").val(),
             confirm_password = angular.element("input.confirm_password").val();
-        alert(username);
-        if (first_name == '' || last_name == '' || mail == ''|| nric == '' || passport == '' || dob == '' || username == '' || first_password == '' || confirm_password == '') {
+       
+        if (first_name == '' || last_name == '' || mail == '' || username == '' || first_password == '' || confirm_password == '') {
             alert('You have to fill up all fields to complete the sign up');
             return;
         }    
 
-        if(passport.length < 9){
-            alert('passport have to be at least 9 characters.');    
-            return;
+        if(nric == '') {
+            if(passport == '') {
+                alert('You have to fill up at least one between nric and passport');
+            } else if (passport.length < 9) {
+                alert('passport have to be at least 9 characters.');    
+                return;
+            }
         } 
 
         if(phone_area_code == '' && phone_num == '') {
@@ -126,6 +130,7 @@ App.controller('MainController', function($scope, $http){
             last_name : last_name,
             email : email,
             nric : nric,
+            passport : passport,
             dob : dob,            
             gender : gender,
             address1 : address1,

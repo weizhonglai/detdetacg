@@ -5,7 +5,7 @@
     <div class="section">
         <h4>Categories</h4>
         <div class="glossymenu">
-            <a class="menuitem submenuheader" href="categories.html" >Bracelets</a>
+            <a class="menuitem submenuheader" href="javascript:;" >Bracelets</a>
             <div class="submenu">
               <ul>
                     <li><a href="listing.html">Round Brilliant</a></li>
@@ -14,7 +14,7 @@
                     <li><a href="listing.html">Diamond Set</a></li>
                 </ul>
             </div>
-            <a class="menuitem submenuheader" href="categories.html" >Earrings</a>
+            <a class="menuitem submenuheader" href="javascript:;" >Earrings</a>
             <div class="submenu">
               <ul>
                     <li><a href="listing.html">Round Brilliant</a></li>
@@ -23,7 +23,7 @@
                     <li><a href="listing.html">Diamond Set</a></li>
                 </ul>
             </div>
-            <a class="menuitem submenuheader" href="categories.html" >Jewellery boxes</a>
+            <a class="menuitem submenuheader" href="javascript:;" >Jewellery boxes</a>
             <div class="submenu">
               <ul>
                     <li><a href="listing.html">Round Brilliant</a></li>
@@ -32,7 +32,7 @@
                     <li><a href="listing.html">Diamond Set</a></li>
                 </ul>
             </div>
-            <a class="menuitem submenuheader" href="categories.html" >Key rings &lt; charms</a>
+            <a class="menuitem submenuheader" href="javascript:;" >Key rings &lt; charms</a>
             <div class="submenu">
               <ul>
                     <li><a href="listing.html">Round Brilliant</a></li>
@@ -41,7 +41,7 @@
                     <li><a href="listing.html">Diamond Set</a></li>
                 </ul>
             </div>
-            <a class="menuitem submenuheader" href="categories.html" >Matching sets</a>
+            <a class="menuitem submenuheader" href="javascript:;" >Matching sets</a>
             <div class="submenu">
               <ul>
                     <li><a href="listing.html">Round Brilliant</a></li>
@@ -50,7 +50,7 @@
                     <li><a href="listing.html">Diamond Set</a></li>
                 </ul>
             </div>
-            <a class="menuitem submenuheader" href="categories.html" >Necklaces</a>
+            <a class="menuitem submenuheader" href="javascript:;" >Necklaces</a>
             <div class="submenu">
               <ul>
                     <li><a href="listing.html">Round Brilliant</a></li>
@@ -59,7 +59,7 @@
                     <li><a href="listing.html">Diamond Set</a></li>
                 </ul>
             </div>
-            <a class="menuitem submenuheader" href="categories.html" >Rings</a>
+            <a class="menuitem submenuheader" href="javascript:;" >Rings</a>
             <div class="submenu">
               <ul>
                     <li><a href="listing.html">Round Brilliant</a></li>
@@ -68,7 +68,7 @@
                     <li><a href="listing.html">Diamond Set</a></li>
                 </ul>
             </div>
-            <a class="menuitem submenuheader" href="categories.html" >Tiaras</a>
+            <a class="menuitem submenuheader" href="javascript:;" >Tiaras</a>
             <div class="submenu">
               <ul>
                     <li><a href="listing.html">Round Brilliant</a></li>
