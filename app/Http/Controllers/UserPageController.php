@@ -38,7 +38,7 @@ class UserPageController extends Controller {
 		}
 
 		$sql = "
-			SELECT {$select} `created_at`
+			SELECT `first_name`, `last_name`, {$select} `created_at`
 				FROM `t0101_user`
 					WHERE `id` = {$userId}
 		";

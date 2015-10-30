@@ -15,9 +15,10 @@ use App\Models\LogPasswordReset;
 use App\Models\User;
 use App\Models\UserAccess;
 use App\Models\UserAccount;
+use App\Models\TopUpAmount;
 
 
-class UserContoller extends Controller {
+class ProfileController extends Controller {
 
 	public function userUpdate() {
 		$userId = Request::input('user_id');
@@ -55,6 +56,7 @@ class UserContoller extends Controller {
 			$user->fax_number = $fax;
 			$user->save();
 
+			return ResponseHelper::OutputJSON('success');
 		} catch (Exception $ex) {
 			LogHelper::LogToDatabase($ex->getMessage(), ['environment' => json_encode([
 				'source' => 'AuthUserController > signUp',
@@ -62,5 +64,14 @@ class UserContoller extends Controller {
 			])]);
 			return ResponseHelper::OutputJSON('exception');
 		}
+	}
+
+	public function fetchTopupAmount(){
+		$topupAmount = TopUpAmount::where('enable' , 1)->get();
+
+		return ResponseHelper::OutputJSON('success' , '' , [
+			'topup_amount' => $topupAmount,
+			]);
+		
 	}
 }
