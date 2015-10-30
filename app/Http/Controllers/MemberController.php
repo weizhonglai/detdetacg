@@ -85,6 +85,7 @@ class MemberController extends Controller {
 		$userId = Request::input('user_id');
 		$username = Request::input('username');
 		$amount = Request::input('amount');
+		var_export($amount); die();
 		$description = Request::input('description');
 
 		$userAccess = UserAccess::where('username' , $username)->first();
