@@ -30,15 +30,20 @@ class MemberController extends Controller {
 	public function userUpdate() {
 		$userId = Request::input('user_id');
 		
-		$name = Request::input('name');
+		$firstName = Request::input('first_name');
+		$lastName = Request::input('last_name');
 		$email = Request::input('email');
 		$nric = Request::input('nric');
+		$passport = Request::input('passport');
 		$address1 = Request::input('address1');
 		$address2 = Request::input('address2');
 		$postCode = Request::input('post_code');
 		$city = Request::input('city');
 		$state = Request::input('state');
-		$mobile = Request::input('mobile');
+
+		$mobileNumber = Request::input('mobile_number');
+		$officeNumber = Request::input('office_number');
+		$homeNumber = Request::input('home_number');
 		$fax = Request::input('fax_number');
 		$gender = Request::input('gender');
 		$dob = Request::input('dob');
@@ -49,17 +54,21 @@ class MemberController extends Controller {
 
 		try {
 			$user = User::find($userId);
-			$user->name = $name;
+			$user->first_name = $firstName;
+			$user->last_name = $lastName;
 			$user->email = $email;
 			$user->dob = $dob;
 			$user->nric = $nric;
+			$user->passport = $passport;
 			$user->gender = $gender;
 			$user->address1 = $address1;
 			$user->address2 = $address2;
 			$user->post_code = $postCode;
 			$user->city = $city;
 			$user->state = $state;
-			$user->mobile = $mobile;
+			$user->mobile_number = $mobileNumber;
+			$user->office_number = $officeNumber;
+			$user->home_number = $homeNumber;
 			$user->fax_number = $fax;
 			$user->save();
 

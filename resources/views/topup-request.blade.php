@@ -17,7 +17,7 @@
             <form method="POST" enctype="multipart/form-data" action="/api/member/top-up/request?username={{\Request::cookie('username')}}&user_id={{\Request::cookie('user_id')}}">
                 <div class="form-group amount">
                     <select ng-model="onRootAmmount"
-                        ng-options="a.detdetcoin as ' RM' + a.amount + ' => $' + a.detdetcoin for a in rootAmmount"
+                        ng-options="a as ' RM' + a.amount + ' => $' + a.detdetcoin for a in rootAmmount"
                             class="form-control" style="width: 96%" name="amount">
                     </select>
                 </div>

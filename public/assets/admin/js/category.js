@@ -6,6 +6,7 @@ App.controller('MainController', function($scope, $http){
     $scope.pageTotal = 1;
     $scope.pageSize = 10;
     $scope.page = 1;
+    $scope.onCategory = {};
 
     $scope.init = function() {     
        $scope.fetchMainCategory(1, $scope.pageSize); 
@@ -85,25 +86,38 @@ App.controller('MainController', function($scope, $http){
 
     $scope.newCategorySub = function() {
 
-        var categorySubName = angular.element("#category-sub").val(),
+        var categorySubName = angular.element("#name-sub").val(),
             sequenceSub = angular.element("#sequence-sub").val();
 
-        if (categorySubName == '') {
-            alert('Please enter new category name and continue.');
+        if(categorySubName == ''){
+            alert('please fill in the name');
             return;
         }
-       
-        $http.post('/api/admin/category/main', {
+
+       if(!$scope.mainCategoryId){
+            alert('please select main category.');
+            return;
+       }
+
+        $http.post('/api/admin/category/sub', {
             'name': categorySubName,
-            'sequence': sequenceSub
+            'sequence': sequenceSub,
+            'main_id': $scope.mainCategoryId.id
         }).success(function(data, status, headers, config) {
             if (data.status == 'success') {
                 alert("success");
                 $scope.fetchSubCategory( $scope.page , $scope.pageSize); 
+                $scope.fetchMainCategory(1, $scope.pageSize); 
+
             } else {
                 alert(data.message);
             }
         });
+    }
+
+    $scope.mainCId = function() {
+        $scope.mainCategoryId = $scope.onCategory
+
     }
 
     $scope.fetchSubCategory = function(page, pageSize){  
@@ -119,6 +133,7 @@ App.controller('MainController', function($scope, $http){
         ].join('&')).success(function(data, status, headers, config) {
             if (data.status == 'success') {
                 $scope.categorySub = data.data.category_sub;
+                $scope.categoryMain2 = data.data.category_main;
                 $scope.pagination = [];
                 $scope.page = +data.data.page;
                 $scope.pageTotal = +data.data.pageTotal;

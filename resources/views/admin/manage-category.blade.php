@@ -107,23 +107,25 @@
         <div id="sub" class="tab-pane fade">
           <div class="form form-horizontal col-lg-4">  
             <div class="form-group">
-              <label for="category-main" class="control-label col-lg-4">Name</label>
-              <div class="col-xs-8 col-md-8 col-lg-8 category-main">
-                <input id="category-main" type="text" class="fix-width form-control" />
+              <label for="name-sub" class="control-label col-lg-4">Name</label>
+              <div class="col-xs-8 col-md-8 col-lg-8 name-sub">
+                <input id="name-sub" type="text" class="fix-width form-control" />
               </div>
             </div>
             <div class="form-group">
-              <label for="sequence" class="control-label col-lg-4">Sequence</label>
-              <div class="col-xs-8 col-md-8 col-lg-8 sequence">
-                <input id="sequence" type="text" class="fix-width form-control" />
+              <label for="sequence-sub" class="control-label col-lg-4">Sequence</label>
+              <div class="col-xs-8 col-md-8 col-lg-8 sequence-sub">
+                <input id="sequence-sub" type="text" class="fix-width form-control" />
               </div>
             </div>
             <div class="form-group">
-              <label for="sequence" class="control-label col-lg-4">Category</label>
-              <div style="float:right; margin-right:16px;">
-               <select data-style="btn-white" class="selectpicker form-control show-tick">
-                <option>cname.name}}</option>
-              </select>
+              <label class="control-label col-lg-4">Category</label>
+              <div class="col-lg-8">
+
+               <select ng-model="onCategory"
+                    ng-options="cm as cm.name for cm in categoryMain2" ng-change="mainCId()"
+                        class="form-control" style="width: 100%" name="category-main-id">
+                </select>
               </div>
             </div>   
             <div class="form-group">
@@ -137,7 +139,8 @@
               <thead>
                 <tr>
                   <th width="5%">ID</th>
-                  <th width="50%">Name</th>
+                  <th width="20%">Main Category</th>
+                  <th width="30%">Name</th>
                   <th width="10%">Sequence</th>
                   <th width="10%">Status</th>
                   <th width="5%" colspan="2">Enable</th>
@@ -147,6 +150,7 @@
               <tbody>
                 <tr ng-repeat="cs in categorySub">
                   <td>@{{$index+1}}</td>
+                  <td>@{{cs.main_name}}</td>
                   <td>@{{cs.name}}</td>
                   <td>@{{cs.sequence}}</td>
                   <td>@{{cs.enable}}</td>

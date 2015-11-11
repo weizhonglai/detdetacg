@@ -17,7 +17,7 @@ App.controller('MainController', function ($scope, $http){
                 $scope.rootAmmount = data.data.topup_amount; 
                 console.log($scope.rootAmmount);
                 if($scope.rootAmmount.length > 0){
-                    $scope.onRootAmmount = $scope.rootAmmount[0].detdetcoin;                
+                    $scope.onRootAmmount = $scope.rootAmmount[0];                
                 } 
             } else {
                 alert(data.message);

@@ -185,6 +185,11 @@ class CmsController extends Controller {
 		$name = Request::input('name');
 		$description = Request::input('description');
 		$enable = Request::input('enable' , 1);
+		$sequence = Request::input('sequence' , 999);
+
+		if(!$mainId || !$name){
+			return ResponseHelper::OutputJSON('fail', "missing parameters");
+		}
 
 		$subCategory = CategorySub::where('name' , $name)->first();
 
@@ -197,6 +202,7 @@ class CmsController extends Controller {
 		$subCategory->name = $name;
 		$subCategory->description = $description;
 		$subCategory->enable = $enable;
+		$subCategory->sequence = $sequence;
 		$subCategory->save();
 
 		return ResponseHelper::OutputJSON('success');
@@ -219,10 +225,12 @@ class CmsController extends Controller {
 		";
 
 		$sub = DB::select($sql);
-		$total = CategoryMain::all()->count();
+		$total = CategorySub::all()->count();
+		$main = CategoryMain::all();
 
 		return ResponseHelper::OutputJSON('success', '', [
 			'category_sub' => $sub,
+			'category_main' => $main,
 			'page' => $page,
 			'page_size' => $pageSize, 
 			'pageTotal' => ceil($total/$pageSize) ,
