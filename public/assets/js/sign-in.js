@@ -4,6 +4,10 @@ App.controller('GlobalController', function ($scope, $http){
 
 });
 
+App.controller('MainController', function ($scope, $http){
+
+});
+
 App.controller('SignInController', function($scope, $http) {
 
     $scope.signIn = function() {

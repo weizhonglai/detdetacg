@@ -34,7 +34,7 @@
                           <li><a href="#myModal" data-toggle="modal" data-target="#modal-login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                       </ul>
                       @else
-                        <div><a href="/profile" target="_blank">{{\Request::cookie('username')}}</a></div>
+                        <div><a href="/profile/{{\Request::cookie('user_id')}}" target="_blank">{{\Request::cookie('username')}}</a></div>
                       @endif
                   </div>
                   <div class="right_curv">&nbsp;</div>

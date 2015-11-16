@@ -32,19 +32,15 @@
                   <div class="center_curv">
                       @if (\Request::cookie('access_token')=='') 
                       <ul>
-                         <!--  <li class="bag bold"><a href="/cart">Shopping Bag</a></li>
-                          <li class="items"><a href="/cart">5 items</a></li>
-                          <li class="items"><a href="/cart">$ 150 </a></li> -->
                           <li><a href="#myModal" data-toggle="modal" data-target="#modal-login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                       </ul>
                       @else
-                        <div><a href="/profile" target="_blank">{{\Request::cookie('username')}}</a></div>
+                        <div><a href="/profile/{{\Request::cookie('user_id')}}">{{\Request::cookie('username')}}</a></div>
                       @endif
                   </div>
                   <div class="right_curv">&nbsp;</div>
               </div>
               <div class="clear"></div>
-              <!-- Cart Tab End -->
               <!-- Cart Tab End -->
           </div>
     </div>
@@ -84,8 +80,8 @@
   <div class="row"> 
     <div class="container">
         <h4 style="font-size: 18px">Member Page</h4>
-        <div class="col-xs-2 col-lg-2">
-          <img style="width: 100px; height:120px" src="/templates/images/logo_detdet.jpg">
+        <div class="col-xs-2 col-lg-2" style="padding: 0">
+          <img style="width: 100px; height:120px" src="/#">
         </div>
         <div class="col-xs-6 col-lg-6">
           <label>Account Name: XXX</label><br>
@@ -114,7 +110,6 @@
 <!-- //      Javascript Files        // -->
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="/bower_components/angular/angular.min.js"></script>
-<script src="/assets/js/sign-in.js"></script>
 
 <script type="text/javascript" src="/templates/js/jquery.min1.3.js"></script>
 <script type="text/javascript" src="/templates/js/ddsmoothmenu.js"></script>
