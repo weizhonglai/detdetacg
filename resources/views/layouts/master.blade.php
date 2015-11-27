@@ -15,10 +15,17 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/templates/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/assets/css/global.css">
     @yield('css_include')
 </head>
 <body>
   <div class="row">
+    <!--SHOPPING CART--><div class="shopping-cart" onclick="showShoppingCart();"><a href="javascript:;"></a></div>
+    <div class="shopping-cart form hide" onclick="hideShoppingCart();">
+      <h4>SHOPPING CART</h4>
+      <hr>
+    </div><!--END SHOPPING CART-->
+
     <div class="container">
         <div class="blank">&nbsp;</div>
         <div class="cart_topnavi">
@@ -190,6 +197,7 @@ $(window).load(function() {
 <script type="text/javascript" src="/templates/js/styleswitch.js"></script>
 <script type="text/javascript" src="/templates/js/jquery.ad-gallery.js?rand=995"></script>
 <script type="text/javascript" src="/templates/js/thumbgallery.js"></script>
+<script type="text/javascript" src="/assets/js/global.js"></script>
 @yield('javascript_include')
 </body>
 </html>

@@ -1,0 +1,20 @@
+
+/* floating contact us */
+.shopping-cart {
+    position: fixed;
+    top: 86px;
+    right: 0%;
+    z-index: 9999;
+    border: 3px solid #EAEBE5;
+    padding: 4px 10px;
+    background-color: #EAEBE5;
+    width: 100px;
+    height: 500px;
+}
+
+.shopping-cart.form.hide { display: none; }
+
+.shopping-cart.form.active { 
+    width: 395px;
+    height: 600px;
+}
